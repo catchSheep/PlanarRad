@@ -1,0 +1,832 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=latex 2013.9.2)  10 JUN 2015 22:37
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**summary.tex
+(./summary.tex
+LaTeX2e <2011/06/27>
+Babel <3.9f> and hyphenation patterns for 2 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen105
+\extrarowheight=\dimen106
+\NC@list=\toks15
+\extratabsurround=\skip43
+\backup@length=\skip44
+)
+\TX@col@width=\dimen107
+\TX@old@table=\dimen108
+\TX@old@col=\dimen109
+\TX@target=\dimen110
+\TX@delta=\dimen111
+\TX@cols=\count87
+\TX@ftn=\toks16
+)
+(/usr/share/texlive/texmf-dist/tex/latex/changepage/chngpage.sty
+Package: chngpage 2009/10/20 v1.2b change page layout
+\c@cp@cnt=\count88
+\c@cp@tempcnt=\count89
+)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count90
+\FV@InFile=\read1
+\FV@TabBox=\box26
+\c@FancyVerbLine=\count91
+\FV@StepNumber=\count92
+\FV@OutFile=\write3
+) (./summary.aux)
+\openout1 = `summary.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 14.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 14.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 14.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 23.
+
+Underfull \hbox (badness 10000) in alignment at lines 55--55
+[][][][][][][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in alignment at lines 73--73
+[][] 
+ []
+
+[1
+
+]
+Overfull \vbox (81.12773pt too high) has occurred while \output is active []
+
+
+[2]
+File: ../eps/jok00_Ld_a_fwd.eps Graphic file (type eps)
+ <../eps/jok00_Ld_a_fwd.eps>
+File: ../eps/jok00_Ld_a_cross.eps Graphic file (type eps)
+ <../eps/jok00_Ld_a_cross.eps>
+File: ../eps/jok00_Ld_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_w_fwd.eps>
+File: ../eps/jok00_Ld_w_cross.eps Graphic file (type eps)
+ <../eps/jok00_Ld_w_cross.eps>
+File: ../eps/jok00_Ld_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_sample_25.00m_fwd.eps>
+File: ../eps/jok00_Ld_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[3]
+File: ../eps/jok00_Ld_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok00_Ld_sample_50.00m_fwd.eps>
+File: ../eps/jok00_Ld_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_sample_50.00m_cross.eps>
+File: ../eps/jok00_Ld_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_sample_75.00m_fwd.eps>
+File: ../eps/jok00_Ld_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_sample_75.00m_cross.eps>
+File: ../eps/jok00_Ld_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_sample_100.00m_fwd.eps>
+File: ../eps/jok00_Ld_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[4]
+File: ../eps/jok00_Ld_b_fwd.eps Graphic file (type eps)
+ <../eps/jok00_Ld_b_fwd.eps>
+File: ../eps/jok00_Ld_b_cross.eps Graphic file (type eps)
+ <../eps/jok00_Ld_b_cross.eps>
+File: ../eps/jok00_Ld_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_it_fwd.eps>
+File: ../eps/jok00_Ld_it_cross.eps Graphic file (type eps)
+ <../eps/jok00_Ld_it_cross.eps>
+File: ../eps/jok00_Ld_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Ld_ir_fwd.eps>
+File: ../eps/jok00_Ld_ir_cross.eps Graphic file (type eps)
+ <../eps/jok00_Ld_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[5]
+File: ../eps/jok00_Lu_a_fwd.eps Graphic file (type eps)
+ <../eps/jok00_Lu_a_fwd.eps>
+File: ../eps/jok00_Lu_a_cross.eps Graphic file (type eps)
+ <../eps/jok00_Lu_a_cross.eps>
+File: ../eps/jok00_Lu_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_w_fwd.eps>
+File: ../eps/jok00_Lu_w_cross.eps Graphic file (type eps)
+ <../eps/jok00_Lu_w_cross.eps>
+File: ../eps/jok00_Lu_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_sample_25.00m_fwd.eps>
+File: ../eps/jok00_Lu_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[6]
+File: ../eps/jok00_Lu_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok00_Lu_sample_50.00m_fwd.eps>
+File: ../eps/jok00_Lu_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_sample_50.00m_cross.eps>
+File: ../eps/jok00_Lu_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_sample_75.00m_fwd.eps>
+File: ../eps/jok00_Lu_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_sample_75.00m_cross.eps>
+File: ../eps/jok00_Lu_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_sample_100.00m_fwd.eps>
+File: ../eps/jok00_Lu_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[7]
+File: ../eps/jok00_Lu_b_fwd.eps Graphic file (type eps)
+ <../eps/jok00_Lu_b_fwd.eps>
+File: ../eps/jok00_Lu_b_cross.eps Graphic file (type eps)
+ <../eps/jok00_Lu_b_cross.eps>
+File: ../eps/jok00_Lu_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_it_fwd.eps>
+File: ../eps/jok00_Lu_it_cross.eps Graphic file (type eps)
+ <../eps/jok00_Lu_it_cross.eps>
+File: ../eps/jok00_Lu_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok00_Lu_ir_fwd.eps>
+File: ../eps/jok00_Lu_ir_cross.eps Graphic file (type eps)
+ <../eps/jok00_Lu_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[8]
+File: ../eps/jok02_Ld_a_fwd.eps Graphic file (type eps)
+ <../eps/jok02_Ld_a_fwd.eps>
+File: ../eps/jok02_Ld_a_cross.eps Graphic file (type eps)
+ <../eps/jok02_Ld_a_cross.eps>
+File: ../eps/jok02_Ld_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_w_fwd.eps>
+File: ../eps/jok02_Ld_w_cross.eps Graphic file (type eps)
+ <../eps/jok02_Ld_w_cross.eps>
+File: ../eps/jok02_Ld_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_sample_25.00m_fwd.eps>
+File: ../eps/jok02_Ld_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[9]
+File: ../eps/jok02_Ld_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok02_Ld_sample_50.00m_fwd.eps>
+File: ../eps/jok02_Ld_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_sample_50.00m_cross.eps>
+File: ../eps/jok02_Ld_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_sample_75.00m_fwd.eps>
+File: ../eps/jok02_Ld_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_sample_75.00m_cross.eps>
+File: ../eps/jok02_Ld_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_sample_100.00m_fwd.eps>
+File: ../eps/jok02_Ld_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[10]
+File: ../eps/jok02_Ld_b_fwd.eps Graphic file (type eps)
+ <../eps/jok02_Ld_b_fwd.eps>
+File: ../eps/jok02_Ld_b_cross.eps Graphic file (type eps)
+ <../eps/jok02_Ld_b_cross.eps>
+File: ../eps/jok02_Ld_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_it_fwd.eps>
+File: ../eps/jok02_Ld_it_cross.eps Graphic file (type eps)
+ <../eps/jok02_Ld_it_cross.eps>
+File: ../eps/jok02_Ld_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Ld_ir_fwd.eps>
+File: ../eps/jok02_Ld_ir_cross.eps Graphic file (type eps)
+ <../eps/jok02_Ld_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[11]
+File: ../eps/jok02_Lu_a_fwd.eps Graphic file (type eps)
+ <../eps/jok02_Lu_a_fwd.eps>
+File: ../eps/jok02_Lu_a_cross.eps Graphic file (type eps)
+ <../eps/jok02_Lu_a_cross.eps>
+File: ../eps/jok02_Lu_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_w_fwd.eps>
+File: ../eps/jok02_Lu_w_cross.eps Graphic file (type eps)
+ <../eps/jok02_Lu_w_cross.eps>
+File: ../eps/jok02_Lu_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_sample_25.00m_fwd.eps>
+File: ../eps/jok02_Lu_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[12]
+File: ../eps/jok02_Lu_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok02_Lu_sample_50.00m_fwd.eps>
+File: ../eps/jok02_Lu_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_sample_50.00m_cross.eps>
+File: ../eps/jok02_Lu_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_sample_75.00m_fwd.eps>
+File: ../eps/jok02_Lu_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_sample_75.00m_cross.eps>
+File: ../eps/jok02_Lu_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_sample_100.00m_fwd.eps>
+File: ../eps/jok02_Lu_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[13]
+File: ../eps/jok02_Lu_b_fwd.eps Graphic file (type eps)
+ <../eps/jok02_Lu_b_fwd.eps>
+File: ../eps/jok02_Lu_b_cross.eps Graphic file (type eps)
+ <../eps/jok02_Lu_b_cross.eps>
+File: ../eps/jok02_Lu_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_it_fwd.eps>
+File: ../eps/jok02_Lu_it_cross.eps Graphic file (type eps)
+ <../eps/jok02_Lu_it_cross.eps>
+File: ../eps/jok02_Lu_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok02_Lu_ir_fwd.eps>
+File: ../eps/jok02_Lu_ir_cross.eps Graphic file (type eps)
+ <../eps/jok02_Lu_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[14]
+File: ../eps/jok04_Ld_a_fwd.eps Graphic file (type eps)
+ <../eps/jok04_Ld_a_fwd.eps>
+File: ../eps/jok04_Ld_a_cross.eps Graphic file (type eps)
+ <../eps/jok04_Ld_a_cross.eps>
+File: ../eps/jok04_Ld_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_w_fwd.eps>
+File: ../eps/jok04_Ld_w_cross.eps Graphic file (type eps)
+ <../eps/jok04_Ld_w_cross.eps>
+File: ../eps/jok04_Ld_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_sample_25.00m_fwd.eps>
+File: ../eps/jok04_Ld_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[15]
+File: ../eps/jok04_Ld_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok04_Ld_sample_50.00m_fwd.eps>
+File: ../eps/jok04_Ld_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_sample_50.00m_cross.eps>
+File: ../eps/jok04_Ld_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_sample_75.00m_fwd.eps>
+File: ../eps/jok04_Ld_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_sample_75.00m_cross.eps>
+File: ../eps/jok04_Ld_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_sample_100.00m_fwd.eps>
+File: ../eps/jok04_Ld_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[16]
+File: ../eps/jok04_Ld_b_fwd.eps Graphic file (type eps)
+ <../eps/jok04_Ld_b_fwd.eps>
+File: ../eps/jok04_Ld_b_cross.eps Graphic file (type eps)
+ <../eps/jok04_Ld_b_cross.eps>
+File: ../eps/jok04_Ld_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_it_fwd.eps>
+File: ../eps/jok04_Ld_it_cross.eps Graphic file (type eps)
+ <../eps/jok04_Ld_it_cross.eps>
+File: ../eps/jok04_Ld_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Ld_ir_fwd.eps>
+File: ../eps/jok04_Ld_ir_cross.eps Graphic file (type eps)
+ <../eps/jok04_Ld_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[17]
+File: ../eps/jok04_Lu_a_fwd.eps Graphic file (type eps)
+ <../eps/jok04_Lu_a_fwd.eps>
+File: ../eps/jok04_Lu_a_cross.eps Graphic file (type eps)
+ <../eps/jok04_Lu_a_cross.eps>
+File: ../eps/jok04_Lu_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_w_fwd.eps>
+File: ../eps/jok04_Lu_w_cross.eps Graphic file (type eps)
+ <../eps/jok04_Lu_w_cross.eps>
+File: ../eps/jok04_Lu_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_sample_25.00m_fwd.eps>
+File: ../eps/jok04_Lu_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[18]
+File: ../eps/jok04_Lu_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok04_Lu_sample_50.00m_fwd.eps>
+File: ../eps/jok04_Lu_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_sample_50.00m_cross.eps>
+File: ../eps/jok04_Lu_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_sample_75.00m_fwd.eps>
+File: ../eps/jok04_Lu_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_sample_75.00m_cross.eps>
+File: ../eps/jok04_Lu_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_sample_100.00m_fwd.eps>
+File: ../eps/jok04_Lu_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[19]
+File: ../eps/jok04_Lu_b_fwd.eps Graphic file (type eps)
+ <../eps/jok04_Lu_b_fwd.eps>
+File: ../eps/jok04_Lu_b_cross.eps Graphic file (type eps)
+ <../eps/jok04_Lu_b_cross.eps>
+File: ../eps/jok04_Lu_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_it_fwd.eps>
+File: ../eps/jok04_Lu_it_cross.eps Graphic file (type eps)
+ <../eps/jok04_Lu_it_cross.eps>
+File: ../eps/jok04_Lu_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok04_Lu_ir_fwd.eps>
+File: ../eps/jok04_Lu_ir_cross.eps Graphic file (type eps)
+ <../eps/jok04_Lu_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[20]
+File: ../eps/jok06_Ld_a_fwd.eps Graphic file (type eps)
+ <../eps/jok06_Ld_a_fwd.eps>
+File: ../eps/jok06_Ld_a_cross.eps Graphic file (type eps)
+ <../eps/jok06_Ld_a_cross.eps>
+File: ../eps/jok06_Ld_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_w_fwd.eps>
+File: ../eps/jok06_Ld_w_cross.eps Graphic file (type eps)
+ <../eps/jok06_Ld_w_cross.eps>
+File: ../eps/jok06_Ld_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_sample_25.00m_fwd.eps>
+File: ../eps/jok06_Ld_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[21]
+File: ../eps/jok06_Ld_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok06_Ld_sample_50.00m_fwd.eps>
+File: ../eps/jok06_Ld_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_sample_50.00m_cross.eps>
+File: ../eps/jok06_Ld_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_sample_75.00m_fwd.eps>
+File: ../eps/jok06_Ld_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_sample_75.00m_cross.eps>
+File: ../eps/jok06_Ld_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_sample_100.00m_fwd.eps>
+File: ../eps/jok06_Ld_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[22]
+File: ../eps/jok06_Ld_b_fwd.eps Graphic file (type eps)
+ <../eps/jok06_Ld_b_fwd.eps>
+File: ../eps/jok06_Ld_b_cross.eps Graphic file (type eps)
+ <../eps/jok06_Ld_b_cross.eps>
+File: ../eps/jok06_Ld_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_it_fwd.eps>
+File: ../eps/jok06_Ld_it_cross.eps Graphic file (type eps)
+ <../eps/jok06_Ld_it_cross.eps>
+File: ../eps/jok06_Ld_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Ld_ir_fwd.eps>
+File: ../eps/jok06_Ld_ir_cross.eps Graphic file (type eps)
+ <../eps/jok06_Ld_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[23]
+File: ../eps/jok06_Lu_a_fwd.eps Graphic file (type eps)
+ <../eps/jok06_Lu_a_fwd.eps>
+File: ../eps/jok06_Lu_a_cross.eps Graphic file (type eps)
+ <../eps/jok06_Lu_a_cross.eps>
+File: ../eps/jok06_Lu_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_w_fwd.eps>
+File: ../eps/jok06_Lu_w_cross.eps Graphic file (type eps)
+ <../eps/jok06_Lu_w_cross.eps>
+File: ../eps/jok06_Lu_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_sample_25.00m_fwd.eps>
+File: ../eps/jok06_Lu_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[24]
+File: ../eps/jok06_Lu_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok06_Lu_sample_50.00m_fwd.eps>
+File: ../eps/jok06_Lu_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_sample_50.00m_cross.eps>
+File: ../eps/jok06_Lu_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_sample_75.00m_fwd.eps>
+File: ../eps/jok06_Lu_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_sample_75.00m_cross.eps>
+File: ../eps/jok06_Lu_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_sample_100.00m_fwd.eps>
+File: ../eps/jok06_Lu_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[25]
+File: ../eps/jok06_Lu_b_fwd.eps Graphic file (type eps)
+ <../eps/jok06_Lu_b_fwd.eps>
+File: ../eps/jok06_Lu_b_cross.eps Graphic file (type eps)
+ <../eps/jok06_Lu_b_cross.eps>
+File: ../eps/jok06_Lu_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_it_fwd.eps>
+File: ../eps/jok06_Lu_it_cross.eps Graphic file (type eps)
+ <../eps/jok06_Lu_it_cross.eps>
+File: ../eps/jok06_Lu_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok06_Lu_ir_fwd.eps>
+File: ../eps/jok06_Lu_ir_cross.eps Graphic file (type eps)
+ <../eps/jok06_Lu_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[26]
+File: ../eps/jok08_Ld_a_fwd.eps Graphic file (type eps)
+ <../eps/jok08_Ld_a_fwd.eps>
+File: ../eps/jok08_Ld_a_cross.eps Graphic file (type eps)
+ <../eps/jok08_Ld_a_cross.eps>
+File: ../eps/jok08_Ld_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_w_fwd.eps>
+File: ../eps/jok08_Ld_w_cross.eps Graphic file (type eps)
+ <../eps/jok08_Ld_w_cross.eps>
+File: ../eps/jok08_Ld_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_sample_25.00m_fwd.eps>
+File: ../eps/jok08_Ld_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[27]
+File: ../eps/jok08_Ld_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok08_Ld_sample_50.00m_fwd.eps>
+File: ../eps/jok08_Ld_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_sample_50.00m_cross.eps>
+File: ../eps/jok08_Ld_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_sample_75.00m_fwd.eps>
+File: ../eps/jok08_Ld_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_sample_75.00m_cross.eps>
+File: ../eps/jok08_Ld_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_sample_100.00m_fwd.eps>
+File: ../eps/jok08_Ld_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[28]
+File: ../eps/jok08_Ld_b_fwd.eps Graphic file (type eps)
+ <../eps/jok08_Ld_b_fwd.eps>
+File: ../eps/jok08_Ld_b_cross.eps Graphic file (type eps)
+ <../eps/jok08_Ld_b_cross.eps>
+File: ../eps/jok08_Ld_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_it_fwd.eps>
+File: ../eps/jok08_Ld_it_cross.eps Graphic file (type eps)
+ <../eps/jok08_Ld_it_cross.eps>
+File: ../eps/jok08_Ld_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Ld_ir_fwd.eps>
+File: ../eps/jok08_Ld_ir_cross.eps Graphic file (type eps)
+ <../eps/jok08_Ld_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[29]
+File: ../eps/jok08_Lu_a_fwd.eps Graphic file (type eps)
+ <../eps/jok08_Lu_a_fwd.eps>
+File: ../eps/jok08_Lu_a_cross.eps Graphic file (type eps)
+ <../eps/jok08_Lu_a_cross.eps>
+File: ../eps/jok08_Lu_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_w_fwd.eps>
+File: ../eps/jok08_Lu_w_cross.eps Graphic file (type eps)
+ <../eps/jok08_Lu_w_cross.eps>
+File: ../eps/jok08_Lu_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_sample_25.00m_fwd.eps>
+File: ../eps/jok08_Lu_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[30]
+File: ../eps/jok08_Lu_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok08_Lu_sample_50.00m_fwd.eps>
+File: ../eps/jok08_Lu_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_sample_50.00m_cross.eps>
+File: ../eps/jok08_Lu_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_sample_75.00m_fwd.eps>
+File: ../eps/jok08_Lu_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_sample_75.00m_cross.eps>
+File: ../eps/jok08_Lu_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_sample_100.00m_fwd.eps>
+File: ../eps/jok08_Lu_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[31]
+File: ../eps/jok08_Lu_b_fwd.eps Graphic file (type eps)
+ <../eps/jok08_Lu_b_fwd.eps>
+File: ../eps/jok08_Lu_b_cross.eps Graphic file (type eps)
+ <../eps/jok08_Lu_b_cross.eps>
+File: ../eps/jok08_Lu_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_it_fwd.eps>
+File: ../eps/jok08_Lu_it_cross.eps Graphic file (type eps)
+ <../eps/jok08_Lu_it_cross.eps>
+File: ../eps/jok08_Lu_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok08_Lu_ir_fwd.eps>
+File: ../eps/jok08_Lu_ir_cross.eps Graphic file (type eps)
+ <../eps/jok08_Lu_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[32]
+File: ../eps/jok10_Ld_a_fwd.eps Graphic file (type eps)
+ <../eps/jok10_Ld_a_fwd.eps>
+File: ../eps/jok10_Ld_a_cross.eps Graphic file (type eps)
+ <../eps/jok10_Ld_a_cross.eps>
+File: ../eps/jok10_Ld_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_w_fwd.eps>
+File: ../eps/jok10_Ld_w_cross.eps Graphic file (type eps)
+ <../eps/jok10_Ld_w_cross.eps>
+File: ../eps/jok10_Ld_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_sample_25.00m_fwd.eps>
+File: ../eps/jok10_Ld_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[33]
+File: ../eps/jok10_Ld_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok10_Ld_sample_50.00m_fwd.eps>
+File: ../eps/jok10_Ld_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_sample_50.00m_cross.eps>
+File: ../eps/jok10_Ld_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_sample_75.00m_fwd.eps>
+File: ../eps/jok10_Ld_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_sample_75.00m_cross.eps>
+File: ../eps/jok10_Ld_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_sample_100.00m_fwd.eps>
+File: ../eps/jok10_Ld_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[34]
+File: ../eps/jok10_Ld_b_fwd.eps Graphic file (type eps)
+ <../eps/jok10_Ld_b_fwd.eps>
+File: ../eps/jok10_Ld_b_cross.eps Graphic file (type eps)
+ <../eps/jok10_Ld_b_cross.eps>
+File: ../eps/jok10_Ld_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_it_fwd.eps>
+File: ../eps/jok10_Ld_it_cross.eps Graphic file (type eps)
+ <../eps/jok10_Ld_it_cross.eps>
+File: ../eps/jok10_Ld_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Ld_ir_fwd.eps>
+File: ../eps/jok10_Ld_ir_cross.eps Graphic file (type eps)
+ <../eps/jok10_Ld_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[35]
+File: ../eps/jok10_Lu_a_fwd.eps Graphic file (type eps)
+ <../eps/jok10_Lu_a_fwd.eps>
+File: ../eps/jok10_Lu_a_cross.eps Graphic file (type eps)
+ <../eps/jok10_Lu_a_cross.eps>
+File: ../eps/jok10_Lu_w_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_w_fwd.eps>
+File: ../eps/jok10_Lu_w_cross.eps Graphic file (type eps)
+ <../eps/jok10_Lu_w_cross.eps>
+File: ../eps/jok10_Lu_sample_25.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_sample_25.00m_fwd.eps>
+File: ../eps/jok10_Lu_sample_25.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_sample_25.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[36]
+File: ../eps/jok10_Lu_sample_50.00m_fwd.eps Graphic file (type eps)
+ <../eps/jok10_Lu_sample_50.00m_fwd.eps>
+File: ../eps/jok10_Lu_sample_50.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_sample_50.00m_cross.eps>
+File: ../eps/jok10_Lu_sample_75.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_sample_75.00m_fwd.eps>
+File: ../eps/jok10_Lu_sample_75.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_sample_75.00m_cross.eps>
+File: ../eps/jok10_Lu_sample_100.00m_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_sample_100.00m_fwd.eps>
+File: ../eps/jok10_Lu_sample_100.00m_cross.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_sample_100.00m_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[37]
+File: ../eps/jok10_Lu_b_fwd.eps Graphic file (type eps)
+ <../eps/jok10_Lu_b_fwd.eps>
+File: ../eps/jok10_Lu_b_cross.eps Graphic file (type eps)
+ <../eps/jok10_Lu_b_cross.eps>
+File: ../eps/jok10_Lu_it_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_it_fwd.eps>
+File: ../eps/jok10_Lu_it_cross.eps Graphic file (type eps)
+ <../eps/jok10_Lu_it_cross.eps>
+File: ../eps/jok10_Lu_ir_fwd.eps Graphic file (type eps)
+
+<../eps/jok10_Lu_ir_fwd.eps>
+File: ../eps/jok10_Lu_ir_cross.eps Graphic file (type eps)
+ <../eps/jok10_Lu_ir_cross.eps>
+Overfull \vbox (17.30795pt too high) has occurred while \output is active []
+
+
+[38] (./summary.aux) ) 
+Here is how much of TeX's memory you used:
+ 1477 strings out of 495036
+ 26135 string characters out of 6181729
+ 74118 words of memory out of 5000000
+ 4507 multiletter control sequences out of 15000+600000
+ 7963 words of font info for 29 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 25i,11n,19p,1336b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on summary.dvi (38 pages, 30008 bytes).

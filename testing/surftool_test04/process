@@ -1,0 +1,39 @@
+#!/bin/bash
+
+
+function one_run {
+
+  local HSD=$1
+  local RICODE=$2
+  local RAYCOUNT=$3
+  local SURFCOUNT=$4
+  local AZAVG_YN=$5
+
+  if [ "$AZAVG_YN" == "yes" ] 
+  then
+    local AZAVG_CODE="azavg_"
+  fi
+
+  sed -e "s|<HSD>|$HSD|g;s|<RC>|$RAYCOUNT|g;s|<SC>|$SURFCOUNT|g;s|<AZAVG_CODE>|$AZAVG_CODE|g;s|<AZAVG_YN>|$AZAVG_YN|g;s|<RICODE>|$RICODE|g" params_template > params_current
+
+  $JUDE2DIR/bin/surftool params=params_current
+
+}
+
+# very quick example that only does 20 repeat surfaces
+one_run 0.10 131 10 20 yes
+
+exit
+
+# normal run with 2000 repeat surfaces
+one_run 0.10 131 10 2000 yes
+
+#one_run 0.05 131 10 2000 yes
+#one_run 0.11 131 10 2000 yes
+#one_run 0.15 131 10 2000 yes
+#one_run 0.16 131 10 2000 yes
+#one_run 0.17 131 10 2000 yes
+#one_run 0.12 131 10 2000 yes
+#one_run 0.08 131 10 2000 yes
+#one_run 0.14 131 10 2000 yes
+#one_run 0.06 131 10 2000 yes
