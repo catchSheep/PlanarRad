@@ -5,7 +5,7 @@ This github is an attempt to update and marginally maintain the version of John 
 
 ## Linux Installation
 Currently, to compile, we compile with the QT dependencies. The --disable-qt option does NOT appear to work, as there are many calls 
-to qt libraries within the code that are not removed by the sue of such a flag. See todo list. Tested on Fedora 33 and 34.
+to qt libraries within the code that are not removed by the use of such a flag. See todo list. Tested on Fedora 33 and 34.
 
 Install the following packages:
 ### Ubuntu specific packages
