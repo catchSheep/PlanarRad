@@ -38,6 +38,7 @@ or
 ## TODO:
  * Remove qt dependence
  * Add multithreaded support. The matrix inversion subroutine may be a prime target to replace with a LAPACK subroutine. Alternativly one may be able to fork threads over band calculations
+ * Complete documentation for the specifics of each command line program
 
 
 
