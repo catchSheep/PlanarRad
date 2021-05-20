@@ -1148,7 +1148,7 @@ bool CalcTool::getColumnMax(const JString& table_id, const JString& col, const J
   int rnum = tab->rowCount();
   int cnum = tab->colCount();
 
-  double max_val = -HUGE;
+  double max_val = -HUGE_VAL;
   int max_row = -1;
 
   for (int r=0; r<rnum; r++) {
