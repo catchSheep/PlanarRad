@@ -1,4 +1,50 @@
+# PlanarRad Fork 
+## aka lightnseasz ("Light'n'Sea[z]") 
+This github is an attempt to update and marginally maintain the version of John Hedley's PlanarRad software, which he graciously licensed under the GNU GPLv3.0.
 
+
+## Linux Installation
+Currently, to compile, we compile with the QT dependencies. The --disable-qt option does NOT appear to work, as there are many calls 
+to qt libraries within the code that are not removed by the sue of such a flag. See todo list
+
+Install the following packages:
+### Ubuntu specific packages
+(NB: QT dependence isnt test. If this doesnt work, try a different qt package)
+```
+sudo apt-get install g++ libqt4-dev libsm-dev libjpeg-dev libboost-all-dev qt5-default qtbase5-dev
+```
+### Fedora specific packages
+```
+sudo yum install gcc gcc-c++ qt-devel libjpeg-devel boost-devel qt5-qtbase qt5-qtbase-devel
+```
+### General
+On Ubuntu add something like the following to the end of the '.profile' file in your home directory. On Fedora add it to the file '.bash_profile'. 
+export JUDE2DIR=$HOME/jude2_install
+export LD_LIBRARY_PATH=$JUDE2DIR/lib:$LD_LIBRARY_PATH
+export PATH=$JUDE2DIR/bin:$PATH
+
+Then restart your terminal environment. The fastest and most pain-free way may be to simply log in and out quickly.
+
+With the prerequisite packages installed and the path set, simply run the install script example_build:
+```
+bash example_build
+```
+or
+```
+./example_build
+```
+
+
+## TODO:
+ * Remove qt dependence
+ * Add multithreaded support. The matrix inversion subroutine may be a prime target to replace with a LAPACK subroutine. Alternativly one may be able to fork threads over band calculations
+
+
+
+
+
+## Old Readme from the 0.9.5beta (2015)
+------------------------------------------------------
 PlanarRad 0.9.1beta (Jude 2.1.0 library)
 (c) 1999-2013 John Hedley
 
