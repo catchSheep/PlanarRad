@@ -5,11 +5,11 @@ This github is an attempt to update and marginally maintain the version of John 
 
 ## Linux Installation
 Currently, to compile, we compile with the QT dependencies. The --disable-qt option does NOT appear to work, as there are many calls 
-to qt libraries within the code that are not removed by the sue of such a flag. See todo list
+to qt libraries within the code that are not removed by the sue of such a flag. See todo list. Tested on Fedora 33 and 34.
 
 Install the following packages:
 ### Ubuntu specific packages
-(NB: QT dependence isnt test. If this doesnt work, try a different qt package)
+(NB: QT dependence isnt tested on ubuntu. If this doesnt work, try a different qt package)
 ```
 sudo apt-get install g++ libqt4-dev libsm-dev libjpeg-dev libboost-all-dev qt5-default qtbase5-dev
 ```
