@@ -36,7 +36,7 @@ cd build
 
 # to build command line version only without qt use option --disable-qt
 # remove --enable-optimised=yes to build without optimisation flags (may solve build problems but will run slower)
-../configure --prefix=$JUDE2DIR --with-qtdir=$PRETENDQT4DIR --enable-optimised=yes --enable-openmp --enable-threads CFLAGS="-fopenmp"
+../configure --prefix=$JUDE2DIR --with-qtdir=$PRETENDQT4DIR --enable-optimised=yes --enable-openmp CFLAGS="-fopenmp"
 
 # compile
 make 
