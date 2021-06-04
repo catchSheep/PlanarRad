@@ -1,6 +1,6 @@
 
 
-noinst_PROGRAMS = test_wl_free test_wl_files
+noinst_PROGRAMS = test_wl_free test_wl_files$(EXEEXT)
 
 
 
@@ -21,7 +21,7 @@ test_wl_free_LDADD = \
 
 
 
-test_wl_files: Makefile
+test_wl_files$(EXEEXT): Makefile
 	cp $(srcdir)/archive.042 ./
 	cp $(srcdir)/archive.008 ./
 
