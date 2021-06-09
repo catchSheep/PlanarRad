@@ -31,6 +31,9 @@ PRETENDQT4DIR=$(pwd)"/pretend_qt4_dir"
 rm -rf build
 mkdir -p build
 
+touch aclocal.m4 Makefile.am configure Makefile.in
+
+
 # change to that directory
 cd build
 
