@@ -595,7 +595,7 @@ void SlabIntegrator<SD,IOPS,HDS>::buildWholeMatrices(matrix<double>* m, const ma
 
       int offset = lm*hds.rowsDFT();
 
-      for (int i=0; i<hds.rowsDFT(); i++) for (int j=0; j<hds.rowsDFT(); j++) m[band](offset+i, offset+j) = curr[ab_point_count*lm](i,j);
+      for (int i=0; i<hds.rowsDFT(); i++) for (int j=0; j<hds.rowsDFT(); j++) m[band](offset+i, offset+j) = curr[ab_point_count*lm+band*hds.lmNumDFT()*ab_point_count](i,j);
 
     }
   }
@@ -734,9 +734,9 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
   bool curr_reflec_flag= false;
   bool curr_R2_flag=false;
   bool curr_T1_flag=false;
-  if(&(ps.curr_reflec1[0])) curr_reflec_flag=true;
-  if(&(ps.curr_R2[0])) curr_R2_flag=true;
-  if(&(ps.curr_T1[0])) curr_T1_flag=true;
+  if(ps.curr_reflec1) curr_reflec_flag=true;
+  if(ps.curr_R2) curr_R2_flag=true;
+  if(ps.curr_T1) curr_T1_flag=true;
 
   // syntactic sugar for looping
   int lmTotal=iops.halfDirecStruct().lmNumDFT();
@@ -746,7 +746,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
   // loop through all bands
   #pragma omp parallel
   {
-  #pragma omp for collapse(2) schedule(dynamic) // loop over both bands and lm mods, as they should both be independent from each loop
+  #pragma omp for collapse(2) schedule(dynamic) firstprivate(iops) // loop over both bands and lm mods, as they should both be independent from each loop
   for (int band=0; band<band_count; band++) {
 
     // setup params for band
@@ -755,9 +755,13 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
     for (int lm=0; lm<iops.halfDirecStruct().lmNumDFT(); lm++) {
 
       iops.setCurrentBand(band);
+      iops.setCurrentLMode(lm);
+      mat curr_tau = iops.currTau2(band, lm);
+      mat curr_rho = iops.currRho2(band, lm);
+
       int curLMiter=band*lmTotal*abTotal+lm*abTotal;
       int curReflecIter=band*lmTotal+lm;
-      iops.setCurrentLMode(lm);
+
 
         // initialise reflection, note that on calling this we assume ps.curr_R1 != 0
         // and if ps.curr_reflec1 is defined then ps.curr_R2 is allocated
@@ -1116,6 +1120,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double op
 
   //printf("total steps %d evals %d\n",total_steps, total_evals);
 }
+
 
 
 
