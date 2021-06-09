@@ -212,10 +212,10 @@ class SlabIntegrator : public SlabIntegrator_Base {
   cmat eval_dT(cmat& R, cmat& T, cmat& tau, cmat& rho) const { return prod(T, (tau + prod(rho, R))); }
 
   void integrate(SI_Process& ps, bool a_to_b);
-  void integrate_Euler(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag);
-  void integrate_Midpoint(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag);
-  void integrate_Runga4(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag);
-  void integrate_Runga4Adap(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag);
+  void integrate_Euler(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm);
+  void integrate_Midpoint(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm);
+  void integrate_Runga4(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm);
+  void integrate_Runga4Adap(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm);
 
   void buildWholeMatrices(matrix<double>* m, const mat* curr, int dp, bool a_to_b, const char* mn, bool dp_is_sp=true);
   void buildMatrixArray(RDD_MatrixDFT& rm, const mat* curr, int dp, bool a_to_b, const char* mn, bool dp_is_sp=true);
@@ -756,14 +756,11 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
 
       iops.setCurrentBand(band);
       iops.setCurrentLMode(lm);
-      mat curr_tau = iops.currTau2(band, lm);
-      mat curr_rho = iops.currRho2(band, lm);
-
       int curLMiter=band*lmTotal*abTotal+lm*abTotal;
       int curReflecIter=band*lmTotal+lm;
 
 
-        // initialise reflection, note that on calling this we assume ps.curr_R1 != 0
+        // initialise reflection, note that on calling this we assume ps.curr_R1 != 0++
         // and if ps.curr_reflec1 is defined then ps.curr_R2 is allocated
       if (curr_reflec_flag) {
 	ps.curr_R1[curLMiter] = ps.curr_reflec1[curReflecIter];
@@ -805,24 +802,24 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
 
 
         if (integ_method == MIDPOINT) {
-        if(curr_T1_flag) {integrate_Midpoint(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag);}
-        else {integrate_Midpoint(ps.curr_R1[curr_iter],(ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag);}
-        if (curr_R2_flag) integrate_Midpoint(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag);
+        if(curr_T1_flag) {integrate_Midpoint(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        else {integrate_Midpoint(ps.curr_R1[curr_iter],(ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        if (curr_R2_flag) integrate_Midpoint(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);
 
         } else if (integ_method == RUNGA4) {
-        if(curr_T1_flag) {integrate_Runga4(ps.curr_R1[curr_iter],(ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag);}
-        else {integrate_Runga4(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag);}
-        if (curr_R2_flag) integrate_Runga4(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag);
+        if(curr_T1_flag) {integrate_Runga4(ps.curr_R1[curr_iter],(ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        else {integrate_Runga4(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        if (curr_R2_flag) integrate_Runga4(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);
 
         } else if (integ_method == RUNGA4ADAP) {
-        if(curr_T1_flag) {integrate_Runga4Adap(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag);}
-        else {integrate_Runga4Adap(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag);}
-        if (curr_R2_flag) integrate_Runga4Adap(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag);
+        if(curr_T1_flag) {integrate_Runga4Adap(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        else {integrate_Runga4Adap(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        if (curr_R2_flag) integrate_Runga4Adap(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);
 
         } else {
-        if(curr_T1_flag) {integrate_Euler(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag);}
-        else {integrate_Euler(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag);}
-        if (curr_R2_flag) integrate_Euler(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag);
+        if(curr_T1_flag) {integrate_Euler(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        else {integrate_Euler(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        if (curr_R2_flag) integrate_Euler(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);
         }
 
         optical_depth_start = optical_depth_end;
@@ -842,7 +839,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
 // T may be null
 
 template <typename SD, typename IOPS, typename HDS>
-void SlabIntegrator<SD,IOPS,HDS>::integrate_Euler(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag) {
+void SlabIntegrator<SD,IOPS,HDS>::integrate_Euler(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm) {
 
     // the optical depth of the sub-slab
     // using fabs() means we can use the same Riccatti equations for up and down
@@ -861,8 +858,8 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Euler(mat& R, mat* T, double optical
 
     iops.setCurrOpticalPosition(curr_od);
 
-    if (T_flag) (*T) += eval_dT(R, *T, iops.currTau(), iops.currRho()) * optical_depth_step;
-    R += eval_dR(R, iops.currTau(), iops.currRho()) * optical_depth_step;
+    if (T_flag) (*T) += eval_dT(R, *T, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    R += eval_dR(R, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
   }
 }
 
@@ -872,7 +869,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Euler(mat& R, mat* T, double optical
 // T may be null
 
 template <typename SD, typename IOPS, typename HDS>
-void SlabIntegrator<SD,IOPS,HDS>::integrate_Midpoint(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag) {
+void SlabIntegrator<SD,IOPS,HDS>::integrate_Midpoint(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm) {
 
     // the optical depth of the sub-slab
     // using fabs() means we can use the same Riccatti equations for up and down
@@ -898,14 +895,14 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Midpoint(mat& R, mat* T, double opti
     iops.setCurrOpticalPosition(curr_od);
 
       // evaluate R and T at halfway point
-    R_mid = R + eval_dR(R, iops.currTau(), iops.currRho()) * half_optical_depth_step;
-    if (T_flag) T_mid = (*T) + eval_dT(R, *T, iops.currTau(), iops.currRho()) * half_optical_depth_step;
+    R_mid = R + eval_dR(R, iops.currTau2(band, lm), iops.currRho2(band, lm)) * half_optical_depth_step;
+    if (T_flag) T_mid = (*T) + eval_dT(R, *T, iops.currTau2(band, lm), iops.currRho2(band, lm)) * half_optical_depth_step;
 
     iops.setCurrOpticalPosition(curr_od + half_optical_depth_step);
 
       // now update R and T based on slope at midpoint
-    R += eval_dR(R_mid, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T_flag) (*T) += eval_dT(R_mid, T_mid, iops.currTau(), iops.currRho()) * optical_depth_step;
+    R += eval_dR(R_mid, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) (*T) += eval_dT(R_mid, T_mid, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
   }
 }
 
@@ -915,7 +912,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Midpoint(mat& R, mat* T, double opti
 // T may be null
 
 template <typename SD, typename IOPS, typename HDS>
-void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag) {
+void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm) {
 
     // the optical depth of the sub-slab
     // using fabs() means we can use the same Riccatti equations for up and down
@@ -946,24 +943,24 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4(mat& R, mat* T, double optica
 
     iops.setCurrOpticalPosition(curr_od);
 
-    noalias(R_k1) = eval_dR(R, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T_flag) noalias(T_k1) = eval_dT(R, *T, iops.currTau(), iops.currRho()) * optical_depth_step;
+    noalias(R_k1) = eval_dR(R, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) noalias(T_k1) = eval_dT(R, *T, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
 
     iops.setCurrOpticalPosition(curr_od + optical_depth_step/2);
 
       // mid point
-    noalias(R_k2) = eval_dR(R+R_k1/2, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T_flag) noalias(T_k2) = eval_dT(R+R_k1/2, (*T)+T_k1/2, iops.currTau(), iops.currRho()) * optical_depth_step;
+    noalias(R_k2) = eval_dR(R+R_k1/2, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) noalias(T_k2) = eval_dT(R+R_k1/2, (*T)+T_k1/2, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
 
       // mid point also
-    noalias(R_k3) = eval_dR(R+R_k2/2, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T_flag) noalias(T_k3) = eval_dT(R+R_k2/2, (*T)+T_k2/2, iops.currTau(), iops.currRho()) * optical_depth_step;
+    noalias(R_k3) = eval_dR(R+R_k2/2, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) noalias(T_k3) = eval_dT(R+R_k2/2, (*T)+T_k2/2, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
 
     iops.setCurrOpticalPosition(curr_od + optical_depth_step);
 
       // end point
-    noalias(R_k4) = eval_dR(R+R_k3, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T_flag) noalias(T_k4) = eval_dT(R+R_k3, (*T)+T_k3, iops.currTau(), iops.currRho()) * optical_depth_step;
+    noalias(R_k4) = eval_dR(R+R_k3, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) noalias(T_k4) = eval_dT(R+R_k3, (*T)+T_k3, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
 
     R += R_k1/6 + R_k2/3 + R_k3/3 + R_k4/6;
     if (T_flag) (*T) += T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
@@ -976,7 +973,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4(mat& R, mat* T, double optica
 // T may be null
 
 template <typename SD, typename IOPS, typename HDS>
-void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag) {
+void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm) {
 
     // the optical depth of the sub-slab
     // using fabs() means we can use the same Riccatti equations for up and down
@@ -1015,8 +1012,8 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double op
 
   printf("FIX ME!\n");
 
-  const mat& tau = iops.currTau();
-  const mat& rho = iops.currRho();
+  const mat& tau = iops.currTau2(band, lm);
+  const mat& rho = iops.currRho2(band, lm);
 
     // integrate this sub slab
   while (optical_pos < optical_dist) {
