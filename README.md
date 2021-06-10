@@ -9,6 +9,8 @@ This github is an attempt to update and marginally maintain the version of John 
 ## Linux Installation
 Installation on Linux should be fairly easy and straightforward.   
 
+Download this repo either as a zip and extract it, or clone the repo with `git clone`.
+
 Currently, to compile, we compile with the QT dependencies, even if you only want the command line features. The --disable-qt option does NOT appear to work, as there are many calls to qt libraries within the code that are not removed by the use of such a flag. See todo list.   
 
 Tested on Fedora 33 and 34.
@@ -38,7 +40,7 @@ export PATH=$JUDE2DIR/bin:$PATH
 
 Then restart your terminal environment. The fastest and most pain-free way may be to simply log in and out quickly.
 
-With the prerequisite packages installed and the path set, simply run the install script example_build:
+With the prerequisite packages installed and the path set, simply navigate to the main directory in a terminal run the install script `example_build`:
 ```
 bash example_build
 ```
