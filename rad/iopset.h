@@ -63,12 +63,13 @@ class IOPSet : public IOPData<SD, HDS> {
     optical_thickness.multiply(atten);
   }
 
+  const matrix<double>* curr_tau;
+  const matrix<double>* curr_rho;
+
   void buildTauAndRhoTable();
  
 public:
 
-  const matrix<double>* curr_tau;
-  const matrix<double>* curr_rho;
 
   IOPSet(const HDS& hds, const BandSpec& bs);
   ~IOPSet();
