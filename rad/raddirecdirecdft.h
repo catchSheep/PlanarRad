@@ -7,6 +7,8 @@
 #include "rad/rdd_matrixdft.h"
 #include "math/ublas.h"
 
+#include <omp.h>
+
 using namespace jude::math;
 
 namespace jude {
@@ -95,9 +97,13 @@ template <typename SD, typename DS>
 void RadDirecDirecDFT<SD,DS>::copy(const RadDirecDirecImp<SD>& ri, double* pct, bool* cancel) {
 
   double div = 100.0 / (ds.rowsDFT() * ds.rowsDFT() * ds.lmNumDFT() * ds.lmNumDFT());
-  int count = 0;
+  //int count = 0;
 
     // for each in-row
+  if(!cancel) {
+#pragma omp parallel
+  {
+#pragma omp for collapse(4)
   for (int r=0; r<ds.rowsDFT(); r++) {
       // for each out-row
     for (int u=0; u<ds.rowsDFT(); u++) {
@@ -145,10 +151,9 @@ void RadDirecDirecDFT<SD,DS>::copy(const RadDirecDirecImp<SD>& ri, double* pct, 
 	  h21(r, u, km, lm) = h21_sum;
 	  h22(r, u, km, lm) = h22_sum;
 
-	  if (pct) (*pct) = count * div;
+	  //if (pct) (*pct) = count * div;
 	  //jlog::ls << "pct " << (*pct) << "\n";
-	  count++;
-	  if (cancel) if (*cancel) return;
+	  //count++;
 
 	  /*
 	  if (lm==0 || (ds.isFull() && lm==ds.lmNumDFT()-1)) h12(r,u,km,0) = 0;
@@ -162,7 +167,53 @@ void RadDirecDirecDFT<SD,DS>::copy(const RadDirecDirecImp<SD>& ri, double* pct, 
       }
     }
   }
+  }
+  }
+  // expressing cancel statement out here
+  else {
+      int r=0;
+      int u=0;
+      int lm=0;
+      int km=0;
+      SD h11_sum(band_count, 0);
+	  SD h12_sum(band_count, 0);
+	  SD h21_sum(band_count, 0);
+	  SD h22_sum(band_count, 0);
 
+	    // for each in-position
+	  for (int s=0; s<ds.horizSize(); s++) {
+
+	    double km_phi_s = km * (s * 2*M_PI) / ds.horizSize();
+
+	      // for each out-position
+	    for (int v=0; v<ds.horizSize(); v++) {
+
+	      double lm_phi_v = lm * (v * 2*M_PI) / ds.horizSize();
+
+	      int in_index = ds.positionToIndexDFT(r,s);
+	      int out_index = ds.positionToIndexDFT(u,v);
+
+	      SD hsv = ri.atIndices(in_index, out_index);
+
+	      h11_sum += hsv * cos(km_phi_s) * cos(lm_phi_v);
+	      h12_sum += hsv * cos(km_phi_s) * sin(lm_phi_v);
+	      h21_sum += hsv * sin(km_phi_s) * cos(lm_phi_v);
+	      h22_sum += hsv * sin(km_phi_s) * sin(lm_phi_v);
+	    }
+	  }
+
+	  h11_sum /= ds.epsilonDFT(km) * ds.epsilonDFT(lm);
+	  if (ds.gammaDFT(lm)) h12_sum /= ds.epsilonDFT(km) * ds.gammaDFT(lm);
+	  if (ds.gammaDFT(km)) h21_sum /= ds.gammaDFT(km) * ds.epsilonDFT(lm);
+	  if (ds.gammaDFT(lm) && ds.gammaDFT(km)) h22_sum /= ds.gammaDFT(km) * ds.gammaDFT(lm);
+	  else h22_sum = SD(band_count, 0);
+
+	  h11(r, u, km, lm) = h11_sum;
+	  h12(r, u, km, lm) = h12_sum;
+	  h21(r, u, km, lm) = h21_sum;
+	  h22(r, u, km, lm) = h22_sum;
+      return;
+     }
   if (pct) (*pct) = 100;
 }
 

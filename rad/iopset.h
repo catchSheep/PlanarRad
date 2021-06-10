@@ -55,8 +55,6 @@ class IOPSet : public IOPData<SD, HDS> {
 
   int curr_band;
  
-  const matrix<double>* curr_tau;
-  const matrix<double>* curr_rho;
 
   void clearAlloc();
 
@@ -65,9 +63,13 @@ class IOPSet : public IOPData<SD, HDS> {
     optical_thickness.multiply(atten);
   }
 
+  const matrix<double>* curr_tau;
+  const matrix<double>* curr_rho;
+
   void buildTauAndRhoTable();
  
 public:
+
 
   IOPSet(const HDS& hds, const BandSpec& bs);
   ~IOPSet();
@@ -104,6 +106,11 @@ public:
 
   const matrix<double>& currTau() { return *curr_tau; }
   const matrix<double>& currRho() { return *curr_rho; }
+
+  const matrix<double>& currTau2(int band, int lm) { return *(tau_table + band * IOPData<SD,HDS>::hds.lmNumDFT() + lm); }
+  const matrix<double>& currRho2(int band, int lm) { return *(rho_table + band * IOPData<SD,HDS>::hds.lmNumDFT() + lm); }
+
+
 
   const RadDirecDirecImp<SD>& Bplus() const {
     if (!Bplus_func) { jlog::es << "IOPSet::Bplus() called but vsf or attenuation not defined\n"; internalError(); }

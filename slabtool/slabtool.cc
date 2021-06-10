@@ -10,14 +10,14 @@
 #include "base/jtexttable.h"
 #include "base/jdatastream.h"
 #include "config.h"
-
+#include <omp.h>
 
 
 
 // SlabTool::(constructor)
 
 SlabTool::SlabTool() : 
-  Tool(), 
+  Tool(),
   master_bs(0),
   band_count(0),
   master_ds_spec(0),
@@ -319,7 +319,7 @@ bool SlabTool::buildSlab(const JParser& prm) {
     // check if want to build a slab from an inhomogenous column
   if (prm.isDefinedAndTrueBool("inhomogenous_column")) {
   
-    // PlaneSlab<SBandData, IOPProfile<SBandData, HemiSpherePartVxH>, HemiSpherePartVxH>* ps = 
+    // PlaneSlab<SBandData, IOPProfile<SBandData, HemiSpherePartVxH>, HemiSpherePartVxH>* ps =
     //    new PlaneSlab<SpectralData, IOPProfile<SBandData,  HemiSpherePartVxH>, HemiSpherePartVxH>(*hds, master_bs->bandCount());
     
     // ps->iopData().loadFromParameters(prm);
@@ -764,6 +764,7 @@ bool SlabTool::integrateSolutionDFT(const JParser& prm) {
   
     // dft representation of transmission through surface from air to water
   RadDirecDirecDFT<SBandData, HemiSpherePartVxH> taw_dft(water_surface.transZp(), &dft_pct1, &dft_cancel);
+
   if (dft_cancel) { slab_int_ptr=0; return false; }
   taw_dft.buildWholeMatrices(mR11, mR12, mR21, mR22);
 
@@ -772,11 +773,14 @@ bool SlabTool::integrateSolutionDFT(const JParser& prm) {
   sky_dft.buildWholeMatrices(m1, m2);
 
     // multiply sky L by transmission through surface
+#pragma omp parallel
+  {
+#pragma omp for
   for (int band=0; band<band_count; band++) {
     p1[band] = prod(m1[band], mR11[0]) + prod(m2[band], mR21[0]);
     p2[band] = prod(m1[band], mR12[0]) + prod(m2[band], mR22[0]);
   }
-   
+  }
     // display intial Ed_w below the surface from transission of the sky only 
   if (jlog::ls.vbLevel(3)) {
     Ld_dft.copyWholeMatrices(p1, p2);
@@ -788,7 +792,7 @@ bool SlabTool::integrateSolutionDFT(const JParser& prm) {
     // dft representation of reflection of underside of water surface
   if (jlog::ls.vbLevel(3)) jlog::ls << "Building dft representation of reflection of underside of water surface...(SLOW)\n";
  
-  RadDirecDirecDFT<SBandData, HemiSpherePartVxH> runder_dft(water_surface.reflecZmZp(), &dft_pct2, &dft_cancel); 
+  RadDirecDirecDFT<SBandData, HemiSpherePartVxH> runder_dft(water_surface.reflecZmZp(), &dft_pct2, &dft_cancel);
   if (dft_cancel) { slab_int_ptr=0; return false; }
   runder_dft.buildWholeMatrices(mR11, mR12, mR21, mR22);
 
@@ -798,6 +802,7 @@ bool SlabTool::integrateSolutionDFT(const JParser& prm) {
   inversions_todo = slab_int.samplePointCount() * band_count;
 
     // for each sample point in the slab including the top and bottom boundaries
+
   for (int i=0; i<slab_int.samplePointCount(); i++) {
     
       // get transmission from water surface to this point
@@ -810,8 +815,14 @@ bool SlabTool::integrateSolutionDFT(const JParser& prm) {
     
       // calculate multiple reflections between water column and surface underside
       // this is equivalent to equation 8.98 in L&W pg. 422
-    for (int band=0; band<band_count; band++) {
- 
+
+
+  volatile bool flag=false;
+#pragma omp parallel
+    {
+#pragma omp for
+    for (int band=0; (band<band_count); band++) {
+      if(flag) continue; // Quick flag check to see if we've broken the loop
         // info - shwo sample points at default verbosity
       if (jlog::ls.vbLevel(2)) jlog::ls.printf("Point %d (%s m) band %d\n", i, JString::number(slab_int.samplePointDistanceFromA(i)).latin1(), band);
       
@@ -827,19 +838,19 @@ bool SlabTool::integrateSolutionDFT(const JParser& prm) {
       n1[band] = id_mat - n1[band];
       n2[band] = id_mat - n2[band];
         // do invertion
-      if (!invert(n1[band], q1[band])) { 
+      if (!invert(n1[band], q1[band])) {
 	jlog::es << "Singular Matrix n1\n";
 	//jlog::es << "R1\n " << mR1[band]; 
 	//jlog::es << "R2\n " << mR2[band]; 
 	slab_int_ptr=0; 
-	return false; 
+	flag=true;
       }
-      if (!invert(n2[band], q2[band])) { 
+      if (!invert(n2[band], q2[band])) {
 	jlog::es << "Singular Matrix n2\n";
 	//jlog::es << "R1\n " << mR1[band]; 
 	//jlog::es << "R2\n " << mR2[band]; 
 	slab_int_ptr=0; 
-	return false; 
+	flag=true;
       }
     
       if (i==0) {
@@ -859,12 +870,16 @@ bool SlabTool::integrateSolutionDFT(const JParser& prm) {
 	u1[band] = prod(rn1[band], mR1[band]);
 	u2[band] = prod(rn2[band], mR2[band]);
       }
-
+      #pragma omp atomic
       inversions_done++;
       //jlog::ls << "imversions " << inversions_done << " todo " << inversions_todo << "\n";
 
-      if (processingCanceled()) { slab_int_ptr=0; return false; }
+
+      if (processingCanceled()) { slab_int_ptr=0;
+          flag=true; }
     }
+    }
+    if(flag) {return false;}
 
       // get downwelling radiance at this point
     if (i==0) Ld_dft.copyWholeMatrices(p1, p2);
@@ -1052,11 +1067,11 @@ bool SlabTool::integrateSolutionDFT(const JParser& prm) {
 // the redundacy should be removed but really rates of change should come directly from the integration
 // so no point to fix this now
 
-bool SlabTool::calcLuAndLd(int dp, SlabInt& slab_int, 
+bool SlabTool::calcLuAndLd(int dp, SlabInt& slab_int,
 			   mat* mR11, mat* mR12, mat* mR21, mat* mR22,
 			   const mat* p1, const mat* p2,
-			   RadDirecTable<SBandData, HemiSpherePartVxH>* Lu, 
-			   RadDirecTable<SBandData, HemiSpherePartVxH>* Ld, 
+			   RadDirecTable<SBandData, HemiSpherePartVxH>* Lu,
+			   RadDirecTable<SBandData, HemiSpherePartVxH>* Ld,
 			   const HemiSpherePartVxH& ds) {
 
     // for holding reflectances
@@ -1100,34 +1115,41 @@ bool SlabTool::calcLuAndLd(int dp, SlabInt& slab_int,
   
     // calculate multiple reflections between water column and surface underside
     // this is equivalent to equation 8.98 in L&W pg. 422
-  for (int band=0; band<band_count; band++) {
+  bool singular=false;
+  #pragma omp parallel
+  {
+  #pragma omp for
+    for (int band=0; band<band_count; band++) {
 
-    if (jlog::ls.vbLevel(5)) jlog::ls.printf("Delta sample point %d (%f m) band %d\n", slab_int.sampleDeltaPointDistanceFromA(dp), dp, band);
+        if (jlog::ls.vbLevel(5)) jlog::ls.printf("Delta sample point %d (%f m) band %d\n", slab_int.sampleDeltaPointDistanceFromA(dp), dp, band);
 
-    noalias(n1[band]) = prod(mR1[band], mR[band]);
-    noalias(n2[band]) = prod(mR2[band], mR[band]);
-  
-      // then subtract from identity matrix and invert
-    n1[band] = id_mat - n1[band];
-    n2[band] = id_mat - n2[band];
-      // do invertion
-    if (!invert(n1[band], q1[band])) { jlog::ls << "Singular Matrix"; return false; }
-    if (!invert(n2[band], q2[band])) { jlog::ls << "Singular Matrix"; return false; }
-      // transmit light from under water surface to this point
-    rn1[band] = prod(p1[band], mT[band]);
-    rn2[band] = prod(p2[band], mT[band]);
-    rn1[band] = prod(rn1[band], q1[band]);
-    rn2[band] = prod(rn2[band], q2[band]);
-    u1[band] = prod(rn1[band], mR1[band]);
-    u2[band] = prod(rn2[band], mR2[band]);
+        noalias(n1[band]) = prod(mR1[band], mR[band]);
+        noalias(n2[band]) = prod(mR2[band], mR[band]);
 
-    //depth_points_done++;
+        // then subtract from identity matrix and invert
+        n1[band] = id_mat - n1[band];
+        n2[band] = id_mat - n2[band];
+        // do invertion
+        if (!invert(n1[band], q1[band])) { jlog::ls << "Singular Matrix"; singular=true; }
+        if (!invert(n2[band], q2[band])) { jlog::ls << "Singular Matrix"; singular=true; }
+        // transmit light from under water surface to this point
+        rn1[band] = prod(p1[band], mT[band]);
+        rn2[band] = prod(p2[band], mT[band]);
+        rn1[band] = prod(rn1[band], q1[band]);
+        rn2[band] = prod(rn2[band], q2[band]);
+        u1[band] = prod(rn1[band], mR1[band]);
+        u2[band] = prod(rn2[band], mR2[band]);
+
+        //depth_points_done++;
+    }
   }
+  if(singular) return false;
+
       
   Ld_dft.copyWholeMatrices(rn1, rn2);
   Ld->copy(Ld_dft);
 
-  Lu_dft.copyWholeMatrices(u1, u2);  
+  Lu_dft.copyWholeMatrices(u1, u2);
   Lu->copy(Lu_dft);
 
   if (jlog::ls.vbLevel(5)) {
@@ -1194,7 +1216,7 @@ bool SlabTool::calcLuAndLd(int dp, SlabInt& slab_int,
     JString f(prm.getString("slab_load_reflectance"));
 
     JFile file(f.latin1());
-    if (!file.open(IO_ReadOnly)) internalError("File '%s' could not be read\n",f.latin1()); 
+    if (!file.open(IO_ReadOnly)) internalError("File '%s' could not be read\n",f.latin1());
 
     printf("Reading %s\n",f.latin1());
       
@@ -1234,7 +1256,7 @@ bool SlabTool::calcLuAndLd(int dp, SlabInt& slab_int,
 
       // bounce upwelling radiance back down off the surface underside
     L_temp1->makeZero();
-    Reflec::translateInToOut(*surf_r1, *L_temp2, *L_temp1); 
+    Reflec::translateInToOut(*surf_r1, *L_temp2, *L_temp1);
       // add onto total coming down from surface
     Spec::add(*Ld_w, *L_temp1);
 
@@ -1247,14 +1269,14 @@ bool SlabTool::calcLuAndLd(int dp, SlabInt& slab_int,
     // now can calculate Lu_a
   Lu_a->makeZero();
   Reflec::translateInToOut(*surf_t10, *Lu_w, *Lu_a);
-  Reflec::translateInToOut(*surf_r0, *Ld_a, *Lu_a); 
+  Reflec::translateInToOut(*surf_r0, *Ld_a, *Lu_a);
 
   displayPlaneIrradiance("Ed_a: ", *Ld_a);
   displayPlaneIrradiance("Eu_a: ", *Lu_a);
   displayPlaneIrradiance("Ed_w: ", *Ld_w);
   displayPlaneIrradiance("Eu_w: ", *Lu_w);
-  displayTopRadiance("Lu_w: ", *Lu_w); 
-  displayTopRadiance("Lu_a: ", *Lu_a); 
+  displayTopRadiance("Lu_w: ", *Lu_w);
+  displayTopRadiance("Lu_a: ", *Lu_a);
 
   if (prm.isDefined("rrs_output_file")) {
 
@@ -1268,7 +1290,7 @@ bool SlabTool::calcLuAndLd(int dp, SlabInt& slab_int,
     JString f(prm.getString("rrs_output_file").latin1());
 
     JFile file(f);
-    if (!file.open(IO_WriteOnly)) internalError("File '%s' could not be written\n",f.latin1()); 
+    if (!file.open(IO_WriteOnly)) internalError("File '%s' could not be written\n",f.latin1());
 
     printf("Writing %s\n",f.latin1());
       
@@ -1836,7 +1858,7 @@ void SlabTool::operationCalcSolutions(const JParser& prm) {
 	  for (int s4=0; s4<surf.rowCount(); s4++) {
 
 	      // load water surface
-	    water_surface.loadFromFiles(surf.getText(s4,0),surf.getText(s4,1),surf.getText(s4,2),surf.getText(s4,3)); 
+	    water_surface.loadFromFiles(surf.getText(s4,0),surf.getText(s4,1),surf.getText(s4,2),surf.getText(s4,3));
 
 	      // now calculate for the current inputs
 	    calcSolution();
@@ -1847,7 +1869,7 @@ void SlabTool::operationCalcSolutions(const JParser& prm) {
 	    JString sub_dirs("/" + sky_file.getText(s5,1));
 	    sub_dirs += "/" + surf.getText(s4,4);
 	    sub_dirs += "/" + input_slab_file.getText(s1,1);
-	    sub_dirs += "/" + input_slab_file_appendix.getText(s2,1); 
+	    sub_dirs += "/" + input_slab_file_appendix.getText(s2,1);
 
 	      // substrate type which gets appended on to file name prefix
 	    JString subs_name = subs_diffuse_r0.getText(s3,1);
@@ -1898,7 +1920,7 @@ void SlabTool::operationCalcSolutions(const JParser& prm) {
 	      mkdir(path.latin1(),0750);
 	      path += "/" + input_slab_file.getText(s1,1);
 	      mkdir(path.latin1(),0750);
-	      path += "/" + input_slab_file_appendix.getText(s2,1); 
+	      path += "/" + input_slab_file_appendix.getText(s2,1);
 	      mkdir(path.latin1(),0750);
  
 	      path += "/rrs_" + subs_diffuse_r0.getText(s3,1);
@@ -1918,13 +1940,13 @@ void SlabTool::operationCalcSolutions(const JParser& prm) {
 		mkdir(lp.latin1(),0750);
 		lp += "/" + input_slab_file.getText(s1,1);
 		mkdir(lp.latin1(),0750);
-		lp += "/" + input_slab_file_appendix.getText(s2,1); 
+		lp += "/" + input_slab_file_appendix.getText(s2,1);
 		mkdir(lp.latin1(),0750);
 		lp += "/";
 		lp += prm.getString("list_file");
 
 		JFile file(lp);
-		if (!file.open(IO_AppendOnly)) internalError("File '%s' could not be written\n",lp.latin1()); 
+		if (!file.open(IO_AppendOnly)) internalError("File '%s' could not be written\n",lp.latin1());
 
 		JTextStream str(&file);   
 		str << path << "\n";
@@ -2012,7 +2034,7 @@ void SlabTool::loadSubsDiffuseR0(const SBandData& sd) {
 //  SlabTool::loadWaterSurface()
 
 void SlabTool::loadWaterSurface(const JString& fp_r0, const JString& fp_r1, const JString& fp_t01, const JString& fp_t10) {
-  water_surface.loadFromFiles(fp_r0, fp_r1, fp_t01, fp_t10); 
+  water_surface.loadFromFiles(fp_r0, fp_r1, fp_t01, fp_t10);
 }
 
 
@@ -2132,7 +2154,7 @@ void SlabTool::buildMixedSubstrate(Substrate& s, const TextTable& tt0, const Tex
 // SlabTool::saveRadiance()
 /*
 
-bool SlabTool::saveRadiance(const Parser& prm, const JString& prefix, const JString& sub_dirs, 
+bool SlabTool::saveRadiance(const Parser& prm, const JString& prefix, const JString& sub_dirs,
 			    const JString& filename, const SpecImp<SpectralData>& Ldata, bool mult_sact) {
 
   if (!prm.isDefined(prefix+"_output_dir")) return true;
@@ -2184,7 +2206,7 @@ bool SlabTool::saveRadiance(const Parser& prm, const JString& prefix, const JStr
   //double phi_deg = prm.isDefined(prefix+"_output_phi_deg") ? prm.getDouble(prefix+"_output_phi_deg") : 0;
   //int theta_points = prm.isDefined(prefix+"_output_theta_points") ? prm.getInt(prefix+"_output_theta_points") : 20;
 
-  printf("Saving: %s\n",path.latin1()); 
+  printf("Saving: %s\n",path.latin1());
 
   JFile f(path);
   if (!f.open(IO_WriteOnly)) return false;
@@ -2227,7 +2249,7 @@ bool SlabTool::saveRadiance(const Parser& prm, const JString& prefix, const JStr
   path += "_" + input_slab_file_appendix.getText(s2,1);
 
   JFile file(path);
-  if (!file.open(IO_AppendOnly)) internalError("File '%s' could not be written\n",path.latin1()); 
+  if (!file.open(IO_AppendOnly)) internalError("File '%s' could not be written\n",path.latin1());
   
   JTextStream str(&file);   
   str << fb << "\n";
@@ -2253,7 +2275,7 @@ bool SlabTool::readInputList(const JString& prm_file, const JParser& prm, JTextT
 
 // SlabTool::writeSlabFile()
 
-bool SlabTool::writeSlabFile(const JString& f, 
+bool SlabTool::writeSlabFile(const JString& f,
 			     const RDD_MatrixDFT& mRA, const RDD_MatrixDFT& mTA,
 			     const RDD_MatrixDFT& mRB, const RDD_MatrixDFT& mTB) {
 
@@ -2282,7 +2304,7 @@ bool SlabTool::writeSlabFile(const JString& f,
 
 // SlabTool::writeSlabFile()
 
-bool SlabTool::writeSlabFile(const JString& f, 
+bool SlabTool::writeSlabFile(const JString& f,
 			     const RDD_MatrixDFT& mRA, const RDD_MatrixDFT& mTA) {
 
   JFile file(f.latin1());
@@ -2308,7 +2330,7 @@ bool SlabTool::writeSlabFile(const JString& f,
 
 // SlabTool::readSlabFile()
 
-bool SlabTool::readSlabFile(const JString& f, 
+bool SlabTool::readSlabFile(const JString& f,
 			    RDD_MatrixDFT& mRA, RDD_MatrixDFT& mTA,
 			    RDD_MatrixDFT& mRB, RDD_MatrixDFT& mTB) {
  
@@ -2342,7 +2364,7 @@ bool SlabTool::readSlabFile(const JString& f,
 
 // SlabTool::appendSlabFile()
 
-bool SlabTool::appendSlabFile(const JString& f, 
+bool SlabTool::appendSlabFile(const JString& f,
 			      RDD_MatrixDFT& mRA, RDD_MatrixDFT& mTA,
 			      RDD_MatrixDFT& mRB, RDD_MatrixDFT& mTB) {
  
@@ -2387,8 +2409,8 @@ bool SlabTool::appendSlabFile(const JString& f,
 // this modifies slab1 mT1_f (forward transmission) and mR1_f (forward-looking reflectance) as 
 // if appending slab2 on the far side
 
-void SlabTool::combineSlabs(RDD_MatrixDFT& mT1_f, RDD_MatrixDFT& mR1_f, 
-			    const RDD_MatrixDFT& mT1_b, const RDD_MatrixDFT& mR1_b, 
+void SlabTool::combineSlabs(RDD_MatrixDFT& mT1_f, RDD_MatrixDFT& mR1_f,
+			    const RDD_MatrixDFT& mT1_b, const RDD_MatrixDFT& mR1_b,
 			    const RDD_MatrixDFT& mT2_f, const RDD_MatrixDFT& mR2_f) {
 
     // now need to consider path back transmitted and bounced back from second slab

@@ -11,6 +11,8 @@
 #include "rad/iopset.h"
 #include "rad/slab.h"
 
+#include <omp.h>
+#include <iostream>
 using namespace jude::base;
 using namespace jude::math;
 using namespace jude::S3;
@@ -42,10 +44,10 @@ public:
   virtual double physicalThickness() const = 0;
   virtual double slabIsHomogeneous() const = 0;
 
-  virtual void setRegularSamplePoints(double dist) = 0; 
-  virtual void setRegularSamplePoints(double dist, double delta_dist) = 0; 
-  virtual void setSamplePoints(const std::vector<double>& dist_list) = 0; 
-  virtual void setSamplePoints(const std::vector<double>& dist_list, double delta_dist) = 0; 
+  virtual void setRegularSamplePoints(double dist) = 0;
+  virtual void setRegularSamplePoints(double dist, double delta_dist) = 0;
+  virtual void setSamplePoints(const std::vector<double>& dist_list) = 0;
+  virtual void setSamplePoints(const std::vector<double>& dist_list, double delta_dist) = 0;
   virtual int samplePointCount() = 0;
   virtual double samplePointDistanceFromA(int i) = 0;
 
@@ -58,7 +60,7 @@ public:
   virtual void setRunga4AdapMaxStepsPerOpticalDepth(int s) = 0;
   virtual void setRunga4AdapMinError(double e) = 0;
   virtual void setRunga4AdapMaxError(double e) = 0;
- 
+
   virtual void buildWholeMatricesRA(matrix<double>* m, int dp, bool dp_is_sp=true) = 0;
   virtual void buildWholeMatricesTA(matrix<double>* m, int dp, bool dp_is_sp=true) = 0;
   virtual void buildWholeMatricesRB(matrix<double>* m, int dp, bool dp_is_sp=true) = 0;
@@ -71,7 +73,7 @@ public:
 
   virtual bool buildSlab(Slab& slab, int dp) = 0;
   virtual bool buildSlab(Slab& slab) = 0;
- 
+
   virtual void calcSolution() = 0;
 
   virtual double pctSolutionComplete() const = 0;
@@ -82,7 +84,7 @@ public:
 
 // SlabIntegrator
 
-template <typename SD, typename IOPS, typename HDS> 
+template <typename SD, typename IOPS, typename HDS>
 class SlabIntegrator : public SlabIntegrator_Base {
 
   typedef double mat_type;
@@ -92,7 +94,7 @@ class SlabIntegrator : public SlabIntegrator_Base {
 
   int band_count;
 
-  // IOPS provides either homogenous or profiled a, b, c, vsf 
+  // IOPS provides either homogenous or profiled a, b, c, vsf
   // functions it should provide:
   // physicalThickness()
   // setCurrentBand(int band)
@@ -134,7 +136,7 @@ class SlabIntegrator : public SlabIntegrator_Base {
   bool calc_TA;   // true if need to integrate transmission from boundary A in direction towards B
   bool calc_TB;   // true if need to integrate transmission from boundary B in direction towards A
 
-    // reflection looking towards boundary A integrated from A moving towards B 
+    // reflection looking towards boundary A integrated from A moving towards B
     // (null = dont calculate)
   mat* RA1_table;
   mat* RA2_table;
@@ -144,7 +146,7 @@ class SlabIntegrator : public SlabIntegrator_Base {
   mat* RB1_table;
   mat* RB2_table;
 
-    // transmission from boundary A integrated from A moving towards B 
+    // transmission from boundary A integrated from A moving towards B
     // (null = dont calculate)
   mat* TA1_table;
   mat* TA2_table;
@@ -154,7 +156,7 @@ class SlabIntegrator : public SlabIntegrator_Base {
   mat* TB1_table;
   mat* TB2_table;
 
-    // delta reflection looking towards boundary A integrated from A moving towards B 
+    // delta reflection looking towards boundary A integrated from A moving towards B
     // (null = dont calculate)
   mat* dRA1_table;
   mat* dRA2_table;
@@ -164,7 +166,7 @@ class SlabIntegrator : public SlabIntegrator_Base {
   mat* dRB1_table;
   mat* dRB2_table;
 
-    // delta transmission from boundary A integrated from A moving towards B 
+    // delta transmission from boundary A integrated from A moving towards B
     // (null = dont calculate)
   mat* dTA1_table;
   mat* dTA2_table;
@@ -181,7 +183,7 @@ class SlabIntegrator : public SlabIntegrator_Base {
     // internal reflection of boundary B (or null to ignore)
   mat* reflecB1_table;
   mat* reflecB2_table;
-  
+
     // this is used in processing
   struct SI_Process {
     mat* curr_R1;
@@ -203,22 +205,22 @@ class SlabIntegrator : public SlabIntegrator_Base {
   void deleteTables();
 
   double kdelta(int i) { return (i==0) ? 1 : 0; }
- 
+
   void buildTauAndRho();
 
   cmat eval_dR(cmat& R, cmat& tau, cmat& rho) const { return prod(R, (tau + prod(rho, R))) + rho + prod(tau, R); }
   cmat eval_dT(cmat& R, cmat& T, cmat& tau, cmat& rho) const { return prod(T, (tau + prod(rho, R))); }
 
   void integrate(SI_Process& ps, bool a_to_b);
-  void integrate_Euler(mat& R, mat* T, double optical_depth_start, double optical_depth_end);
-  void integrate_Midpoint(mat& R, mat* T, double optical_depth_start, double optical_depth_end);
-  void integrate_Runga4(mat& R, mat* T, double optical_depth_start, double optical_depth_end);
-  void integrate_Runga4Adap(mat& R, mat* T, double optical_depth_start, double optical_depth_end);
+  void integrate_Euler(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm);
+  void integrate_Midpoint(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm);
+  void integrate_Runga4(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm);
+  void integrate_Runga4Adap(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm);
 
   void buildWholeMatrices(matrix<double>* m, const mat* curr, int dp, bool a_to_b, const char* mn, bool dp_is_sp=true);
   void buildMatrixArray(RDD_MatrixDFT& rm, const mat* curr, int dp, bool a_to_b, const char* mn, bool dp_is_sp=true);
   void buildMatrixArray12(RDD_MatrixDFT& rm, const mat* curr1, const mat* curr2, int dp, bool a_to_b, const char* mn1, const char* mn2, bool dp_is_sp=true);
- 
+
 public:
 
   SlabIntegrator(const HDS& hds, const BandSpec& bs);
@@ -243,7 +245,7 @@ public:
   double slabIsHomogeneous() const { return iops.isHomogeneous(); }
 
     /*! \brief Loads a directional reflectance function for the internal reflectance at boundary A. Must be rotationally invariant. */
-  void loadInternalReflectanceA(const RadDirecDirecImp<SD>& ri) { 
+  void loadInternalReflectanceA(const RadDirecDirecImp<SD>& ri) {
     subs_A.copy(ri);
     reflecA1_table = new mat[band_count * iops.halfDirecStruct().lmNumDFT()];
     reflecA2_table = new mat[band_count * iops.halfDirecStruct().lmNumDFT()];
@@ -251,7 +253,7 @@ public:
   }
 
     /*! \brief Loads a directional reflectance function for the internal reflectance at boundary B. Must be rotationally invariant. */
-  void loadInternalReflectanceB(const RadDirecDirecImp<SD>& ri) { 
+  void loadInternalReflectanceB(const RadDirecDirecImp<SD>& ri) {
     subs_B.copy(ri);
     reflecB1_table = new mat[band_count * iops.halfDirecStruct().lmNumDFT()];
     reflecB2_table = new mat[band_count * iops.halfDirecStruct().lmNumDFT()];
@@ -261,7 +263,7 @@ public:
     /*! \brief Sets regular sample points from boundary A seperated by physical distance \a dist.
       A final point is always placed at boundary B, so the last section may be shorter than \a dist. */
   void setRegularSamplePoints(double dist) {
-    ab_delta_dist_points = false; 
+    ab_delta_dist_points = false;
     ab_delta_distance = 0;
     delete[] ab_point;
     sample_point_count = (int) ceil(iops.physicalThickness() / dist) + 1;
@@ -274,7 +276,7 @@ public:
 
    /*! \brief Set regular sample points from boundary A at physical distance \a dist with additional points either side at distance half \a delta_dist.
      A final point is always placed at boundary B, so the last section may be shorter than \a dist. */
-  void setRegularSamplePoints(double dist, double delta_dist) { 
+  void setRegularSamplePoints(double dist, double delta_dist) {
     ab_delta_dist_points = true;
     ab_delta_distance = delta_dist;
     delta_dist /= 2;
@@ -336,7 +338,7 @@ public:
   }
 
     // note this includes the first and last points at boundaries A and B
-  int samplePointCount() { return sample_point_count; } 
+  int samplePointCount() { return sample_point_count; }
   double samplePointDistanceFromA(int i) { return ab_delta_dist_points ? ab_point[3*i] : ab_point[i]; }
   double sampleDeltaPointDistanceFromA(int i) { return ab_point[i]; }
   double samplePointDeltaDistance() const { return ab_delta_distance; }
@@ -352,7 +354,7 @@ public:
   void setRunga4AdapMinError(double e) { runga4adap_min_error = e; }
   void setRunga4AdapMaxError(double e) { runga4adap_max_error = e; }
 
-  // return matrix for sample point (dp) 
+  // return matrix for sample point (dp)
   // (dp == 0) is the boundary A
   // (dp == ab_point_count-1) is the boundary B
 
@@ -371,7 +373,7 @@ public:
     // two reflectance matrices used when internal boundary B reflectance is defined
   void buildWholeMatricesRB1(matrix<double>* m, int dp, bool dp_is_sp=true) { buildWholeMatrices(m, RB1_table, dp, true, "RB1", dp_is_sp); }
   void buildWholeMatricesRB2(matrix<double>* m, int dp, bool dp_is_sp=true) { buildWholeMatrices(m, RB2_table, dp, true, "RB2", dp_is_sp); }
- 
+
   // convienience functions for total slab reflection and transmission inside the slab
 
     // reflection at boundary B looking towards boundary A
@@ -427,12 +429,12 @@ public:
   void buildMatrixArrayTB_A(RDD_MatrixDFT& rm) { buildMatrixArray(rm, TB1_table, ab_point_count-1, false, "TB"); }
     // two reflectance matrices used when internal boundary B reflectance is defined
   void buildMatrixArrayRB12_A(RDD_MatrixDFT& rm) { buildMatrixArray12(rm, RB1_table, RB2_table, ab_point_count-1, false, "RB1", "RB2"); }
-  
+
   bool buildSlab(Slab& slab, int dp);
- 
+
   bool buildSlab(Slab& slab) { return buildSlab(slab, ab_point_count-1); }
 
-    /*! \brief Perform the integration as current set up. */ 
+    /*! \brief Perform the integration as current set up. */
   void calcSolution();
 
     /*! \brief Returns the current percentage completion of the solution. */
@@ -499,8 +501,8 @@ template <typename SD, typename IOPS, typename HDS>
 void SlabIntegrator<SD,IOPS,HDS>::allocateTables() {
 
     // sanity checks
-  if (!calc_RA && reflecA1_table) { jlog::ls << "SlabIntegrator boundary A reflectance set but calcRA not defined\n"; internalError(); } 
-  if (!calc_RB && reflecB1_table) { jlog::ls << "SlabIntegrator boundary B reflectance set but calcRB not defined\n"; internalError(); } 
+  if (!calc_RA && reflecA1_table) { jlog::ls << "SlabIntegrator boundary A reflectance set but calcRA not defined\n"; internalError(); }
+  if (!calc_RB && reflecB1_table) { jlog::ls << "SlabIntegrator boundary B reflectance set but calcRB not defined\n"; internalError(); }
 
   int table_size = band_count * iops.halfDirecStruct().lmNumDFT() * ab_point_count;
 
@@ -551,42 +553,52 @@ void SlabIntegrator<SD,IOPS,HDS>::deleteTables() {
 
 
 // SlabIntegrator::buildWholeMatrices()
-// generic routine to return one of the spectral standard reflectance or 
+// generic routine to return one of the spectral standard reflectance or
 // transmittance matrices as at the table of matrices at (*curr)
 // (m) is an array of matrices one for each band
 // each matrix contains the l-mode matrices diagonally (L&W pg. 419)
 
-template <typename SD, typename IOPS, typename HDS> 
+template <typename SD, typename IOPS, typename HDS>
 void SlabIntegrator<SD,IOPS,HDS>::buildWholeMatrices(matrix<double>* m, const mat* curr, int dp, bool a_to_b, const char* mn, bool dp_is_sp) {
 
   if (!m) { jlog::es << "SlabIntegrator matrix " << mn << " requested but not calculated"; internalError(); }
-  
+
     // the actual stored point for this sample point
   int ab_point_for_dp = (ab_delta_dist_points && dp_is_sp) ? dp*3 : dp;
 
     // offset to this depth point
-    // sample points are numbered from 0 at boundary A but ordered in reverse in the table for A to B 
+    // sample points are numbered from 0 at boundary A but ordered in reverse in the table for A to B
   if (a_to_b) curr += (ab_point_count - ab_point_for_dp - 1);
   else curr += ab_point_for_dp;
 
   const HDS& hds(iops.halfDirecStruct());
+// set up the m matrix
+#pragma omp parallel
+  {
+#pragma omp for
+      for(int band=0; band<band_count; band++){
+        m[band] = zero_matrix<mat_type>(hds.rowsDFT()*hds.lmNumDFT(), hds.rowsDFT()*hds.lmNumDFT());
+      }
+  }
 
+
+#pragma omp parallel
+  {
+#pragma omp for collapse(2)
   for (int band=0; band<band_count; band++) {
 
     // this didn't zero the other elements
     //m[band].resize(ds.rowsDFT()*ds.lmNumDFT(), ds.rowsDFT()*ds.lmNumDFT());
 
-      // resize and zero all the matrix elements 
-    m[band] = zero_matrix<mat_type>(hds.rowsDFT()*hds.lmNumDFT(), hds.rowsDFT()*hds.lmNumDFT());
-
+      // resize and zero all the matrix elements
     for (int lm=0; lm<hds.lmNumDFT(); lm++) {
 
       int offset = lm*hds.rowsDFT();
-      
-      for (int i=0; i<hds.rowsDFT(); i++) for (int j=0; j<hds.rowsDFT(); j++) m[band](offset+i, offset+j) = (*curr)(i,j);
 
-      curr += ab_point_count;
+      for (int i=0; i<hds.rowsDFT(); i++) for (int j=0; j<hds.rowsDFT(); j++) m[band](offset+i, offset+j) = curr[ab_point_count*lm+band*hds.lmNumDFT()*ab_point_count](i,j);
+
     }
+  }
   }
 }
 
@@ -594,7 +606,7 @@ void SlabIntegrator<SD,IOPS,HDS>::buildWholeMatrices(matrix<double>* m, const ma
 
 // SlabIntegrator::buildMatrixArray() [private]
 
-template <typename SD, typename IOPS, typename HDS> 
+template <typename SD, typename IOPS, typename HDS>
 void SlabIntegrator<SD,IOPS,HDS>::buildMatrixArray(RDD_MatrixDFT& rm, const mat* curr, int dp, bool a_to_b, const char* mn, bool dp_is_sp) {
   const HDS& hds(iops.halfDirecStruct());
     // allocate a single matrix in the structure
@@ -608,7 +620,7 @@ void SlabIntegrator<SD,IOPS,HDS>::buildMatrixArray(RDD_MatrixDFT& rm, const mat*
 // SlabIntegrator::buildMatrixArray12() [private]
 
 template <typename SD, typename IOPS, typename HDS>
-void SlabIntegrator<SD,IOPS,HDS>::buildMatrixArray12(RDD_MatrixDFT& rm, const mat* curr1, const mat* curr2, 
+void SlabIntegrator<SD,IOPS,HDS>::buildMatrixArray12(RDD_MatrixDFT& rm, const mat* curr1, const mat* curr2,
 					  int dp, bool a_to_b, const char* mn1, const char* mn2, bool dp_is_sp) {
   const HDS& hds(iops.halfDirecStruct());
     // allocate the w11 and w22 matrices
@@ -630,7 +642,7 @@ bool SlabIntegrator<SD,IOPS,HDS>::buildSlab(Slab& slab, int dp) {
     // copy one side
   buildMatrixArrayRA(slab.mRdown, dp);  // reflection looking upward from (dp) (B) toward boundary A
   buildMatrixArrayTA(slab.mTdown, dp);  // dowward transmission from (A) to point (dp)
-  
+
     // if iops are homogenous other side is the same
   if (iops.isHomogeneous()) {
     buildMatrixArrayRA(slab.mRup, dp);  // reflection looking downward from (A) toward boundary (dp) (B)
@@ -649,7 +661,7 @@ bool SlabIntegrator<SD,IOPS,HDS>::buildSlab(Slab& slab, int dp) {
 
 // SlabIntegrator::calcSolution()
 
-template <typename SD, typename IOPS, typename HDS> 
+template <typename SD, typename IOPS, typename HDS>
 void SlabIntegrator<SD,IOPS,HDS>::calcSolution() {
 
   allocateTables();
@@ -663,10 +675,9 @@ void SlabIntegrator<SD,IOPS,HDS>::calcSolution() {
   if (RB1_table) soln_bands_todo += band_count;
   soln_bands_done = 0;
 
-  if (jlog::ls.vbLevel(3)) jlog::ls << "Integrate... " << ((RA1_table) ? "RA1 " : "") << ((RB1_table) ? "RB1" : "") << "\n"; 
+  if (jlog::ls.vbLevel(3)) jlog::ls << "Integrate... " << ((RA1_table) ? "RA1 " : "") << ((RB1_table) ? "RB1" : "") << "\n";
 
   //pct_weight = (RA1_table && RB1_table) ? 0.5 : 1;
-
   if (RA1_table) {
 
     if (jlog::ls.vbLevel(3)) jlog::ls << "Boundary A to B\n";
@@ -697,7 +708,7 @@ void SlabIntegrator<SD,IOPS,HDS>::calcSolution() {
     psB.curr_R1 = RB1_table;
     psB.curr_R2 = RB2_table;
     psB.curr_T1 = TB1_table;
-    psB.curr_T2 = TB2_table; 
+    psB.curr_T2 = TB2_table;
       // these will store rate of change at sample points
     psB.curr_dR1 = dRB1_table;
     psB.curr_dR2 = dRB2_table;
@@ -712,105 +723,120 @@ void SlabIntegrator<SD,IOPS,HDS>::calcSolution() {
 
 // SlabIntegrator::integrate()
 
-template <typename SD, typename IOPS, typename HDS> 
+template <typename SD, typename IOPS, typename HDS>
 void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
 
-  //printf("%p %p %p %p\n", ps.curr_R1, ps.curr_R2, ps.curr_T1, ps.curr_reflec1); 
+  //printf("%p %p %p %p\n", ps.curr_R1, ps.curr_R2, ps.curr_T1, ps.curr_reflec1);
 
-    // loop through all bands
+
+ // band 0 stuff
+  // Check for what we're doing this band
+  bool curr_reflec_flag= false;
+  bool curr_R2_flag=false;
+  bool curr_T1_flag=false;
+  if(ps.curr_reflec1) curr_reflec_flag=true;
+  if(ps.curr_R2) curr_R2_flag=true;
+  if(ps.curr_T1) curr_T1_flag=true;
+
+  // syntactic sugar for looping
+  int lmTotal=iops.halfDirecStruct().lmNumDFT();
+  int rowsDFT=iops.halfDirecStruct().rowsDFT();
+  int abTotal=ab_point_count;
+
+  // Stuff to allow looping easier and cleaner
+  SD opticalThickness=iops.opticalThickness();
+  iops.setCurrentBand(0);
+  iops.setCurrentLMode(0);
+  // initial setup
+  // loop through all bands
+ #pragma omp parallel
+  {
+ #pragma omp for collapse(2) schedule(dynamic) firstprivate(iops) // loop over both bands and lm mods, as they should both be independent from each loop
   for (int band=0; band<band_count; band++) {
 
-    if (jlog::ls.vbLevel(3)) jlog::ls << "Band " << band << "\n";
+    // setup params for band
 
-    iops.setCurrentBand(band);
+    // loop through all l-modes
+    for (int lm=0; lm<lmTotal; lm++) {
 
-      // loop through all l-modes
-    for (int lm=0; lm<iops.halfDirecStruct().lmNumDFT(); lm++) {
 
-      iops.setCurrentLMode(lm);
+      int curLMiter=band*lmTotal*abTotal+lm*abTotal;
+      int curReflecIter=band*lmTotal+lm;
 
-        // initialise reflection, note that on calling this we assume ps.curr_R1 != 0
-        // and if ps.curr_reflec1 is defined then ps.curr_R2 is allocated 
-      if (ps.curr_reflec1) {
-	*ps.curr_R1 = *ps.curr_reflec1;
-	*ps.curr_R2 = *ps.curr_reflec2;
+
+        // initialise reflection, note that on calling this we assume ps.curr_R1 != 0++
+        // and if ps.curr_reflec1 is defined then ps.curr_R2 is allocated
+      if (curr_reflec_flag) {
+	ps.curr_R1[curLMiter] = ps.curr_reflec1[curReflecIter];
+	ps.curr_R2[curLMiter] = ps.curr_reflec2[curReflecIter];
       } else {
-	*ps.curr_R1 = zero_matrix<double>(iops.halfDirecStruct().rowsDFT());
+	ps.curr_R1[curLMiter] = zero_matrix<double>(rowsDFT);
 	//*ps.curr_R2 = zero_matrix<double>(ds.rowsDFT());
       }
 
         // initialise transmission
-      if (ps.curr_T1) *ps.curr_T1 = identity_matrix<double>(iops.halfDirecStruct().rowsDFT()); 
-    
+      if (curr_T1_flag) ps.curr_T1[curLMiter] = identity_matrix<double>(rowsDFT);
+
       double optical_depth_start;
 
         // start at boundary A
       if (a_to_b) optical_depth_start = 0;
         // start at boundary B
       //else optical_depth_start = atten[band] * iops.physicalThickness();
-      else optical_depth_start = iops.opticalThickness()[band];
+      else optical_depth_start = opticalThickness[band];
 
-        // for each optical depth point at which to sample up to boundary A
+      // for each optical depth point at which to sample up to boundary A
       for (int i=ab_point_count-2; i>=0; i--) {
+        // More syntactic sugar
+        int curr_iter=curLMiter+(ab_point_count-1-i);
 
-  	  // move on to next slot for R1 matrix output
-	ps.curr_R1++;
-	  // if using gpu then R1 is still stored on gpu else must copy to start on in new slot 
-	*ps.curr_R1 = *(ps.curr_R1 - 1);
- 
-          // move on to next slot for R2 matrix output, if calculating
-	if (ps.curr_R2) {
-	  ps.curr_R2++;
-	  *ps.curr_R2 = *(ps.curr_R2 - 1);
-	}
+        // move on to next slot for R1 matrix output
+        // if using gpu then R1 is still stored on gpu else must copy to start on in new slot ?????????iops
+        ps.curr_R1[curr_iter] = ps.curr_R1[curr_iter-1];
 
-          // move on to next slot for T1 matrix output, if calculating
-	if (ps.curr_T1) {
-	  ps.curr_T1++;
-	  *ps.curr_T1 = *(ps.curr_T1 - 1);
-	}
+        // move on to next slot for R2 matrix output, if calculating
+        if (curr_R2_flag) {ps.curr_R2[curr_iter] = ps.curr_R2[curr_iter-1];}
 
-	double optical_depth_end;
-	if (a_to_b) optical_depth_end = iops.physicalDistanceToOptical(ab_point[ab_point_count-1-i], band);
-	else optical_depth_end = iops.physicalDistanceToOptical(ab_point[i], band);
+        // move on to next slot for T1 matrix output, if calculating
+        if (curr_T1_flag) {ps.curr_T1[curr_iter] = ps.curr_T1[curr_iter-1];}
 
-	//printf("a2b %d %f %f %d %d\n",a_to_b,ab_point[ab_point_count-1-i],ab_point[i],ab_point_count,i);
-	//printf("optical start %f end %f ot %f\n",optical_depth_start, optical_depth_end, iops.opticalThickness()[band]);
-	
-	if (integ_method == MIDPOINT) {
-	  integrate_Midpoint(*ps.curr_R1, ps.curr_T1, optical_depth_start, optical_depth_end);
-	  if (ps.curr_R2) integrate_Midpoint(*ps.curr_R2, 0, optical_depth_start, optical_depth_end);
+        double optical_depth_end;
+        if (a_to_b) optical_depth_end = iops.physicalDistanceToOptical(ab_point[ab_point_count-1-i], band);
+        else optical_depth_end = iops.physicalDistanceToOptical(ab_point[i], band);
 
-	} else if (integ_method == RUNGA4) {
-	  integrate_Runga4(*ps.curr_R1, ps.curr_T1, optical_depth_start, optical_depth_end);
-	  if (ps.curr_R2) integrate_Runga4(*ps.curr_R2, 0, optical_depth_start, optical_depth_end);
+        if((i<4) or i>(ab_point_count-6)){
+ if (jlog::ls.vbLevel(3)) jlog::ls <<  "Curr_iter, mat" << curr_iter <<" " << *(ps.curr_T1+curr_iter) << " \n";
+        }
+        if (integ_method == MIDPOINT) {
+        if(curr_T1_flag) {integrate_Midpoint(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        else {integrate_Midpoint(ps.curr_R1[curr_iter],(ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        if (curr_R2_flag) integrate_Midpoint(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);
 
-	} else if (integ_method == RUNGA4ADAP) {
-	  integrate_Runga4Adap(*ps.curr_R1, ps.curr_T1, optical_depth_start, optical_depth_end);
-	  if (ps.curr_R2) integrate_Runga4Adap(*ps.curr_R2, 0, optical_depth_start, optical_depth_end);
+        } else if (integ_method == RUNGA4) {
+        if(curr_T1_flag) {integrate_Runga4(ps.curr_R1[curr_iter],(ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        else {integrate_Runga4(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        if (curr_R2_flag) integrate_Runga4(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);
 
-	} else {
-	  integrate_Euler(*ps.curr_R1, ps.curr_T1, optical_depth_start, optical_depth_end);
-	  if (ps.curr_R2) integrate_Euler(*ps.curr_R2, 0, optical_depth_start, optical_depth_end);
-	}
+        } else if (integ_method == RUNGA4ADAP) {
+        if(curr_T1_flag) {integrate_Runga4Adap(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        else {integrate_Runga4Adap(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        if (curr_R2_flag) integrate_Runga4Adap(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);
 
-	optical_depth_start = optical_depth_end;
+        } else {
+        if(curr_T1_flag) {integrate_Euler(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        else {integrate_Euler(ps.curr_R1[curr_iter], (ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
+        if (curr_R2_flag) integrate_Euler(ps.curr_R2[curr_iter], 0, optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);
+        }
 
-	//pct_done = 100 * pct_weight * (band + (lm + ((double)(ab_point_count-2-i)) / (ab_point_count-2)) / iops.halfDirecStruct().lmNumDFT()) / band_count;
+        optical_depth_start = optical_depth_end;
+        //pct_done = 100 * pct_weight * (band + (lm + ((double)(ab_point_count-2-i)) / (ab_point_count-2)) / iops.halfDirecStruct().lmNumDFT()) / band_count;
       }
-
-      ps.curr_R1++;
-      if (ps.curr_R2) ps.curr_R2++;
-      if (ps.curr_T1) ps.curr_T1++;
-      
-      if (ps.curr_reflec1) {
-	ps.curr_reflec1++;
-	ps.curr_reflec2++;
-      }
-
     }
-    soln_bands_done++;
   }
+ }
+
+ if (jlog::ls.vbLevel(3)) jlog::ls << band_count << " Bands Done! \n";
+ soln_bands_done+=band_count;
 }
 
 
@@ -818,8 +844,8 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
 // SlabIntegrator::integrate_Euler()
 // T may be null
 
-template <typename SD, typename IOPS, typename HDS> 
-void SlabIntegrator<SD,IOPS,HDS>::integrate_Euler(mat& R, mat* T, double optical_depth_start, double optical_depth_end) {
+template <typename SD, typename IOPS, typename HDS>
+void SlabIntegrator<SD,IOPS,HDS>::integrate_Euler(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm) {
 
     // the optical depth of the sub-slab
     // using fabs() means we can use the same Riccatti equations for up and down
@@ -838,18 +864,18 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Euler(mat& R, mat* T, double optical
 
     iops.setCurrOpticalPosition(curr_od);
 
-    if (T) (*T) += eval_dT(R, *T, iops.currTau(), iops.currRho()) * optical_depth_step;
-    R += eval_dR(R, iops.currTau(), iops.currRho()) * optical_depth_step;
+    if (T_flag) (*T) += eval_dT(R, *T, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    R += eval_dR(R, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
   }
 }
- 
+
 
 
 // SlabIntegrator::integrate_Midpoint()
 // T may be null
 
-template <typename SD, typename IOPS, typename HDS> 
-void SlabIntegrator<SD,IOPS,HDS>::integrate_Midpoint(mat& R, mat* T, double optical_depth_start, double optical_depth_end) {
+template <typename SD, typename IOPS, typename HDS>
+void SlabIntegrator<SD,IOPS,HDS>::integrate_Midpoint(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm) {
 
     // the optical depth of the sub-slab
     // using fabs() means we can use the same Riccatti equations for up and down
@@ -872,17 +898,17 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Midpoint(mat& R, mat* T, double opti
     // integrate this sub slab
   for (int i=0; i<steps; i++, curr_od+=optical_depth_step) {
 
-    iops.setCurrOpticalPosition(curr_od);
+    //iops.setCurrOpticalPosition(curr_od);
 
       // evaluate R and T at halfway point
-    R_mid = R + eval_dR(R, iops.currTau(), iops.currRho()) * half_optical_depth_step;
-    if (T) T_mid = (*T) + eval_dT(R, *T, iops.currTau(), iops.currRho()) * half_optical_depth_step;
+    R_mid = R + eval_dR(R, iops.currTau2(band, lm), iops.currRho2(band, lm)) * half_optical_depth_step;
+    if (T_flag) T_mid = (*T) + eval_dT(R, *T, iops.currTau2(band, lm), iops.currRho2(band, lm)) * half_optical_depth_step;
 
-    iops.setCurrOpticalPosition(curr_od + half_optical_depth_step);
+   // iops.setCurrOpticalPosition(curr_od + half_optical_depth_step);
 
-      // now update R and T based on slope at midpoint 
-    R += eval_dR(R_mid, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T) (*T) += eval_dT(R_mid, T_mid, iops.currTau(), iops.currRho()) * optical_depth_step;
+      // now update R and T based on slope at midpoint
+    R += eval_dR(R_mid, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) (*T) += eval_dT(R_mid, T_mid, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
   }
 }
 
@@ -891,8 +917,8 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Midpoint(mat& R, mat* T, double opti
 // SlabIntegrator::integrate_Runga4()
 // T may be null
 
-template <typename SD, typename IOPS, typename HDS> 
-void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4(mat& R, mat* T, double optical_depth_start, double optical_depth_end) {
+template <typename SD, typename IOPS, typename HDS>
+void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm) {
 
     // the optical depth of the sub-slab
     // using fabs() means we can use the same Riccatti equations for up and down
@@ -921,29 +947,29 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4(mat& R, mat* T, double optica
     // integrate this sub slab
   for (int i=0; i<steps; i++, curr_od+=optical_depth_step) {
 
-    iops.setCurrOpticalPosition(curr_od);
+   // iops.setCurrOpticalPosition(curr_od);
 
-    noalias(R_k1) = eval_dR(R, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T) noalias(T_k1) = eval_dT(R, *T, iops.currTau(), iops.currRho()) * optical_depth_step;
+    noalias(R_k1) = eval_dR(R, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) noalias(T_k1) = eval_dT(R, *T, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
 
-    iops.setCurrOpticalPosition(curr_od + optical_depth_step/2);
+  //  iops.setCurrOpticalPosition(curr_od + optical_depth_step/2);
 
       // mid point
-    noalias(R_k2) = eval_dR(R+R_k1/2, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T) noalias(T_k2) = eval_dT(R+R_k1/2, (*T)+T_k1/2, iops.currTau(), iops.currRho()) * optical_depth_step;
+    noalias(R_k2) = eval_dR(R+R_k1/2, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) noalias(T_k2) = eval_dT(R+R_k1/2, (*T)+T_k1/2, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
 
       // mid point also
-    noalias(R_k3) = eval_dR(R+R_k2/2, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T) noalias(T_k3) = eval_dT(R+R_k2/2, (*T)+T_k2/2, iops.currTau(), iops.currRho()) * optical_depth_step;
+    noalias(R_k3) = eval_dR(R+R_k2/2, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) noalias(T_k3) = eval_dT(R+R_k2/2, (*T)+T_k2/2, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
 
-    iops.setCurrOpticalPosition(curr_od + optical_depth_step);
+  //  iops.setCurrOpticalPosition(curr_od + optical_depth_step);
 
       // end point
-    noalias(R_k4) = eval_dR(R+R_k3, iops.currTau(), iops.currRho()) * optical_depth_step;
-    if (T) noalias(T_k4) = eval_dT(R+R_k3, (*T)+T_k3, iops.currTau(), iops.currRho()) * optical_depth_step;
+    noalias(R_k4) = eval_dR(R+R_k3, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
+    if (T_flag) noalias(T_k4) = eval_dT(R+R_k3, (*T)+T_k3, iops.currTau2(band, lm), iops.currRho2(band, lm)) * optical_depth_step;
 
     R += R_k1/6 + R_k2/3 + R_k3/3 + R_k4/6;
-    if (T) (*T) += T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
+    if (T_flag) (*T) += T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
   }
 }
 
@@ -952,8 +978,8 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4(mat& R, mat* T, double optica
 // SlabIntegrator::integrate_Runga4Adap()
 // T may be null
 
-template <typename SD, typename IOPS, typename HDS> 
-void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double optical_depth_start, double optical_depth_end) {
+template <typename SD, typename IOPS, typename HDS>
+void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double optical_depth_start, double optical_depth_end, bool T_flag, int band, int lm) {
 
     // the optical depth of the sub-slab
     // using fabs() means we can use the same Riccatti equations for up and down
@@ -962,7 +988,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double op
   int max_steps = (int) ceil(runga4adap_max_steps_per_optical_depth * optical_dist);
   int min_steps = (int) ceil(runga4adap_min_steps_per_optical_depth * optical_dist);
   int curr_steps = max_steps;
- 
+
   //printf("steps %d %d start %f end %f T %p\n",steps,runga4_steps_per_optical_depth,optical_depth_start,optical_depth_end,T);
 
   mat R_k1;
@@ -992,8 +1018,8 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double op
 
   printf("FIX ME!\n");
 
-  const mat& tau = iops.currTau();
-  const mat& rho = iops.currRho();
+  const mat& tau = iops.currTau2(band, lm);
+  const mat& rho = iops.currRho2(band, lm);
 
     // integrate this sub slab
   while (optical_pos < optical_dist) {
@@ -1008,60 +1034,60 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double op
       // a single step
 
       R_k1 = eval_dR(R, tau, rho) * single_step_size;
-      if (T) T_k1 = eval_dT(R, *T, tau, rho) * single_step_size;
+      if (T_flag) T_k1 = eval_dT(R, *T, tau, rho) * single_step_size;
 
       R_k2 = eval_dR(R+R_k1/2, tau, rho) * single_step_size;
-      if (T) T_k2 = eval_dT(R+R_k1/2, (*T)+T_k1/2, tau, rho) * single_step_size;
+      if (T_flag) T_k2 = eval_dT(R+R_k1/2, (*T)+T_k1/2, tau, rho) * single_step_size;
 
       R_k3 = eval_dR(R+R_k2/2, tau, rho) * single_step_size;
-      if (T) T_k3 = eval_dT(R+R_k2/2, (*T)+T_k2/2, tau, rho) * single_step_size;
-      
+      if (T_flag) T_k3 = eval_dT(R+R_k2/2, (*T)+T_k2/2, tau, rho) * single_step_size;
+
       R_k4 = eval_dR(R+R_k3, tau, rho) * single_step_size;
-      if (T) T_k4 = eval_dT(R+R_k3, (*T)+T_k3, tau, rho) * single_step_size;
-      
+      if (T_flag) T_k4 = eval_dT(R+R_k3, (*T)+T_k3, tau, rho) * single_step_size;
+
       R_single = R + R_k1/6 + R_k2/3 + R_k3/3 + R_k4/6;
-      if (T) T_single = (*T) + T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
+      if (T_flag) T_single = (*T) + T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
 
       // a double step
-      
+
       //R_k1 = eval_dR(R, tau, rho) * double_step_size;
       //if (T) T_k1 = eval_dT(R, *T, tau, rho) * double_step_size;
 
       R_k1 /= 2;
-      if (T) T_k1 /= 2;
+      if (T_flag) T_k1 /= 2;
 
       R_k2 = eval_dR(R+R_k1/2, tau, rho) * double_step_size;
-      if (T) T_k2 = eval_dT(R+R_k1/2, (*T)+T_k1/2, tau, rho) * double_step_size;
-      
+      if (T_flag) T_k2 = eval_dT(R+R_k1/2, (*T)+T_k1/2, tau, rho) * double_step_size;
+
       R_k3 = eval_dR(R+R_k2/2, tau, rho) * double_step_size;
-      if (T) T_k3 = eval_dT(R+R_k2/2, (*T)+T_k2/2, tau, rho) * double_step_size;
-      
+      if (T_flag) T_k3 = eval_dT(R+R_k2/2, (*T)+T_k2/2, tau, rho) * double_step_size;
+
       R_k4 = eval_dR(R+R_k3, tau, rho) * double_step_size;
-      if (T) T_k4 = eval_dT(R+R_k3, (*T)+T_k3, tau, rho) * double_step_size;
-      
+      if (T_flag) T_k4 = eval_dT(R+R_k3, (*T)+T_k3, tau, rho) * double_step_size;
+
       R_double = R + R_k1/6 + R_k2/3 + R_k3/3 + R_k4/6;
-      if (T) T_double = (*T) + T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
-      
+      if (T_flag) T_double = (*T) + T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
+
       R_k1 = eval_dR(R_double, tau, rho) * double_step_size;
-      if (T) T_k1 = eval_dT(R_double, T_double, tau, rho) * double_step_size;
-      
+      if (T_flag) T_k1 = eval_dT(R_double, T_double, tau, rho) * double_step_size;
+
       R_k2 = eval_dR(R_double+R_k1/2, tau, rho) * double_step_size;
-      if (T) T_k2 = eval_dT(R_double+R_k1/2, T_double+T_k1/2, tau, rho) * double_step_size; 
+      if (T_flag) T_k2 = eval_dT(R_double+R_k1/2, T_double+T_k1/2, tau, rho) * double_step_size;
 
       R_k3 = eval_dR(R_double+R_k2/2, tau, rho) * double_step_size;
-      if (T) T_k3 = eval_dT(R_double+R_k2/2, T_double+T_k2/2, tau, rho) * double_step_size;
-      
+      if (T_flag) T_k3 = eval_dT(R_double+R_k2/2, T_double+T_k2/2, tau, rho) * double_step_size;
+
       R_k4 = eval_dR(R_double+R_k3, tau, rho) * double_step_size;
-      if (T) T_k4 = eval_dT(R_double+R_k3, T_double+T_k3, tau, rho) * double_step_size;
-      
+      if (T_flag) T_k4 = eval_dT(R_double+R_k3, T_double+T_k3, tau, rho) * double_step_size;
+
       R_double += R_k1/6 + R_k2/3 + R_k3/3 + R_k4/6;
-      if (T) T_double += T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
+      if (T_flag) T_double += T_k1/6 + T_k2/3 + T_k3/3 + T_k4/6;
 
       max_value = 0;
-      
+
       R_single -= R_double;
       max_value = norm_fabs_max(R_single);
-      if (T) {
+      if (T_flag) {
 	T_single -= T_double;
 	max_value = norm_fabs_max(T_single);
       }
@@ -1081,15 +1107,15 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double op
 	curr_steps = curr_steps/2;
 	if (curr_steps < min_steps) curr_steps = min_steps;
       }
-  
+
       //printf("prev_steps %d new_steps %d (%d %d) error %e do_again %d\n",prev_steps,curr_steps,min_steps,max_steps,max_value,do_again);
-  
+
       total_evals += 3;
 
     } while (do_again);
 
     R = R_double;
-    if (T) (*T) = T_double;
+    if (T_flag) (*T) = T_double;
 
     optical_pos += single_step_size;
     total_steps++;
@@ -1097,6 +1123,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate_Runga4Adap(mat& R, mat* T, double op
 
   //printf("total steps %d evals %d\n",total_steps, total_evals);
 }
+
 
 
 
