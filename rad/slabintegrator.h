@@ -751,7 +751,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
   // loop through all bands
  #pragma omp parallel
   {
- #pragma omp for collapse(2) schedule(dynamic) firstprivate(iops) // loop over both bands and lm mods, as they should both be independent from each loop
+ #pragma omp for collapse(2) schedule(dynamic)  // loop over both bands and lm mods, as they should both be independent from each loop
   for (int band=0; band<band_count; band++) {
 
     // setup params for band
@@ -804,9 +804,7 @@ void SlabIntegrator<SD,IOPS,HDS>::integrate(SI_Process& ps, bool a_to_b) {
         if (a_to_b) optical_depth_end = iops.physicalDistanceToOptical(ab_point[ab_point_count-1-i], band);
         else optical_depth_end = iops.physicalDistanceToOptical(ab_point[i], band);
 
-        if((i<4) or i>(ab_point_count-6)){
- if (jlog::ls.vbLevel(3)) jlog::ls <<  "Curr_iter, mat" << curr_iter <<" " << *(ps.curr_T1+curr_iter) << " \n";
-        }
+
         if (integ_method == MIDPOINT) {
         if(curr_T1_flag) {integrate_Midpoint(ps.curr_R1[curr_iter], (ps.curr_T1+curr_iter), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
         else {integrate_Midpoint(ps.curr_R1[curr_iter],(ps.curr_T1), optical_depth_start, optical_depth_end, curr_T1_flag, band, lm);}
