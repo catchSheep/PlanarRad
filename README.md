@@ -82,7 +82,7 @@ NB: It is recommended to have an up to date `autotools`, `libtool`, and `autocon
  * Create useful pre-commits and actions for repo
  * Re-organise repo files
  * Automated testing
- * Create new GUI
+ * Create new GUI/ add back in old GUI in a more maintable/installable way (appimage?)
 Feel free to contribute!
 
 
