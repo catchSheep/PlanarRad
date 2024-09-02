@@ -51,7 +51,7 @@ If on Mac, you may need brew to install some dependencies.
 
 # Misc Installation Notes
 ## A note on downloading from github
-If you download the files from github, likely the timestamps have all reset due to how git works. This upsets autotools immensly, as it may think the aclocal.m4 and other files are out of date and need to be regenerated. If you have this issues with building manually, before running configure run a simple:
+If you download the files from github, likely the timestamps have all reset due to how git works. This upsets autotools immensly, as it may think the aclocal.m4 and other files are out of date and need to be regenerated. If you have this issue when building manually, then before running configure run a simple:
 ```
 touch aclocal.m4 Makefile.am configure Makefile.in
 ```
