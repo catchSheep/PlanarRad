@@ -105,9 +105,6 @@
 /* Version number of package */
 #undef VERSION
 
-/* Defined if on Win32 platform */
-#undef WIN32
-
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
 

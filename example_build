@@ -19,10 +19,10 @@ cd build
 
 # to build command line version only without qt use option --disable-qt
 # remove --enable-optimised=yes to build without optimisation flags (may solve build problems but will run slower)
-../configure --prefix=$JUDE2DIR --enable-optimised=yes --enable-openmp CFLAGS="-fopenmp" --disable-qt
+../configure --prefix=$JUDE2DIR --enable-optimised=yes --enable-openmp CFLAGS="-fopenmp" 
 
 # compile
-make 
+make -j $(nproc)
 
 # copy to $JUDE2DIR, if under /usr/local you probably need root priviliges
 # so if this fails try 'sudo make install'

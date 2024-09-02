@@ -36,19 +36,7 @@ fi
 
 OPTIMISE
 
-AC_ARG_ENABLE([qt],
-[  --disable-qt    Disable use of Qt and hence all GUI compilation],
-[case "${enableval}" in
-  yes) qt=true ;;
-  no)  qt=false ;;
-  *) AC_MSG_ERROR([bad value ${enableval} for --enable-qt]) ;;
-esac],[qt=true])
-AM_CONDITIONAL([WITH_QT], [test x$qt = xtrue])
 
-if test "x${qt}" = xtrue; then
-  gw_CHECK_QT
-  CHECK_QTLIBS
-fi
 
 
 AC_ARG_ENABLE([nonwin32],
@@ -80,7 +68,6 @@ AC_TYPE_SIZE_T
 
 AM_CONFIG_HEADER(config.h:config.in)
 
-AM_CONDITIONAL([QT_MAJOR_IS_4], [test x$QT_MAJOR = x4])
 
 
 

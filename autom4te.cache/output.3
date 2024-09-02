@@ -635,24 +635,9 @@ ac_includes_default="\
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
-QT_MAJOR_IS_4_FALSE
-QT_MAJOR_IS_4_TRUE
 LIB@&t@OBJS
 WIN32_FALSE
 WIN32_TRUE
-QTLIBS
-QASSISTANTCLIENT_LDADD
-QT_GUILINK
-QT_LDADD
-QT_STATIC_LIB
-QT_CXXFLAGS
-QT_MAJOR
-QTDIR
-UIC
-MOC
-XMKMF
-WITH_QT_FALSE
-WITH_QT_TRUE
 AM_CXXFLAGS
 OPENMP_CXXFLAGS
 CXXCPP
@@ -701,7 +686,6 @@ am__nodep
 AMDEPBACKSLASH
 AMDEP_FALSE
 AMDEP_TRUE
-am__quote
 am__include
 DEPDIR
 OBJEXT
@@ -776,7 +760,8 @@ PACKAGE_VERSION
 PACKAGE_TARNAME
 PACKAGE_NAME
 PATH_SEPARATOR
-SHELL'
+SHELL
+am__quote'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
@@ -792,13 +777,6 @@ with_sysroot
 enable_libtool_lock
 enable_openmp
 enable_optimised
-enable_qt
-with_x
-with_qtdir
-with_qtver
-with_mocpath
-with_uicpath
-with_qtlibdir
 enable_nonwin32
 '
       ac_precious_vars='build_alias
@@ -814,8 +792,7 @@ CXXFLAGS
 CCC
 LT_SYS_LIBRARY_PATH
 CPP
-CXXCPP
-XMKMF'
+CXXCPP'
 
 
 # Initialize some variables set by options.
@@ -1429,10 +1406,6 @@ Program names:
   --program-suffix=SUFFIX            append SUFFIX to installed program names
   --program-transform-name=PROGRAM   run sed PROGRAM on installed program names
 
-X features:
-  --x-includes=DIR    X include files are in DIR
-  --x-libraries=DIR   X library files are in DIR
-
 System types:
   --build=BUILD     configure for building on BUILD [guessed]
   --host=HOST       cross-compile to build programs to run on HOST [BUILD]
@@ -1462,7 +1435,6 @@ Optional Features:
   --disable-libtool-lock  avoid locking (might break parallel builds)
   --disable-openmp        do not use OpenMP
   --enable-optimised=yes   Optimised compile
-  --disable-qt    Disable use of Qt and hence all GUI compilation
   --disable-nonwin32    Disable things that don't currently compile under windows
 
 Optional Packages:
@@ -1476,12 +1448,6 @@ Optional Packages:
   --with-gnu-ld           assume the C compiler uses GNU ld @<:@default=no@:>@
   --with-sysroot@<:@=DIR@:>@    Search for dependent libraries within DIR (or the
                           compiler's sysroot if not specified).
-  --with-x                use the X Window System
-  --with-qtdir=DIR        Qt installation directory default=$QTDIR
-  --with-qtver=VER        Qt version default=$QT_VER
-  --with-mocpath=MOC        moc path default=$MOC
-  --with-uicpath=UIC        uic path default=$UIC
-  --with-qtlibdir=DIR        Qt libraries installation directory default=$QTLIBDIR
 
 Some influential environment variables:
   CC          C compiler command
@@ -1497,7 +1463,6 @@ Some influential environment variables:
               User-defined run-time library search path.
   CPP         C preprocessor
   CXXCPP      C++ preprocessor
-  XMKMF       Path to xmkmf, Makefile generator for X Window System
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -2585,7 +2550,7 @@ ac_configure="$SHELL $ac_aux_dir/configure"  # Please don't use this var.
 
 
 
-am__api_version='1.13'
+am__api_version='1.16'
 
 # Find a good install program.  We prefer a C program (faster),
 # so one script is as good as another.  But avoid the broken or
@@ -2757,8 +2722,8 @@ test "$program_suffix" != NONE &&
 ac_script='s/[\\$]/&&/g;s/;s,x,x,$//'
 program_transform_name=`$as_echo "$program_transform_name" | sed "$ac_script"`
 
-# expand $ac_aux_dir to an absolute path
-am_aux_dir=`cd $ac_aux_dir && pwd`
+# Expand $ac_aux_dir to an absolute path.
+am_aux_dir=`cd "$ac_aux_dir" && pwd`
 
 if test x"${MISSING+set}" != xset; then
   case $am_aux_dir in
@@ -2777,7 +2742,7 @@ else
 $as_echo "$as_me: WARNING: 'missing' script is too old or missing" >&2;}
 fi
 
-if test x"${install_sh}" != xset; then
+if test x"${install_sh+set}" != xset; then
   case $am_aux_dir in
   *\ * | *\	*)
     install_sh="\${SHELL} '$am_aux_dir/install-sh'" ;;
@@ -3101,12 +3066,12 @@ MAKEINFO=${MAKEINFO-"${am_missing_run}makeinfo"}
 
 # For better backward compatibility.  To be removed once Automake 1.9.x
 # dies out for good.  For more background, see:
-# <http://lists.gnu.org/archive/html/automake/2012-07/msg00001.html>
-# <http://lists.gnu.org/archive/html/automake/2012-07/msg00014.html>
+# <https://lists.gnu.org/archive/html/automake/2012-07/msg00001.html>
+# <https://lists.gnu.org/archive/html/automake/2012-07/msg00014.html>
 mkdir_p='$(MKDIR_P)'
 
-# We need awk for the "check" target.  The system "awk" is bad on
-# some platforms.
+# We need awk for the "check" target (and possibly the TAP driver).  The
+# system "awk" is bad on some platforms.
 # Always define AMTAR for backward compatibility.  Yes, it's still used
 # in the wild :-(  We should find a proper way to deprecate it ...
 AMTAR='$${TAR-tar}'
@@ -3121,6 +3086,48 @@ am__tar='$${TAR-tar} chof - "$$tardir"' am__untar='$${TAR-tar} xf -'
 
 
 
+
+# POSIX will say in a future version that running "rm -f" with no argument
+# is OK; and we want to be able to make that assumption in our Makefile
+# recipes.  So use an aggressive probe to check that the usage we want is
+# actually supported "in the wild" to an acceptable degree.
+# See automake bug#10828.
+# To make any issue more visible, cause the running configure to be aborted
+# by default if the 'rm' program in use doesn't match our expectations; the
+# user can still override this though.
+if rm -f && rm -fr && rm -rf; then : OK; else
+  cat >&2 <<'END'
+Oops!
+
+Your 'rm' program seems unable to run without file operands specified
+on the command line, even when the '-f' option is present.  This is contrary
+to the behaviour of most rm programs out there, and not conforming with
+the upcoming POSIX standard: <http://austingroupbugs.net/view.php?id=542>
+
+Please tell bug-automake@gnu.org about your system, including the value
+of your $PATH and any error possibly output before this message.  This
+can help us improve future automake versions.
+
+END
+  if test x"$ACCEPT_INFERIOR_RM_PROGRAM" = x"yes"; then
+    echo 'Configuration will proceed anyway, since you have set the' >&2
+    echo 'ACCEPT_INFERIOR_RM_PROGRAM variable to "yes"' >&2
+    echo >&2
+  else
+    cat >&2 <<'END'
+Aborting the configuration process, to ensure you take notice of the issue.
+
+You can download and install GNU coreutils to get an 'rm' implementation
+that behaves properly: <https://www.gnu.org/software/coreutils/>.
+
+If you want to complete the configuration process using your problematic
+'rm' anyway, export the environment variable ACCEPT_INFERIOR_RM_PROGRAM
+to "yes", and re-run configure.
+
+END
+    as_fn_error $? "Your 'rm' program is bad, sorry." "$LINENO" 5
+  fi
+fi
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -3910,49 +3917,108 @@ ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
+ac_ext=c
+ac_cpp='$CPP $CPPFLAGS'
+ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_c_compiler_gnu
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $CC understands -c and -o together" >&5
+$as_echo_n "checking whether $CC understands -c and -o together... " >&6; }
+if ${am_cv_prog_cc_c_o+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+  # Make sure it works both with $CC and with simple cc.
+  # Following AC_PROG_CC_C_O, we do the test twice because some
+  # compilers refuse to overwrite an existing .o file with -o,
+  # though they will create one.
+  am_cv_prog_cc_c_o=yes
+  for am_i in 1 2; do
+    if { echo "$as_me:$LINENO: $CC -c conftest.$ac_ext -o conftest2.$ac_objext" >&5
+   ($CC -c conftest.$ac_ext -o conftest2.$ac_objext) >&5 2>&5
+   ac_status=$?
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+   (exit $ac_status); } \
+         && test -f conftest2.$ac_objext; then
+      : OK
+    else
+      am_cv_prog_cc_c_o=no
+      break
+    fi
+  done
+  rm -f core conftest*
+  unset am_i
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_prog_cc_c_o" >&5
+$as_echo "$am_cv_prog_cc_c_o" >&6; }
+if test "$am_cv_prog_cc_c_o" != yes; then
+   # Losing compiler, so override with the script.
+   # FIXME: It is wrong to rewrite CC.
+   # But if we don't then we get into trouble of one sort or another.
+   # A longer-term fix would be to have automake use am__CC in this case,
+   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
+   CC="$am_aux_dir/compile $CC"
+fi
+ac_ext=c
+ac_cpp='$CPP $CPPFLAGS'
+ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
 DEPDIR="${am__leading_dot}deps"
 
 ac_config_commands="$ac_config_commands depfiles"
 
-
-am_make=${MAKE-make}
-cat > confinc << 'END'
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether ${MAKE-make} supports the include directive" >&5
+$as_echo_n "checking whether ${MAKE-make} supports the include directive... " >&6; }
+cat > confinc.mk << 'END'
 am__doit:
-	@echo this is the am__doit target
+	@echo this is the am__doit target >confinc.out
 .PHONY: am__doit
 END
-# If we don't find an include directive, just comment out the code.
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for style of include used by $am_make" >&5
-$as_echo_n "checking for style of include used by $am_make... " >&6; }
 am__include="#"
 am__quote=
-_am_result=none
-# First try GNU make style include.
-echo "include confinc" > confmf
-# Ignore all kinds of additional output from 'make'.
-case `$am_make -s -f confmf 2> /dev/null` in #(
-*the\ am__doit\ target*)
-  am__include=include
-  am__quote=
-  _am_result=GNU
-  ;;
-esac
-# Now try BSD make style include.
-if test "$am__include" = "#"; then
-   echo '.include "confinc"' > confmf
-   case `$am_make -s -f confmf 2> /dev/null` in #(
-   *the\ am__doit\ target*)
-     am__include=.include
-     am__quote="\""
-     _am_result=BSD
+# BSD make does it like this.
+echo '.include "confinc.mk" # ignored' > confmf.BSD
+# Other make implementations (GNU, Solaris 10, AIX) do it like this.
+echo 'include confinc.mk # ignored' > confmf.GNU
+_am_result=no
+for s in GNU BSD; do
+  { echo "$as_me:$LINENO: ${MAKE-make} -f confmf.$s && cat confinc.out" >&5
+   (${MAKE-make} -f confmf.$s && cat confinc.out) >&5 2>&5
+   ac_status=$?
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+   (exit $ac_status); }
+  case $?:`cat confinc.out 2>/dev/null` in @%:@(
+  '0:this is the am__doit target') :
+    case $s in @%:@(
+  BSD) :
+    am__include='.include' am__quote='"' ;; @%:@(
+  *) :
+    am__include='include' am__quote='' ;;
+esac ;; @%:@(
+  *) :
      ;;
-   esac
-fi
-
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $_am_result" >&5
-$as_echo "$_am_result" >&6; }
-rm -f confinc confmf
+esac
+  if test "$am__include" != "#"; then
+    _am_result="yes ($s style)"
+    break
+  fi
+done
+rm -f confinc.* confmf.*
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: ${_am_result}" >&5
+$as_echo "${_am_result}" >&6; }
 
 @%:@ Check whether --enable-dependency-tracking was given.
 if test "${enable_dependency_tracking+set}" = set; then :
@@ -6097,7 +6163,7 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
   lt_cv_deplibs_check_method=pass_all
   ;;
 
-netbsd*)
+netbsd* | netbsdelf*-gnu)
   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
   else
@@ -6457,7 +6523,7 @@ esac
 fi
 
 : ${AR=ar}
-: ${AR_FLAGS=cru}
+: ${AR_FLAGS=cr}
 
     
     
@@ -6958,11 +7024,8 @@ _LT_EOF
   test $ac_status = 0; }; then
     # Now try to grab the symbols.
     nlist=conftest.nm
-    if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$NM conftest.$ac_objext \| "$lt_cv_sys_global_symbol_pipe" \> $nlist\""; } >&5
-  (eval $NM conftest.$ac_objext \| "$lt_cv_sys_global_symbol_pipe" \> $nlist) 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; } && test -s "$nlist"; then
+    $ECHO "$as_me:$LINENO: $NM conftest.$ac_objext | $lt_cv_sys_global_symbol_pipe > $nlist" >&5
+    if eval "$NM" conftest.$ac_objext \| "$lt_cv_sys_global_symbol_pipe" \> $nlist 2>&5 && test -s "$nlist"; then
       # Try sorting and uniquifying the output.
       if sort "$nlist" | uniq > "$nlist"T; then
 	mv -f "$nlist"T "$nlist"
@@ -8181,8 +8244,8 @@ int forced_loaded() { return 2;}
 _LT_EOF
       echo "$LTCC $LTCFLAGS -c -o conftest.o conftest.c" >&5
       $LTCC $LTCFLAGS -c -o conftest.o conftest.c 2>&5
-      echo "$AR cru libconftest.a conftest.o" >&5
-      $AR cru libconftest.a conftest.o 2>&5
+      echo "$AR cr libconftest.a conftest.o" >&5
+      $AR cr libconftest.a conftest.o 2>&5
       echo "$RANLIB libconftest.a" >&5
       $RANLIB libconftest.a 2>&5
       cat > conftest.c << _LT_EOF
@@ -9320,6 +9383,12 @@ lt_prog_compiler_static=
 	lt_prog_compiler_pic='-KPIC'
 	lt_prog_compiler_static='-static'
         ;;
+      # flang / f18. f95 an alias for gfortran or flang on Debian
+      flang* | f18* | f95*)
+	lt_prog_compiler_wl='-Wl,'
+	lt_prog_compiler_pic='-fPIC'
+	lt_prog_compiler_static='-static'
+        ;;
       # icc used to be incompatible with GCC.
       # ICC 10 doesn't accept -KPIC any more.
       icc* | ifort*)
@@ -9796,6 +9865,9 @@ $as_echo_n "checking whether the $compiler linker ($LD) supports shared librarie
   openbsd* | bitrig*)
     with_gnu_ld=no
     ;;
+  linux* | k*bsd*-gnu | gnu*)
+    link_all_deplibs=no
+    ;;
   esac
 
   ld_shlibs=yes
@@ -10050,7 +10122,7 @@ _LT_EOF
       fi
       ;;
 
-    netbsd*)
+    netbsd* | netbsdelf*-gnu)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
 	wlarc=
@@ -10720,6 +10792,7 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
 	if test yes = "$lt_cv_irix_exported_symbol"; then
           archive_expsym_cmds='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags $wl-soname $wl$soname `test -n "$verstring" && func_echo_all "$wl-set_version $wl$verstring"` $wl-update_registry $wl$output_objdir/so_locations $wl-exports_file $wl$export_symbols -o $lib'
 	fi
+	link_all_deplibs=no
       else
 	archive_cmds='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -o $lib'
 	archive_expsym_cmds='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -exports_file $export_symbols -o $lib'
@@ -10741,7 +10814,7 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
       esac
       ;;
 
-    netbsd*)
+    netbsd* | netbsdelf*-gnu)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
       else
@@ -11836,9 +11909,6 @@ fi
   # before this can be enabled.
   hardcode_into_libs=yes
 
-  # Add ABI-specific directories to the system library path.
-  sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib"
-
   # Ideally, we could use ldconfig to report *all* directores which are
   # searched for libraries, however this is still not possible.  Aside from not
   # being certain /sbin/ldconfig is available, command
@@ -11847,7 +11917,7 @@ fi
   # appending ld.so.conf contents (and includes) to the search path.
   if test -f /etc/ld.so.conf; then
     lt_ld_extra=`awk '/^include / { system(sprintf("cd /etc; cat %s 2>/dev/null", \$2)); skip = 1; } { if (!skip) print \$0; skip = 0; }' < /etc/ld.so.conf | $SED -e 's/#.*//;/^[	 ]*hwcap[	 ]/d;s/[:,	]/ /g;s/=[^=]*$//;s/=[^= ]* / /g;s/"//g;/^$/d' | tr '\n' ' '`
-    sys_lib_dlsearch_path_spec="$sys_lib_dlsearch_path_spec $lt_ld_extra"
+    sys_lib_dlsearch_path_spec="/lib /usr/lib $lt_ld_extra"
   fi
 
   # We used to test for /lib/ld.so.1 and disable shared libraries on
@@ -11857,6 +11927,18 @@ fi
   # people can always --disable-shared, the test was removed, and we
   # assume the GNU/Linux dynamic linker is in use.
   dynamic_linker='GNU/Linux ld.so'
+  ;;
+
+netbsdelf*-gnu)
+  version_type=linux
+  need_lib_prefix=no
+  need_version=no
+  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
+  soname_spec='${libname}${release}${shared_ext}$major'
+  shlibpath_var=LD_LIBRARY_PATH
+  shlibpath_overrides_runpath=no
+  hardcode_into_libs=yes
+  dynamic_linker='NetBSD ld.elf_so'
   ;;
 
 netbsd*)
@@ -13249,7 +13331,7 @@ with_gnu_ld=$lt_cv_prog_gnu_ld
       # Commands to make compiler produce verbose output that lists
       # what "hidden" libraries, object files and flags are used when
       # linking a shared library.
-      output_verbose_link_cmd='$CC -shared $CFLAGS -v conftest.$objext 2>&1 | $GREP -v "^Configured with:" | $GREP "\-L"'
+      output_verbose_link_cmd='$CC -shared $CFLAGS -v conftest.$objext 2>&1 | $GREP -v "^Configured with:" | $GREP " \-L"'
 
     else
       GXX=no
@@ -13741,7 +13823,7 @@ fi
             # explicitly linking system object files so we need to strip them
             # from the output so that they don't get included in the library
             # dependencies.
-            output_verbose_link_cmd='templist=`($CC -b $CFLAGS -v conftest.$objext 2>&1) | $EGREP "\-L"`; list= ; for z in $templist; do case $z in conftest.$objext) list="$list $z";; *.$objext);; *) list="$list $z";;esac; done; func_echo_all "$list"'
+            output_verbose_link_cmd='templist=`($CC -b $CFLAGS -v conftest.$objext 2>&1) | $EGREP " \-L"`; list= ; for z in $templist; do case $z in conftest.$objext) list="$list $z";; *.$objext);; *) list="$list $z";;esac; done; func_echo_all "$list"'
             ;;
           *)
             if test yes = "$GXX"; then
@@ -13806,7 +13888,7 @@ fi
 	    # explicitly linking system object files so we need to strip them
 	    # from the output so that they don't get included in the library
 	    # dependencies.
-	    output_verbose_link_cmd='templist=`($CC -b $CFLAGS -v conftest.$objext 2>&1) | $GREP "\-L"`; list= ; for z in $templist; do case $z in conftest.$objext) list="$list $z";; *.$objext);; *) list="$list $z";;esac; done; func_echo_all "$list"'
+	    output_verbose_link_cmd='templist=`($CC -b $CFLAGS -v conftest.$objext 2>&1) | $GREP " \-L"`; list= ; for z in $templist; do case $z in conftest.$objext) list="$list $z";; *.$objext);; *) list="$list $z";;esac; done; func_echo_all "$list"'
 	    ;;
           *)
 	    if test yes = "$GXX"; then
@@ -14145,7 +14227,7 @@ fi
 	      # Commands to make compiler produce verbose output that lists
 	      # what "hidden" libraries, object files and flags are used when
 	      # linking a shared library.
-	      output_verbose_link_cmd='$CC -shared $CFLAGS -v conftest.$objext 2>&1 | $GREP -v "^Configured with:" | $GREP "\-L"'
+	      output_verbose_link_cmd='$CC -shared $CFLAGS -v conftest.$objext 2>&1 | $GREP -v "^Configured with:" | $GREP " \-L"'
 
 	    else
 	      # FIXME: insert proper C++ library support
@@ -14229,7 +14311,7 @@ fi
 	        # Commands to make compiler produce verbose output that lists
 	        # what "hidden" libraries, object files and flags are used when
 	        # linking a shared library.
-	        output_verbose_link_cmd='$CC -shared $CFLAGS -v conftest.$objext 2>&1 | $GREP -v "^Configured with:" | $GREP "\-L"'
+	        output_verbose_link_cmd='$CC -shared $CFLAGS -v conftest.$objext 2>&1 | $GREP -v "^Configured with:" | $GREP " \-L"'
 	      else
 	        # g++ 2.7 appears to require '-G' NOT '-shared' on this
 	        # platform.
@@ -14240,7 +14322,7 @@ fi
 	        # Commands to make compiler produce verbose output that lists
 	        # what "hidden" libraries, object files and flags are used when
 	        # linking a shared library.
-	        output_verbose_link_cmd='$CC -G $CFLAGS -v conftest.$objext 2>&1 | $GREP -v "^Configured with:" | $GREP "\-L"'
+	        output_verbose_link_cmd='$CC -G $CFLAGS -v conftest.$objext 2>&1 | $GREP -v "^Configured with:" | $GREP " \-L"'
 	      fi
 
 	      hardcode_libdir_flag_spec_CXX='$wl-R $wl$libdir'
@@ -14753,7 +14835,7 @@ lt_prog_compiler_static_CXX=
 	    ;;
 	esac
 	;;
-      netbsd*)
+      netbsd* | netbsdelf*-gnu)
 	;;
       *qnx* | *nto*)
         # QNX uses GNU C++, but need to define -shared option too, otherwise
@@ -15127,6 +15209,9 @@ $as_echo_n "checking whether the $compiler linker ($LD) supports shared librarie
       exclude_expsyms_CXX='[_]+GLOBAL_OFFSET_TABLE_|[_]+GLOBAL__[FID]_.*|[_]+head_[A-Za-z0-9_]+_dll|[A-Za-z0-9_]+_dll_iname'
       ;;
     esac
+    ;;
+  linux* | k*bsd*-gnu | gnu*)
+    link_all_deplibs_CXX=no
     ;;
   *)
     export_symbols_cmds_CXX='$NM $libobjs $convenience | $global_symbol_pipe | $SED '\''s/.* //'\'' | sort | uniq > $export_symbols'
@@ -15801,9 +15886,6 @@ fi
   # before this can be enabled.
   hardcode_into_libs=yes
 
-  # Add ABI-specific directories to the system library path.
-  sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib"
-
   # Ideally, we could use ldconfig to report *all* directores which are
   # searched for libraries, however this is still not possible.  Aside from not
   # being certain /sbin/ldconfig is available, command
@@ -15812,7 +15894,7 @@ fi
   # appending ld.so.conf contents (and includes) to the search path.
   if test -f /etc/ld.so.conf; then
     lt_ld_extra=`awk '/^include / { system(sprintf("cd /etc; cat %s 2>/dev/null", \$2)); skip = 1; } { if (!skip) print \$0; skip = 0; }' < /etc/ld.so.conf | $SED -e 's/#.*//;/^[	 ]*hwcap[	 ]/d;s/[:,	]/ /g;s/=[^=]*$//;s/=[^= ]* / /g;s/"//g;/^$/d' | tr '\n' ' '`
-    sys_lib_dlsearch_path_spec="$sys_lib_dlsearch_path_spec $lt_ld_extra"
+    sys_lib_dlsearch_path_spec="/lib /usr/lib $lt_ld_extra"
   fi
 
   # We used to test for /lib/ld.so.1 and disable shared libraries on
@@ -15822,6 +15904,18 @@ fi
   # people can always --disable-shared, the test was removed, and we
   # assume the GNU/Linux dynamic linker is in use.
   dynamic_linker='GNU/Linux ld.so'
+  ;;
+
+netbsdelf*-gnu)
+  version_type=linux
+  need_lib_prefix=no
+  need_version=no
+  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
+  soname_spec='${libname}${release}${shared_ext}$major'
+  shlibpath_var=LD_LIBRARY_PATH
+  shlibpath_overrides_runpath=no
+  hardcode_into_libs=yes
+  dynamic_linker='NetBSD ld.elf_so'
   ;;
 
 netbsd*)
@@ -16370,663 +16464,7 @@ fi
 
 
 
-@%:@ Check whether --enable-qt was given.
-if test "${enable_qt+set}" = set; then :
-  enableval=$enable_qt; case "${enableval}" in
-  yes) qt=true ;;
-  no)  qt=false ;;
-  *) as_fn_error $? "bad value ${enableval} for --enable-qt" "$LINENO" 5 ;;
-esac
-else
-  qt=true
-fi
 
- if test x$qt = xtrue; then
-  WITH_QT_TRUE=
-  WITH_QT_FALSE='#'
-else
-  WITH_QT_TRUE='#'
-  WITH_QT_FALSE=
-fi
-
-
-if test "x${qt}" = xtrue; then
-  
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for X" >&5
-$as_echo_n "checking for X... " >&6; }
-
-
-@%:@ Check whether --with-x was given.
-if test "${with_x+set}" = set; then :
-  withval=$with_x; 
-fi
-
-# $have_x is `yes', `no', `disabled', or empty when we do not yet know.
-if test "x$with_x" = xno; then
-  # The user explicitly disabled X.
-  have_x=disabled
-else
-  case $x_includes,$x_libraries in #(
-    *\'*) as_fn_error $? "cannot use X directory names containing '" "$LINENO" 5;; #(
-    *,NONE | NONE,*) if ${ac_cv_have_x+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  # One or both of the vars are not set, and there is no cached value.
-ac_x_includes=no ac_x_libraries=no
-rm -f -r conftest.dir
-if mkdir conftest.dir; then
-  cd conftest.dir
-  cat >Imakefile <<'_ACEOF'
-incroot:
-	@echo incroot='${INCROOT}'
-usrlibdir:
-	@echo usrlibdir='${USRLIBDIR}'
-libdir:
-	@echo libdir='${LIBDIR}'
-_ACEOF
-  if (export CC; ${XMKMF-xmkmf}) >/dev/null 2>/dev/null && test -f Makefile; then
-    # GNU make sometimes prints "make[1]: Entering ...", which would confuse us.
-    for ac_var in incroot usrlibdir libdir; do
-      eval "ac_im_$ac_var=\`\${MAKE-make} $ac_var 2>/dev/null | sed -n 's/^$ac_var=//p'\`"
-    done
-    # Open Windows xmkmf reportedly sets LIBDIR instead of USRLIBDIR.
-    for ac_extension in a so sl dylib la dll; do
-      if test ! -f "$ac_im_usrlibdir/libX11.$ac_extension" &&
-	 test -f "$ac_im_libdir/libX11.$ac_extension"; then
-	ac_im_usrlibdir=$ac_im_libdir; break
-      fi
-    done
-    # Screen out bogus values from the imake configuration.  They are
-    # bogus both because they are the default anyway, and because
-    # using them would break gcc on systems where it needs fixed includes.
-    case $ac_im_incroot in
-	/usr/include) ac_x_includes= ;;
-	*) test -f "$ac_im_incroot/X11/Xos.h" && ac_x_includes=$ac_im_incroot;;
-    esac
-    case $ac_im_usrlibdir in
-	/usr/lib | /usr/lib64 | /lib | /lib64) ;;
-	*) test -d "$ac_im_usrlibdir" && ac_x_libraries=$ac_im_usrlibdir ;;
-    esac
-  fi
-  cd ..
-  rm -f -r conftest.dir
-fi
-
-# Standard set of common directories for X headers.
-# Check X11 before X11Rn because it is often a symlink to the current release.
-ac_x_header_dirs='
-/usr/X11/include
-/usr/X11R7/include
-/usr/X11R6/include
-/usr/X11R5/include
-/usr/X11R4/include
-
-/usr/include/X11
-/usr/include/X11R7
-/usr/include/X11R6
-/usr/include/X11R5
-/usr/include/X11R4
-
-/usr/local/X11/include
-/usr/local/X11R7/include
-/usr/local/X11R6/include
-/usr/local/X11R5/include
-/usr/local/X11R4/include
-
-/usr/local/include/X11
-/usr/local/include/X11R7
-/usr/local/include/X11R6
-/usr/local/include/X11R5
-/usr/local/include/X11R4
-
-/usr/X386/include
-/usr/x386/include
-/usr/XFree86/include/X11
-
-/usr/include
-/usr/local/include
-/usr/unsupported/include
-/usr/athena/include
-/usr/local/x11r5/include
-/usr/lpp/Xamples/include
-
-/usr/openwin/include
-/usr/openwin/share/include'
-
-if test "$ac_x_includes" = no; then
-  # Guess where to find include files, by looking for Xlib.h.
-  # First, try using that file with no special directory specified.
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-@%:@include <X11/Xlib.h>
-_ACEOF
-if ac_fn_cxx_try_cpp "$LINENO"; then :
-  # We can compile using X headers with no special include directory.
-ac_x_includes=
-else
-  for ac_dir in $ac_x_header_dirs; do
-  if test -r "$ac_dir/X11/Xlib.h"; then
-    ac_x_includes=$ac_dir
-    break
-  fi
-done
-fi
-rm -f conftest.err conftest.i conftest.$ac_ext
-fi # $ac_x_includes = no
-
-if test "$ac_x_libraries" = no; then
-  # Check for the libraries.
-  # See if we find them without any special options.
-  # Don't add to $LIBS permanently.
-  ac_save_LIBS=$LIBS
-  LIBS="-lX11 $LIBS"
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-@%:@include <X11/Xlib.h>
-int
-main ()
-{
-XrmInitialize ()
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_link "$LINENO"; then :
-  LIBS=$ac_save_LIBS
-# We can link X programs with no special library path.
-ac_x_libraries=
-else
-  LIBS=$ac_save_LIBS
-for ac_dir in `$as_echo "$ac_x_includes $ac_x_header_dirs" | sed s/include/lib/g`
-do
-  # Don't even attempt the hair of trying to link an X program!
-  for ac_extension in a so sl dylib la dll; do
-    if test -r "$ac_dir/libX11.$ac_extension"; then
-      ac_x_libraries=$ac_dir
-      break 2
-    fi
-  done
-done
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-fi # $ac_x_libraries = no
-
-case $ac_x_includes,$ac_x_libraries in #(
-  no,* | *,no | *\'*)
-    # Didn't find X, or a directory has "'" in its name.
-    ac_cv_have_x="have_x=no";; #(
-  *)
-    # Record where we found X for the cache.
-    ac_cv_have_x="have_x=yes\
-	ac_x_includes='$ac_x_includes'\
-	ac_x_libraries='$ac_x_libraries'"
-esac
-fi
-;; #(
-    *) have_x=yes;;
-  esac
-  eval "$ac_cv_have_x"
-fi # $with_x != no
-
-if test "$have_x" != yes; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_x" >&5
-$as_echo "$have_x" >&6; }
-  no_x=yes
-else
-  # If each of the values was on the command line, it overrides each guess.
-  test "x$x_includes" = xNONE && x_includes=$ac_x_includes
-  test "x$x_libraries" = xNONE && x_libraries=$ac_x_libraries
-  # Update the cache value to reflect the command line values.
-  ac_cv_have_x="have_x=yes\
-	ac_x_includes='$x_includes'\
-	ac_x_libraries='$x_libraries'"
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: libraries $x_libraries, headers $x_includes" >&5
-$as_echo "libraries $x_libraries, headers $x_includes" >&6; }
-fi
-
-
-
-
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking QTDIR" >&5
-$as_echo_n "checking QTDIR... " >&6; }
-
-@%:@ Check whether --with-qtdir was given.
-if test "${with_qtdir+set}" = set; then :
-  withval=$with_qtdir; QTDIR=$withval
-fi
-
-# Check that QTDIR is defined or that --with-qtdir given
-if test x"$QTDIR" = x ; then
-    QT_SEARCH="/usr/lib/qt31 /usr/local/qt31 /usr/lib/qt3 /usr/local/qt3 /usr/lib/qt2 /usr/local/qt2 /usr/lib/qt /usr/local/qt /usr/local/qt4 /usr/local/TrollTech/Qt-4.4.1"
-    for i in $QT_SEARCH; do
-        if test -f $i/include/qglobal.h -a x$QTDIR = x; then QTDIR=$i; fi
-    done
-fi
-if test x"$QTDIR" = x ; then
-    as_fn_error $? "*** QTDIR must be defined, or --with-qtdir option given" "$LINENO" 5
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QTDIR" >&5
-$as_echo "$QTDIR" >&6; }
-
-# Change backslashes in QTDIR to forward slashes to prevent escaping
-# problems later on in the build process, mainly for Cygwin build
-# environment using MSVC as the compiler
-# TODO: Use sed instead of perl
-QTDIR=`echo $QTDIR | perl -p -e 's/\\\\/\\//g'`
-
-# Figure out which version of Qt we are using
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking Qt version" >&5
-$as_echo_n "checking Qt version... " >&6; }
-
-@%:@ Check whether --with-qtver was given.
-if test "${with_qtver+set}" = set; then :
-  withval=$with_qtver; QT_VER=$withval
-fi
-
-if test x"$QT_VER" = x ; then
-  if test -f $QTDIR/include/qglobal.h; 
-  then
-    QT_VER=`grep 'define.*QT_VERSION_STR\W' $QTDIR/include/qglobal.h | perl -p -e 's/\D//g'`
-  #else
-    #QT_VER=`grep 'define.*QT_VERSION_STR\W' $QTDIR/src/corelib/global/qglobal.h | perl -p -e 's/\D//g'`
-  fi
-fi
-if test x"$QT_VER" = x ; then
-  if test -f $QTDIR/include/QtCore/qglobal.h; 
-  then
-    QT_VER=`grep 'define.*QT_VERSION_STR\W' $QTDIR/include/QtCore/qglobal.h | perl -p -e 's/\D//g'`
-  else
-    QT_VER=`grep 'define.*QT_VERSION_STR\W' $QTDIR/src/corelib/global/qglobal.h | perl -p -e 's/\D//g'`
-  fi
-fi
-case "${QT_VER}" in
-    2*)
-        QT_MAJOR="2"
-    ;;
-    3*)
-        QT_MAJOR="3"
-    ;;
-    4*)
-        QT_MAJOR="4"
-    ;;
-    *)
-        as_fn_error $? "*** Don't know how to handle this Qt major version" "$LINENO" 5
-    ;;
-esac
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_VER ($QT_MAJOR)" >&5
-$as_echo "$QT_VER ($QT_MAJOR)" >&6; }
-
-# find path for moc
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking moc path" >&5
-$as_echo_n "checking moc path... " >&6; }
-
-@%:@ Check whether --with-mocpath was given.
-if test "${with_mocpath+set}" = set; then :
-  withval=$with_mocpath; MOC=$withval
-fi
-
-if test x"$MOC" = x ; then
-  # Extract the first word of "moc", so it can be a program name with args.
-set dummy moc; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_MOC+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$MOC"; then
-  ac_cv_prog_MOC="$MOC" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $QTDIR/bin
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_MOC="$QTDIR/bin/moc"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-fi
-fi
-MOC=$ac_cv_prog_MOC
-if test -n "$MOC"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MOC" >&5
-$as_echo "$MOC" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  if test x$MOC = x ; then
-          as_fn_error $? "*** moc not found" "$LINENO" 5
-  fi
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $MOC" >&5
-$as_echo "$MOC" >&6; }
-
-
-# uic is the Qt user interface compiler
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking uic path" >&5
-$as_echo_n "checking uic path... " >&6; }
-
-@%:@ Check whether --with-uicpath was given.
-if test "${with_uicpath+set}" = set; then :
-  withval=$with_uicpath; UIC=$withval
-fi
-
-if test x"$UIC" = x ; then
-  # Extract the first word of "uic", so it can be a program name with args.
-set dummy uic; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_UIC+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$UIC"; then
-  ac_cv_prog_UIC="$UIC" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $QTDIR/bin
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_UIC="$QTDIR/bin/uic"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-fi
-fi
-UIC=$ac_cv_prog_UIC
-if test -n "$UIC"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $UIC" >&5
-$as_echo "$UIC" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  if test x$UIC = x ; then
-          as_fn_error $? "*** uic not found" "$LINENO" 5
-  fi
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $UIC" >&5
-$as_echo "$UIC" >&6; }
-
-
-# qembed is the Qt data embedding utility.
-# It is located in $QTDIR/tools/qembed, and must be compiled and installed manually
-#AC_CHECK_PROG(QEMBED, qembed, $QTDIR/tools/qembed/qembed, , $QTDIR/tools/qembed)
-#if test x$QEMBED = x ; then
-#        AC_MSG_ERROR([*** qembed not found])
-#fi
-
-
-# Calculate Qt include path
-if test $QT_MAJOR = "4" ; then
-	QT_CXXFLAGS="-I$QTDIR/include -I$QTDIR/include/QtCore -I$QTDIR/include/QtGui -I$QTDIR/include/Qt3Support -DQT3_SUPPORT"
-        QT_STATIC_LIB="$QTDIR/lib/QtCore4.a $QTDIR/lib/QtGui4.a $QTDIR/lib/Qt3Support.a"
-else
-	QT_CXXFLAGS="-I$QTDIR/include"
-	QT_STATIC_LIB=""
-fi
-
-QT_IS_EMBEDDED="no"
-# On unix, figure out if we're doing a static or dynamic link
-case "${host}" in
-    *-cygwin)
-	
-cat >>confdefs.h <<_ACEOF
-@%:@define WIN32 ""
-_ACEOF
-
-        if test -f "$QTDIR/lib/qt.lib" ; then
-            QT_LIB="qt.lib"
-            QT_IS_STATIC="yes"
-            QT_IS_MT="no"
-        elif test -f "$QTDIR/lib/qt-mt.lib" ; then
-            QT_LIB="qt-mt.lib" 
-            QT_IS_STATIC="yes"
-            QT_IS_MT="yes"
-        elif test -f "$QTDIR/lib/qt$QT_VER.lib" ; then
-            QT_LIB="qt$QT_VER.lib"
-            QT_IS_STATIC="no"
-            QT_IS_MT="no"
-        elif test -f "$QTDIR/lib/qt-mt$QT_VER.lib" ; then
-            QT_LIB="qt-mt$QT_VER.lib"
-            QT_IS_STATIC="no"
-            QT_IS_MT="yes"
-        fi
-        ;;
-
-    *)
-        QT_IS_STATIC=`ls $QTDIR/lib/*.a 2> /dev/null`
-        if test "x$QT_IS_STATIC" = x; then
-            QT_IS_STATIC="no"
-        else
-            QT_IS_STATIC="yes"
-        fi
-        if test x$QT_IS_STATIC = xno ; then
-            QT_IS_DYNAMIC=`ls $QTDIR/lib/*.so 2> /dev/null` 
-            if test "x$QT_IS_DYNAMIC" = x;  then
-                as_fn_error $? "*** Couldn't find any Qt libraries" "$LINENO" 5
-            fi
-        fi
-
-        if test $QT_MAJOR = "4" ; then
-	  QT_LIB="-lQtCore -lQtGui -lQt3Support"
-          QT_IS_MT="yes"
-        else
-
-          if test "x`ls $QTDIR/lib/libqt.* 2> /dev/null`" != x ; then
-              QT_LIB="-lqt"
-              QT_IS_MT="no"
-          elif test "x`ls $QTDIR/lib/libqt-mt.* 2> /dev/null`" != x ; then
-              QT_LIB="-lqt-mt"
-              QT_IS_MT="yes"
-          elif test "x`ls $QTDIR/lib/libqte.* 2> /dev/null`" != x ; then
-              QT_LIB="-lqte"
-              QT_IS_MT="no"
-              QT_IS_EMBEDDED="yes"
-          elif test "x`ls $QTDIR/lib/libqte-mt.* 2> /dev/null`" != x ; then
-              QT_LIB="-lqte-mt"
-              QT_IS_MT="yes"
-              QT_IS_EMBEDDED="yes"
-          fi
-        fi
-        ;;
-esac
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if Qt is static" >&5
-$as_echo_n "checking if Qt is static... " >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_IS_STATIC" >&5
-$as_echo "$QT_IS_STATIC" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if Qt is multithreaded" >&5
-$as_echo_n "checking if Qt is multithreaded... " >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_IS_MT" >&5
-$as_echo "$QT_IS_MT" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if Qt is embedded" >&5
-$as_echo_n "checking if Qt is embedded... " >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_IS_EMBEDDED" >&5
-$as_echo "$QT_IS_EMBEDDED" >&6; }
-
-QT_GUILINK=""
-QASSISTANTCLIENT_LDADD="-lqassistantclient"
-case "${host}" in
-    *irix*)
-        QT_LIBS="$QT_LIB"
-        if test $QT_IS_STATIC = yes ; then
-            QT_LIBS="$QT_LIBS -L$x_libraries -lXext -lX11 -lm -lSM -lICE"
-        fi
-        ;;
-
-    *linux*)
-        QT_LIBS="$QT_LIB"
-        if test $QT_IS_STATIC = yes && test $QT_IS_EMBEDDED = no; then
-            if test "x$x_libraries" != x ; then
-                QT_LIBS="$QT_LIBS -L$x_libraries"
-            fi
-            QT_LIBS="$QT_LIBS -lXext -lX11 -lm -lSM -lICE -ldl -ljpeg"
-        fi
-        ;;
-
-
-    *osf*) 
-        # Digital Unix (aka DGUX aka Tru64)
-        QT_LIBS="$QT_LIB"
-        if test $QT_IS_STATIC = yes ; then
-            QT_LIBS="$QT_LIBS -L$x_libraries -lXext -lX11 -lm -lSM -lICE"
-        fi
-        ;;
-
-    *solaris*)
-        QT_LIBS="$QT_LIB"
-        if test $QT_IS_STATIC = yes ; then
-            QT_LIBS="$QT_LIBS -L$x_libraries -lXext -lX11 -lm -lSM -lICE -lresolv -lsocket -lnsl"
-        fi
-        ;;
-
-
-    *win*)
-        # linker flag to suppress console when linking a GUI app on Win32
-        QT_GUILINK="/subsystem:windows"
-
-	if test $QT_MAJOR = "3" ; then
-	    if test $QT_IS_MT = yes ; then
-        	QT_LIBS="/nodefaultlib:libcmt"
-            else
-            	QT_LIBS="/nodefaultlib:libc"
-            fi
-        fi
-
-        if test $QT_IS_STATIC = yes ; then
-            QT_LIBS="$QT_LIBS $QT_LIB kernel32.lib user32.lib gdi32.lib comdlg32.lib ole32.lib shell32.lib imm32.lib advapi32.lib wsock32.lib winspool.lib winmm.lib netapi32.lib"
-            if test $QT_MAJOR = "3" ; then
-                QT_LIBS="$QT_LIBS qtmain.lib"
-            fi
-        else
-            QT_LIBS="$QT_LIBS $QT_LIB"        
-            if test $QT_MAJOR = "3" ; then
-                QT_CXXFLAGS="$QT_CXXFLAGS -DQT_DLL"
-                QT_LIBS="$QT_LIBS qtmain.lib qui.lib user32.lib netapi32.lib"
-            fi
-        fi
-        QASSISTANTCLIENT_LDADD="qassistantclient.lib"
-        ;;
-
-esac
-
-
-if test x"$QT_IS_EMBEDDED" = "xyes" ; then
-        QT_CXXFLAGS="-DQWS $QT_CXXFLAGS"
-fi
-
-if test x"$QT_IS_MT" = "xyes" ; then
-        QT_CXXFLAGS="$QT_CXXFLAGS -D_REENTRANT -DQT_THREAD_SUPPORT"
-fi
-
-QT_LDADD="-L$QTDIR/lib $QT_LIBS"
-
-if test x$QT_IS_STATIC = xyes ; then
-    OLDLIBS="$LIBS"
-    LIBS="$QT_LDADD"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for XftFontOpen in -lXft" >&5
-$as_echo_n "checking for XftFontOpen in -lXft... " >&6; }
-if ${ac_cv_lib_Xft_XftFontOpen+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lXft  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char XftFontOpen ();
-int
-main ()
-{
-return XftFontOpen ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_link "$LINENO"; then :
-  ac_cv_lib_Xft_XftFontOpen=yes
-else
-  ac_cv_lib_Xft_XftFontOpen=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_Xft_XftFontOpen" >&5
-$as_echo "$ac_cv_lib_Xft_XftFontOpen" >&6; }
-if test "x$ac_cv_lib_Xft_XftFontOpen" = xyes; then :
-  QT_LDADD="$QT_LDADD -lXft"
-fi
-
-    LIBS="$LIBS"
-fi
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking QT_CXXFLAGS" >&5
-$as_echo_n "checking QT_CXXFLAGS... " >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_CXXFLAGS" >&5
-$as_echo "$QT_CXXFLAGS" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking QT_LDADD" >&5
-$as_echo_n "checking QT_LDADD... " >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_LDADD" >&5
-$as_echo "$QT_LDADD" >&6; }
-
-
-
-
-
-
-
-
-
-
-  
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking QTLIBDIR" >&5
-$as_echo_n "checking QTLIBDIR... " >&6; }
-
-@%:@ Check whether --with-qtlibdir was given.
-if test "${with_qtlibdir+set}" = set; then :
-  withval=$with_qtlibdir; QTLIBDIR=$withval
-fi
-
-# Check that JUDEDIR is defined or that --with-judedir given
-if test x"$QTLIBDIR" = x; 
-then
-  #AC_MSG(["QT library location not specified, this is probably required for win32 builds so use --with-qtlibdir if so"])
-  QTLIBS=""
-else 
-  QTLIBS=$QTLIBDIR"/libQtCore4.a "$QTLIBDIR"/libQtGui4.a "$QTLIBDIR"/libQt3Support4.a"
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QTLIBDIR" >&5
-$as_echo "$QTLIBDIR" >&6; }
-
-
-fi
 
 
 @%:@ Check whether --enable-nonwin32 was given.
@@ -17120,6 +16558,7 @@ _ACEOF
  
 fi
 done
+
 
 for ac_header in sys/time.h
 do :
@@ -17514,13 +16953,6 @@ fi
 ac_config_headers="$ac_config_headers config.h:config.in"
 
 
- if test x$QT_MAJOR = x4; then
-  QT_MAJOR_IS_4_TRUE=
-  QT_MAJOR_IS_4_FALSE='#'
-else
-  QT_MAJOR_IS_4_TRUE='#'
-  QT_MAJOR_IS_4_FALSE=
-fi
 
 
 
@@ -17528,8 +16960,7 @@ fi
 
 
 
-
-ac_config_files="$ac_config_files Makefile base/Makefile base/testing/Makefile math/Makefile math/testing/Makefile file/Makefile file/testing/Makefile ds/Makefile ds/testing/Makefile S2/Makefile drawS2/Makefile drawS2/testing/Makefile S3/Makefile S3/testing/Makefile table/Makefile table/testing/Makefile rad/Makefile tool/Makefile chartS2/Makefile chartS2/testing/Makefile fe/Makefile wl/Makefile wl/testing/Makefile filetool/Makefile skytool/Makefile phasetool/Makefile slabtool/Makefile surftool/Makefile calctool/Makefile wltool/Makefile wltool/gui/Makefile planarrad/gui/Makefile testing/Makefile"
+ac_config_files="$ac_config_files Makefile base/Makefile base/testing/Makefile math/Makefile math/testing/Makefile file/Makefile file/testing/Makefile ds/Makefile ds/testing/Makefile S2/Makefile drawS2/Makefile drawS2/testing/Makefile S3/Makefile S3/testing/Makefile table/Makefile table/testing/Makefile rad/Makefile tool/Makefile chartS2/Makefile chartS2/testing/Makefile wl/Makefile wl/testing/Makefile filetool/Makefile skytool/Makefile phasetool/Makefile slabtool/Makefile surftool/Makefile calctool/Makefile wltool/Makefile testing/Makefile"
 
 
 
@@ -17583,16 +17014,8 @@ if test -z "${am__fastdepCXX_TRUE}" && test -z "${am__fastdepCXX_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCXX\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${WITH_QT_TRUE}" && test -z "${WITH_QT_FALSE}"; then
-  as_fn_error $? "conditional \"WITH_QT\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
 if test -z "${WIN32_TRUE}" && test -z "${WIN32_FALSE}"; then
   as_fn_error $? "conditional \"WIN32\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${QT_MAJOR_IS_4_TRUE}" && test -z "${QT_MAJOR_IS_4_FALSE}"; then
-  as_fn_error $? "conditional \"QT_MAJOR_IS_4\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
@@ -18177,7 +17600,7 @@ cat >>$CONFIG_STATUS <<_ACEOF || ac_write_fail=1
 #
 # INIT-COMMANDS
 #
-AMDEP_TRUE="$AMDEP_TRUE" ac_aux_dir="$ac_aux_dir"
+AMDEP_TRUE="$AMDEP_TRUE" MAKE="${MAKE-make}"
 
 
 # The HP-UX ksh and POSIX shell print the target directory to stdout
@@ -18593,7 +18016,6 @@ do
     "tool/Makefile") CONFIG_FILES="$CONFIG_FILES tool/Makefile" ;;
     "chartS2/Makefile") CONFIG_FILES="$CONFIG_FILES chartS2/Makefile" ;;
     "chartS2/testing/Makefile") CONFIG_FILES="$CONFIG_FILES chartS2/testing/Makefile" ;;
-    "fe/Makefile") CONFIG_FILES="$CONFIG_FILES fe/Makefile" ;;
     "wl/Makefile") CONFIG_FILES="$CONFIG_FILES wl/Makefile" ;;
     "wl/testing/Makefile") CONFIG_FILES="$CONFIG_FILES wl/testing/Makefile" ;;
     "filetool/Makefile") CONFIG_FILES="$CONFIG_FILES filetool/Makefile" ;;
@@ -18603,8 +18025,6 @@ do
     "surftool/Makefile") CONFIG_FILES="$CONFIG_FILES surftool/Makefile" ;;
     "calctool/Makefile") CONFIG_FILES="$CONFIG_FILES calctool/Makefile" ;;
     "wltool/Makefile") CONFIG_FILES="$CONFIG_FILES wltool/Makefile" ;;
-    "wltool/gui/Makefile") CONFIG_FILES="$CONFIG_FILES wltool/gui/Makefile" ;;
-    "planarrad/gui/Makefile") CONFIG_FILES="$CONFIG_FILES planarrad/gui/Makefile" ;;
     "testing/Makefile") CONFIG_FILES="$CONFIG_FILES testing/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
@@ -19205,29 +18625,35 @@ $as_echo "$as_me: executing $ac_file commands" >&6;}
   # Older Autoconf quotes --file arguments for eval, but not when files
   # are listed without --file.  Let's play safe and only enable the eval
   # if we detect the quoting.
-  case $CONFIG_FILES in
-  *\'*) eval set x "$CONFIG_FILES" ;;
-  *)   set x $CONFIG_FILES ;;
-  esac
+  # TODO: see whether this extra hack can be removed once we start
+  # requiring Autoconf 2.70 or later.
+  case $CONFIG_FILES in @%:@(
+  *\'*) :
+    eval set x "$CONFIG_FILES" ;; @%:@(
+  *) :
+    set x $CONFIG_FILES ;; @%:@(
+  *) :
+     ;;
+esac
   shift
-  for mf
+  # Used to flag and report bootstrapping failures.
+  am_rc=0
+  for am_mf
   do
     # Strip MF so we end up with the name of the file.
-    mf=`echo "$mf" | sed -e 's/:.*$//'`
-    # Check whether this is an Automake generated Makefile or not.
-    # We used to match only the files named 'Makefile.in', but
-    # some people rename them; so instead we look at the file content.
-    # Grep'ing the first line is not enough: some people post-process
-    # each Makefile.in and add a new line on top of each file to say so.
-    # Grep'ing the whole file is not good either: AIX grep has a line
+    am_mf=`$as_echo "$am_mf" | sed -e 's/:.*$//'`
+    # Check whether this is an Automake generated Makefile which includes
+    # dependency-tracking related rules and includes.
+    # Grep'ing the whole file directly is not great: AIX grep has a line
     # limit of 2048, but all sed's we know have understand at least 4000.
-    if sed -n 's,^#.*generated by automake.*,X,p' "$mf" | grep X >/dev/null 2>&1; then
-      dirpart=`$as_dirname -- "$mf" ||
-$as_expr X"$mf" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
-	 X"$mf" : 'X\(//\)[^/]' \| \
-	 X"$mf" : 'X\(//\)$' \| \
-	 X"$mf" : 'X\(/\)' \| . 2>/dev/null ||
-$as_echo X"$mf" |
+    sed -n 's,^am--depfiles:.*,X,p' "$am_mf" | grep X >/dev/null 2>&1 \
+      || continue
+    am_dirpart=`$as_dirname -- "$am_mf" ||
+$as_expr X"$am_mf" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
+	 X"$am_mf" : 'X\(//\)[^/]' \| \
+	 X"$am_mf" : 'X\(//\)$' \| \
+	 X"$am_mf" : 'X\(/\)' \| . 2>/dev/null ||
+$as_echo X"$am_mf" |
     sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{
 	    s//\1/
 	    q
@@ -19245,53 +18671,48 @@ $as_echo X"$mf" |
 	    q
 	  }
 	  s/.*/./; q'`
-    else
-      continue
-    fi
-    # Extract the definition of DEPDIR, am__include, and am__quote
-    # from the Makefile without running 'make'.
-    DEPDIR=`sed -n 's/^DEPDIR = //p' < "$mf"`
-    test -z "$DEPDIR" && continue
-    am__include=`sed -n 's/^am__include = //p' < "$mf"`
-    test -z "$am__include" && continue
-    am__quote=`sed -n 's/^am__quote = //p' < "$mf"`
-    # Find all dependency output files, they are included files with
-    # $(DEPDIR) in their names.  We invoke sed twice because it is the
-    # simplest approach to changing $(DEPDIR) to its actual value in the
-    # expansion.
-    for file in `sed -n "
-      s/^$am__include $am__quote\(.*(DEPDIR).*\)$am__quote"'$/\1/p' <"$mf" | \
-	 sed -e 's/\$(DEPDIR)/'"$DEPDIR"'/g'`; do
-      # Make sure the directory exists.
-      test -f "$dirpart/$file" && continue
-      fdir=`$as_dirname -- "$file" ||
-$as_expr X"$file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
-	 X"$file" : 'X\(//\)[^/]' \| \
-	 X"$file" : 'X\(//\)$' \| \
-	 X"$file" : 'X\(/\)' \| . 2>/dev/null ||
-$as_echo X"$file" |
-    sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{
+    am_filepart=`$as_basename -- "$am_mf" ||
+$as_expr X/"$am_mf" : '.*/\([^/][^/]*\)/*$' \| \
+	 X"$am_mf" : 'X\(//\)$' \| \
+	 X"$am_mf" : 'X\(/\)' \| . 2>/dev/null ||
+$as_echo X/"$am_mf" |
+    sed '/^.*\/\([^/][^/]*\)\/*$/{
 	    s//\1/
 	    q
 	  }
-	  /^X\(\/\/\)[^/].*/{
+	  /^X\/\(\/\/\)$/{
 	    s//\1/
 	    q
 	  }
-	  /^X\(\/\/\)$/{
-	    s//\1/
-	    q
-	  }
-	  /^X\(\/\).*/{
+	  /^X\/\(\/\).*/{
 	    s//\1/
 	    q
 	  }
 	  s/.*/./; q'`
-      as_dir=$dirpart/$fdir; as_fn_mkdir_p
-      # echo "creating $dirpart/$file"
-      echo '# dummy' > "$dirpart/$file"
-    done
+    { echo "$as_me:$LINENO: cd "$am_dirpart" \
+      && sed -e '/# am--include-marker/d' "$am_filepart" \
+        | $MAKE -f - am--depfiles" >&5
+   (cd "$am_dirpart" \
+      && sed -e '/# am--include-marker/d' "$am_filepart" \
+        | $MAKE -f - am--depfiles) >&5 2>&5
+   ac_status=$?
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+   (exit $ac_status); } || am_rc=$?
   done
+  if test $am_rc -ne 0; then
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "Something went wrong bootstrapping makefile fragments
+    for automatic dependency tracking.  Try re-running configure with the
+    '--disable-dependency-tracking' option to at least be able to build
+    the package (albeit without support for automatic dependency tracking).
+See \`config.log' for more details" "$LINENO" 5; }
+  fi
+  { am_dirpart=; unset am_dirpart;}
+  { am_filepart=; unset am_filepart;}
+  { am_mf=; unset am_mf;}
+  { am_rc=; unset am_rc;}
+  rm -f conftest-deps.mk
 }
  ;;
     "libtool":C) 
@@ -19309,7 +18730,6 @@ $as_echo X"$file" |
     cat <<_LT_EOF >> "$cfgfile"
 #! $SHELL
 # Generated automatically by $as_me ($PACKAGE) $VERSION
-# Libtool was configured on host `(hostname || uname -n) 2>/dev/null | sed 1q`:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.

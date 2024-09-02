@@ -91,8 +91,7 @@ host_triplet = @host@
 bin_PROGRAMS = skytool_free$(EXEEXT)
 subdir = skytool
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/check_qtlibs.m4 \
-	$(top_srcdir)/m4/checks.m4 $(top_srcdir)/m4/gwqt.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/checks.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
 	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/optimise.m4 \
@@ -238,7 +237,6 @@ LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
-MOC = @MOC@
 NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
@@ -254,22 +252,12 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-QASSISTANTCLIENT_LDADD = @QASSISTANTCLIENT_LDADD@
-QTDIR = @QTDIR@
-QTLIBS = @QTLIBS@
-QT_CXXFLAGS = @QT_CXXFLAGS@
-QT_GUILINK = @QT_GUILINK@
-QT_LDADD = @QT_LDADD@
-QT_MAJOR = @QT_MAJOR@
-QT_STATIC_LIB = @QT_STATIC_LIB@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
-UIC = @UIC@
 VERSION = @VERSION@
-XMKMF = @XMKMF@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@

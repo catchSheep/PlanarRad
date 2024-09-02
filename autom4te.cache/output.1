@@ -635,13 +635,9 @@ ac_includes_default="\
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
-QT_MAJOR_IS_4_FALSE
-QT_MAJOR_IS_4_TRUE
 LIB@&t@OBJS
 WIN32_FALSE
 WIN32_TRUE
-WITH_QT_FALSE
-WITH_QT_TRUE
 AM_CXXFLAGS
 OPENMP_CXXFLAGS
 CXXCPP
@@ -780,7 +776,6 @@ with_gnu_ld
 with_sysroot
 enable_libtool_lock
 enable_openmp
-enable_qt
 enable_nonwin32
 '
       ac_precious_vars='build_alias
@@ -1438,7 +1433,6 @@ Optional Features:
                           optimize for fast installation @<:@default=yes@:>@
   --disable-libtool-lock  avoid locking (might break parallel builds)
   --disable-openmp        do not use OpenMP
-  --disable-qt    Disable use of Qt and hence all GUI compilation
   --disable-nonwin32    Disable things that don't currently compile under windows
 
 Optional Packages:
@@ -16426,30 +16420,7 @@ fi
 
 OPTIMISE
 
-@%:@ Check whether --enable-qt was given.
-if test "${enable_qt+set}" = set; then :
-  enableval=$enable_qt; case "${enableval}" in
-  yes) qt=true ;;
-  no)  qt=false ;;
-  *) as_fn_error $? "bad value ${enableval} for --enable-qt" "$LINENO" 5 ;;
-esac
-else
-  qt=true
-fi
 
- if test x$qt = xtrue; then
-  WITH_QT_TRUE=
-  WITH_QT_FALSE='#'
-else
-  WITH_QT_TRUE='#'
-  WITH_QT_FALSE=
-fi
-
-
-if test "x${qt}" = xtrue; then
-  gw_CHECK_QT
-  CHECK_QTLIBS
-fi
 
 
 @%:@ Check whether --enable-nonwin32 was given.
@@ -16923,14 +16894,6 @@ fi
 ac_config_headers="$ac_config_headers config.h:config.in"
 
 
- if test x$QT_MAJOR = x4; then
-  QT_MAJOR_IS_4_TRUE=
-  QT_MAJOR_IS_4_FALSE='#'
-else
-  QT_MAJOR_IS_4_TRUE='#'
-  QT_MAJOR_IS_4_FALSE=
-fi
-
 
 
 
@@ -16992,16 +16955,8 @@ if test -z "${am__fastdepCXX_TRUE}" && test -z "${am__fastdepCXX_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCXX\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${WITH_QT_TRUE}" && test -z "${WITH_QT_FALSE}"; then
-  as_fn_error $? "conditional \"WITH_QT\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
 if test -z "${WIN32_TRUE}" && test -z "${WIN32_FALSE}"; then
   as_fn_error $? "conditional \"WIN32\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${QT_MAJOR_IS_4_TRUE}" && test -z "${QT_MAJOR_IS_4_FALSE}"; then
-  as_fn_error $? "conditional \"QT_MAJOR_IS_4\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
