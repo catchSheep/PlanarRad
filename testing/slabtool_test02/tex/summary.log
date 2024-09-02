@@ -1,97 +1,109 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=latex 2013.9.2)  10 JUN 2015 22:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=latex 2024.9.2)  2 SEP 2024 05:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **summary.tex
 (./summary.tex
-LaTeX2e <2011/06/27>
-Babel <3.9f> and hyphenation patterns for 2 languages loaded.
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
 )
-\c@part=\count79
-\c@section=\count80
-\c@subsection=\count81
-\c@subsubsection=\count82
-\c@paragraph=\count83
-\c@subparagraph=\count84
-\c@figure=\count85
-\c@table=\count86
-\abovecaptionskip=\skip41
-\belowcaptionskip=\skip42
-\bibindent=\dimen102
+\c@part=\count167
+\c@section=\count168
+\c@subsection=\count169
+\c@subsubsection=\count170
+\c@paragraph=\count171
+\c@subparagraph=\count172
+\c@figure=\count173
+\c@table=\count174
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: dvips.def on input line 91.
+Package graphics Info: Driver file: dvips.def on input line 105.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvips.def
-File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/dvips.def
+File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
 ))
-\Gin@req@height=\dimen103
-\Gin@req@width=\dimen104
+\Gin@req@height=\dimen135
+\Gin@req@width=\dimen136
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
-Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
-Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen105
-\extrarowheight=\dimen106
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen137
+\ar@mcellbox=\box45
+\extrarowheight=\dimen138
 \NC@list=\toks15
-\extratabsurround=\skip43
-\backup@length=\skip44
+\extratabsurround=\skip49
+\backup@length=\skip50
+\ar@cellbox=\box46
 )
-\TX@col@width=\dimen107
-\TX@old@table=\dimen108
-\TX@old@col=\dimen109
-\TX@target=\dimen110
-\TX@delta=\dimen111
-\TX@cols=\count87
+\TX@col@width=\dimen139
+\TX@old@table=\dimen140
+\TX@old@col=\dimen141
+\TX@target=\dimen142
+\TX@delta=\dimen143
+\TX@cols=\count175
 \TX@ftn=\toks16
 )
 (/usr/share/texlive/texmf-dist/tex/latex/changepage/chngpage.sty
 Package: chngpage 2009/10/20 v1.2b change page layout
-\c@cp@cnt=\count88
-\c@cp@tempcnt=\count89
+\c@cp@cnt=\count176
+\c@cp@tempcnt=\count177
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
-Package: fancyvrb 2008/02/07
-
-Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
-<2008/02/07> (tvz)
-\FV@CodeLineNo=\count90
-\FV@InFile=\read1
-\FV@TabBox=\box26
-\c@FancyVerbLine=\count91
-\FV@StepNumber=\count92
+Package: fancyvrb 2020/01/13 v3.5 verbatim text (tvz,hv)
+\FV@CodeLineNo=\count178
+\FV@InFile=\read2
+\FV@TabBox=\box47
+\c@FancyVerbLine=\count179
+\FV@StepNumber=\count180
 \FV@OutFile=\write3
-) (./summary.aux)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
+File: l3backend-dvips.def 2020-02-03 L3 backend support: dvips
+\l__pdf_internal_box=\box48
+\g__pdf_backend_object_int=\count181
+\l__pdf_backend_content_box=\box49
+\l__pdf_backend_model_box=\box50
+\g__pdf_backend_annotation_int=\count182
+\g__pdf_backend_link_int=\count183
+\g__pdf_backend_link_sf_int=\count184
+)
+(./summary.aux)
 \openout1 = `summary.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
@@ -821,12 +833,12 @@ Overfull \vbox (17.30795pt too high) has occurred while \output is active []
 
 [38] (./summary.aux) ) 
 Here is how much of TeX's memory you used:
- 1477 strings out of 495036
- 26135 string characters out of 6181729
- 74118 words of memory out of 5000000
- 4507 multiletter control sequences out of 15000+600000
- 7963 words of font info for 29 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 25i,11n,19p,1336b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 2144 strings out of 481240
+ 47755 string characters out of 5920404
+ 266744 words of memory out of 5000000
+ 17229 multiletter control sequences out of 15000+600000
+ 536661 words of font info for 39 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 30i,11n,25p,1336b,302s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on summary.dvi (38 pages, 30008 bytes).
+Output written on summary.dvi (38 pages, 30004 bytes).
