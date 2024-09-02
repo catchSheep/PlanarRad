@@ -30,7 +30,6 @@ SUBDIRS = \
 	wl/testing \
 	chartS2 \
 	chartS2/testing \
-	fe \
 	filetool \
 	skytool \
 	surftool \
@@ -38,8 +37,6 @@ SUBDIRS = \
 	slabtool \
 	calctool \
 	wltool \
-	wltool/gui \
-	planarrad/gui \
 	testing
 
 

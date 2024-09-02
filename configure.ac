@@ -108,7 +108,6 @@ AC_OUTPUT(Makefile
 	tool/Makefile
 	chartS2/Makefile
 	chartS2/testing/Makefile
-	fe/Makefile
 	wl/Makefile
 	wl/testing/Makefile
 	filetool/Makefile
@@ -118,8 +117,6 @@ AC_OUTPUT(Makefile
 	surftool/Makefile
 	calctool/Makefile
 	wltool/Makefile
-	wltool/gui/Makefile
-	planarrad/gui/Makefile
 	testing/Makefile)
 
 

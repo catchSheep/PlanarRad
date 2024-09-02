@@ -11,21 +11,19 @@ Installation on Linux should be fairly easy and straightforward.
 
 Download this repo either as a zip and extract it, or clone the repo with `git clone`.
 
-Currently, to compile, we compile with the QT dependencies, even if you only want the command line features. The --disable-qt option does NOT appear to work, as there are many calls to qt libraries within the code that are not removed by the use of such a flag. See todo list.   
+QT Dependencies should be removed, at the expense of the GUI. 
 
-Tested on Fedora 33 and 34.
 
 ---------------------------
 ## Initial steps
 You will need to download the package dependencies. Try the below commands for your OS:
-### Ubuntu specific packages
-(NB: QT dependence isnt tested on ubuntu. If this doesnt work, try a different qt package)
+### Ubuntu 22.04 specific packages
 ```
-sudo apt-get install g++ libqt4-dev libsm-dev libjpeg-dev libboost-all-dev qt5-default qtbase5-dev
+sudo apt-get install g++  libsm-dev libjpeg-dev libboost-all-dev 
 ```
 ### Fedora specific packages
 ```
-sudo yum install gcc gcc-c++ qt-devel libjpeg-devel boost-devel qt5-qtbase qt5-qtbase-devel
+sudo yum install gcc gcc-c++ libjpeg-devel boost-devel
 ```
 ---------------------------
 
@@ -83,8 +81,12 @@ autoreconf --force --install
 ```
 NB: It is recommended to have an up to date `autotools`, `libtool`, and `autoconf` when performing the above
 ## TODO:
- * Remove qt dependence
  * Complete documentation for the specifics of each command line program
+ * Containerize (docker/podman/apptainer)
+ * Create useful pre-commits and actions for repo
+ * Re-organise repo files
+ * Automated testing
+ * Create new GUI
 Feel free to contribute!
 
 
