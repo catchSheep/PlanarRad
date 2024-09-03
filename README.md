@@ -40,7 +40,7 @@ Then restart your terminal environment with `source ~/.bashrc`
 
 With the prerequisite packages installed and the path set, simply navigate to the main directory in a terminal run the install script `example_build`:
 ```
-bash example_build
+bash example_build 
 ```
 ## Windows/OS X Installation
 If you're on windows or OS X, it's up to you to fend for yourself. 
@@ -53,7 +53,7 @@ If on Mac, you may need brew to install some dependencies.
 ## A note on downloading from github
 If you download the files from github, likely the timestamps have all reset due to how git works. This upsets autotools immensly, as it may think the aclocal.m4 and other files are out of date and need to be regenerated. If you have this issue when building manually, then before running configure run a simple:
 ```
-touch aclocal.m4 Makefile.am configure Makefile.in
+touch src/aclocal.m4 src/Makefile.am src/configure src/Makefile.in
 ```
 This will correctly fool autotools into thinking that the files are up to date, which should fix the issue. This is run before `configure`  in `example_build`. NB: If you **DO** edit aclocal makefile's, etc, you will need to re-run autotools as mentioned above.  
 
@@ -66,15 +66,12 @@ export OMP_NUM_THREADS=1
 ```
 
 ## Re-generating build files with autotools
-When wanting to produce build files, ie if you need additional compiler options, if you've edited the Makefile.am's etc., just run:
+When wanting to produce build files, ie if you need additional compiler options, if you've edited the Makefile.am's etc., just run 
 ```
-libtoolize --force --install -c
-rm aclocal.m4
-aclocal
-autoheader
-automake --force --add-missing -c
-autoreconf --force --install
+cd src
+bash autoconf_setup.sh
 ```
+Which should rebuild all the GNU autoconf files
 NB: It is recommended to have an up to date `autotools`, `libtool`, and `autoconf` when performing the above
 ## TODO:
  * Complete documentation for the specifics of each command line program
