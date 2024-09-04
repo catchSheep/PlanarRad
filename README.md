@@ -14,23 +14,6 @@ There are a few ways to install this package:
 - With docker/etc using the Dockerfile
 - Building from source
 
-## 🐋 Docker 
-
-🔥 NB: Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly.
-
-### Non-root docker installation
-To build a docker image with the PlanarRad executables, in the main repository directory run:
-```sh
-docker build . -t planarrad
-```
-On a rootless docker install, to print the help command, run:
-```
-docker run planarrad -h
-```
-On a rootless docker install, to run slabtool:
-```
-docker run planarrad slabtool <command>
-```
 ### Root-ed docker installation
 If you are on a root install of docker on linux, you will need to pass through your userid to preserve file-permissions when running PlanarRad by prepending `--user $(id -u):$(id -g)` before the image name.  
 e.g. the above command becomes:
@@ -98,6 +81,25 @@ OMP_NUM_THREADS=1 <PlanarRad command>
 ```
 Alternatively, turn off multi-threaded support during build. Do this by removing `--enable-openmp CFLAGS="-fopenmp"` from the configure command.
 
+## 🐋 Docker installation
+
+🔥 NB: Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly. Use this method if you have issues with other installation methods.
+
+
+
+### Non-root docker installation
+To build a docker image with the PlanarRad executables, in the main repository directory run:
+```sh
+docker build . -t planarrad
+```
+On a rootless docker install, to print the help command, run:
+```
+docker run planarrad -h
+```
+On a rootless docker install, to run slabtool:
+```
+docker run planarrad slabtool <command>
+```
 
 # Usage
 Currently, please see the [PlanarRad wiki](http://www.planarrad.com/) for general usage.
