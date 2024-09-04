@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+POSTFIX="_free"
+
 usage="usage: $(basename "$0") [-h] [-s n] <command> [<args>]
 
 PlanarRad main command for docker image. Calls other planarRad programs normally in the directory \$JUDE2DIR
@@ -84,7 +86,7 @@ fi
 
 
 # Run planarrad program
-cmd="$1_free"
+cmd="$1$postfix"
 echo Running command \'$cmd"${@:2}"\'
 # Run command
 $cmd "${@:2}"
