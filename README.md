@@ -1,55 +1,64 @@
 # PlanarRad Fork 
 
-This github is an attempt to update and marginally maintain the version of John Hedley's PlanarRad software, which he graciously licensed under the GNU GPLv3.0.
+This github is an attempt to update and marginally maintain the version of John Hedley's PlanarRad software, which he graciously licensed under the GNU GPLv3.0. 
+
+Due to QT (GUI library) compatibility issues, this fork currently only supports command-line interaction, and has no GUI.
 
 
-# Notes on Installation and building:
 
-
-## Linux Installation
-Installation on Linux should be fairly easy and straightforward.   
-
-Download this repo either as a zip and extract it, or clone the repo with `git clone`.
-
-QT Dependencies should be removed, at the expense of the GUI. 
-
-
----------------------------
-## Initial steps
-You will need to download the package dependencies. Try the below commands for your OS:
-### Ubuntu 22.04 specific packages
-```
-sudo apt-get install g++  libsm-dev libjpeg-dev libboost-all-dev 
-```
-### Fedora specific packages
-```
-sudo yum install gcc gcc-c++ libjpeg-devel boost-devel
-```
----------------------------
 
 # Installation
-## 🐧 Linux (supported)
-On Ubuntu add something like the following to the end of the '.profile' file in your home directory. On Fedora add it to the end of the  '.bash_profile' file in your home directory. You may be able to get away with adding them to the start of the `example_build` script.
+
+
+There are a few ways to install this package:
+- With docker/etc using the Dockerfile
+- Building from source
+
+### Root-ed docker installation
+If you are on a root install of docker on linux, you will need to pass through your userid to preserve file-permissions when running PlanarRad by prepending `--user $(id -u):$(id -g)` before the image name.  
+e.g. the above command becomes:
+```
+docker run --user $(id -u):$(id -g) planarrad slabtool <command>
+```
+
+Alternativly to docker, use your choice of [Podman](https://podman.io/), [apptainer](https://apptainer.org/), etc. to build and run the image with the Dockerfile.
+
+
+## Building and installaing from source
+### 🐧 Linux (supported)
+
+---------------------------
+#### Install Dependencies
+You will need to download the package dependencies. Some example for certain OS's are below.
+##### Ubuntu 22.04 and 24.04 specific packages
+```
+sudo apt-get install g++ libsm-dev libjpeg-dev libboost-all-dev make
+```
+##### Fedora (34?) specific packages
+```
+sudo yum install gcc gcc-c++ libjpeg-devel boost-devel make
+```
+
+#### Set install location(s)
+On Ubuntu add something like the following to the end of the `~/.bashrc` file in your home directory (or add it to `~/.zshrc` for zsh). 
 ```
 export JUDE2DIR=$HOME/jude2_install
 export LD_LIBRARY_PATH=$JUDE2DIR/lib:$LD_LIBRARY_PATH
 export PATH=$JUDE2DIR/bin:$PATH
-```
-If you wish for these to initialise on a login, add them to your `~/.bashrc` file (or ~/.zshrc if you use zsh).  
-Then restart your terminal environment with `source ~/.bashrc`
+``` 
+Then reload your terminal environment with `source ~/.bashrc`
 
 With the prerequisite packages installed and the path set, simply navigate to the main directory in a terminal run the install script `example_build`:
 ```
-bash example_build 
+bash example_build $JUDE2DIR
 ```
-## 👩‍💻 Windows/OS X Installation
+### 👩‍💻 Windows/OS X
 If you're on windows or OS X, it's up to you to fend for yourself. 
 
 For windows users, you may be able to get away with using and running it through WSL (Windows subsystem for Linux - many guides online). 
 
 If on Mac, you may need brew to install some dependencies.
 
-## Self Supported
 ### 📜 A note on downloading from github
 If you download the files from github, likely the timestamps have all reset due to how git works. This upsets autotools immensly, as it may think the aclocal.m4 and other files are out of date and need to be regenerated. If you have this issue when building manually, then before running configure run a simple:
 ```
@@ -60,32 +69,42 @@ This will correctly fool autotools into thinking that the files are up to date, 
 Bear all this in mind if you want to run the `./configure`, `make`, `make install` yourself.
 
 ### 🕸 Multithreaded compiling
-PlanarRad now comes with OpenMP support. Should automatically come with multithreaded compilation. To prevent this, either remove `--enable-openmp CFLAGS="-fopenmp"` from the example_build script, or after installation, simply set the OpenMP environment variable OMP_NUM_THREADS to the maximum number of threads you want before running PlanarRad, eg:
+PlanarRad now comes with OpenMP support. The default build script `example_build.sh` automatically comes with multithreaded compilation. To prevent this simply set the OpenMP environment variable OMP_NUM_THREADS to the maximum number of threads you want before running PlanarRad, 
+e.g. change it for your shell session with:
 ```
 export OMP_NUM_THREADS=1
+<PlanarRad commands>
 ```
+or change the number of threads only for the one command with:
+```
+OMP_NUM_THREADS=1 <PlanarRad command>
+```
+Alternatively, turn off multi-threaded support during build. Do this by removing `--enable-openmp CFLAGS="-fopenmp"` from the configure command.
 
-## 🐋 Docker
+## 🐋 Docker installation
+
+🔥 NB: Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly. Use this method if you have issues with other installation methods.
+
+
+
+### Non-root docker installation
 To build a docker image with the PlanarRad executables, in the main repository directory run:
 ```sh
 docker build . -t planarrad
 ```
-On a rootless docker install (non-default), to print the help command, run:
+On a rootless docker install, to print the help command, run:
 ```
 docker run planarrad -h
 ```
-On a rootless docker install (non-default), to run slabtool:
+On a rootless docker install, to run slabtool:
 ```
 docker run planarrad slabtool <command>
 ```
-If you are on a root install of docker (default) you will need to pass through your userid to preserve permissions by prepending `--user $(id -u):$(id -g)` before the image name.  
-e.g. the above command becomes:
-```
-docker run --user $(id -u):$(id -g) planarrad slabtool <command>
-```
 
 # Usage
-Currently, please see the [PlanarRad wiki](http://www.planarrad.com/) for usage.
+Currently, please see the [PlanarRad wiki](http://www.planarrad.com/) for general usage.
+
+To build the HydroLight comparison document, 
 
 # Building with changes
 When wanting to produce build files, ie if you need additional compiler options, if you've edited the Makefile.am's etc., just run 

@@ -1,4 +1,7 @@
 # Dockerfile to build planarRad as a CLI container
+# Copyright (C) 2024 Leigh Tyers
+# Licensed under GNU GPLv3, see https://www.gnu.org/licenses/gpl-3.0.en.html
+
 FROM ubuntu:24.04
 
 
