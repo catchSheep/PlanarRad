@@ -1,6 +1,6 @@
 # PlanarRad Fork 
 
-This github is an attempt to update and marginally maintain the version of John Hedley's PlanarRad software, which he graciously licensed under the GNU GPLv3.0. 
+This github is an attempt to update and marginally maintain John Hedley's PlanarRad software, which he graciously licensed under the GNU GPLv3.0. 
 
 Due to QT (GUI library) compatibility issues, this fork currently only supports command-line interaction, and has no GUI.
 
