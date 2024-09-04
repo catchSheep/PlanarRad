@@ -1,8 +1,9 @@
 #!/bin/sh
+# Builds PlanarRad. Has one option input, the install dir
 
 # create configure script - has been be done already so commented out
 # ./autogen.sh
-export JUDE2DIR=$HOME/jude2_install
+export JUDE2DIR=${1:-$HOME/jude2_install}
 export LD_LIBRARY_PATH=$JUDE2DIR/lib:$LD_LIBRARY_PATH
 export PATH=$JUDE2DIR/bin:$PATH
 
@@ -11,15 +12,15 @@ export PATH=$JUDE2DIR/bin:$PATH
 rm -rf build
 mkdir -p build
 
-touch aclocal.m4 Makefile.am configure Makefile.in
 
+touch src/aclocal.m4 src/Makefile.am src/configure src/Makefile.in
 
 # change to that directory
 cd build
 
 # to build command line version only without qt use option --disable-qt
 # remove --enable-optimised=yes to build without optimisation flags (may solve build problems but will run slower)
-../configure --prefix=$JUDE2DIR --enable-optimised=yes --enable-openmp CFLAGS="-fopenmp" 
+../src/configure --prefix=$JUDE2DIR --enable-optimised=yes --enable-openmp CFLAGS="-fopenmp" 
 
 # compile
 make -j $(nproc)
