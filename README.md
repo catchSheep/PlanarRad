@@ -69,17 +69,17 @@ This will correctly fool autotools into thinking that the files are up to date, 
 Bear all this in mind if you want to run the `./configure`, `make`, `make install` yourself.
 
 ### 🕸 Multithreaded compiling
-PlanarRad now comes with OpenMP support. The default build script `example_build.sh` automatically comes with multithreaded compilation. To prevent this simply set the OpenMP environment variable OMP_NUM_THREADS to the maximum number of threads you want before running PlanarRad, 
-e.g. change it for your shell session with:
-```
-export OMP_NUM_THREADS=1
-<PlanarRad commands>
-```
-or change the number of threads only for the one command with:
+PlanarRad now comes with OpenMP support. The default build script `example_build.sh` automatically comes with multithreaded compilation. To prevent this simply set the OpenMP environment variable OMP_NUM_THREADS to the maximum number of threads you want before running PlanarRad. 
+
+There is some non-parallel overhead in the multithreaded program, so it is recommended to turn off multi-threading if you are batching large numbers of program runs across across cores/nodes, as then you will have better throughput.   
+
+Otherwise it is recommended to keep it on to reduce runtime (i.e. reduce the latency of a run).
+
+To change number of threads, use the environment variable `OMP_NUM_THREADS`, e.g. for only one run you can use:
 ```
 OMP_NUM_THREADS=1 <PlanarRad command>
 ```
-Alternatively, turn off multi-threaded support during build. Do this by removing `--enable-openmp CFLAGS="-fopenmp"` from the configure command.
+Alternatively, turn off multi-threaded support during build. Do this by not including `--enable-openmp CFLAGS="-fopenmp"` in the configure command (see [`example_build.sh`](example_build.sh)).
 
 ## 🐋 Docker installation
 
