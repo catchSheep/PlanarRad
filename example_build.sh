@@ -1,8 +1,9 @@
 #!/bin/sh
+# Builds PlanarRad. Has one option input, the install dir
 
 # create configure script - has been be done already so commented out
 # ./autogen.sh
-export JUDE2DIR=$HOME/jude2_install
+export JUDE2DIR=${1:-$HOME/jude2_install}
 export LD_LIBRARY_PATH=$JUDE2DIR/lib:$LD_LIBRARY_PATH
 export PATH=$JUDE2DIR/bin:$PATH
 

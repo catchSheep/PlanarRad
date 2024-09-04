@@ -12,13 +12,13 @@ RUN apt-get update && apt-get install -y \
     make
 
 
-ENV JUDE2DIR=/app/jude2_install
+ENV JUDE2DIR=/jude2_install
 ENV LD_LIBRARY_PATH=$JUDE2DIR/lib
 ENV PATH=$JUDE2DIR/bin:$PATH
 
 WORKDIR /app
 COPY  . /app/
 
-RUN bash example_build
+RUN bash example_build.sh $JUDE2DIR
 
 ENTRYPOINT ["/bin/bash", "/app/docker/planarRad_cli.sh"]
