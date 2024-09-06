@@ -9,25 +9,8 @@ Due to QT (GUI library) compatibility issues, this fork currently only supports 
 
 # Installation
 
-
-There are a few ways to install this package:
-- With docker/etc using the Dockerfile
-- Building from source
-
-### Root-ed docker installation
-If you are on a root install of docker on linux, you will need to pass through your userid to preserve file-permissions when running PlanarRad by prepending `--user $(id -u):$(id -g)` before the image name.  
-e.g. the above command becomes:
-```
-docker run --user $(id -u):$(id -g) planarrad slabtool <command>
-```
-
-Alternativly to docker, use your choice of [Podman](https://podman.io/), [apptainer](https://apptainer.org/), etc. to build and run the image with the Dockerfile.
-
-
-## Building and installaing from source
-### 🐧 Linux (supported)
-
 ---------------------------
+## Building from source
 #### Install Dependencies
 You will need to download the package dependencies. Some example for certain OS's are below.
 ##### Ubuntu 22.04 and 24.04 specific packages
@@ -82,7 +65,7 @@ OMP_NUM_THREADS=1 <PlanarRad command>
 Alternatively, turn off multi-threaded support during build. Do this by not including `--enable-openmp CFLAGS="-fopenmp"` in the configure command (see [`example_build.sh`](example_build.sh)).
 
 ## 🐋 Docker installation
-
+NB: Pre-alpha, not ready for user testing  
 🔥 NB: Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly. Use this method if you have issues with other installation methods.
 
 
@@ -100,6 +83,7 @@ On a rootless docker install, to run slabtool:
 ```
 docker run planarrad slabtool <command>
 ```
+You will also need to mount a data volume after `run` but before `planarrad` with `-v src:insde_container_dest`. Paths sent to the tool via CLI will be paths inside the container.
 
 # Usage
 Currently, please see the [PlanarRad wiki](http://www.planarrad.com/) for general usage.
