@@ -10,7 +10,7 @@ downloaded here:
 
 Now compiles with optimisation turned on by default, tested on Ubuntu 13.04 and Fedora 19
 
-[Linux source code: planarrad_free_src_0.9.4beta_2014_02_06.tar.gz]((https://github.com/catchSheep/PlanarRad/releases/download/old/planarrad_free_src_0.9.4beta_2014_02_06.tar.gz))
+Linux source code: [planarrad_free_src_0.9.4beta_2014_02_06.tar.gz]((https://github.com/catchSheep/PlanarRad/releases/download/old/planarrad_free_src_0.9.4beta_2014_02_06.tar.gz))
 
 ---
 `0.9.3 - 19 Nov 2013`
