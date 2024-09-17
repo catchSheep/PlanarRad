@@ -1,4 +1,4 @@
-# PlanarRad Fork 
+# PlanarRad Fork  
 
 This github is an attempt to update and marginally maintain John Hedley's PlanarRad software, which he graciously licensed under the GNU GPLv3.0. 
 
