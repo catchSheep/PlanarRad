@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; PlanarRad 0.9.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=564a08b9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Creating a BRDF file and using it as a bottom boundary" href="creating_BRDF_bottom_boundary.html" />
+    <link rel="prev" title="Building the HydroLight comparison Document" href="building%20the%20hydrolight%20comparison%20document.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PlanarRad
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows_install.html">Windows installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting%20started%20with%20PlanarRad.html">Getting started with PlanarRad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building%20the%20hydrolight%20comparison%20document.html">Building the HydroLight comparison Document</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#binaries-built-from-source">Binaries built from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-running-linux">Command line running (Linux)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#slabtool-help-output">Slabtool Help Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#appimage">AppImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multithreaded-support">🕸 Multithreaded support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="creating_BRDF_bottom_boundary.html">Creating a BRDF file and using it as a bottom boundary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BRDF_isotropic.html">BRDF of a material with isotropic phase function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media (IN PROGRESS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/previous_versions.html">Previous versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/publications.html">Full list of publications using PlanarRad</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PlanarRad</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/installation and usage/usage.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<p>The currently supported ways to use PlanarRad are:</p>
+<ul class="simple">
+<li><p>build and install binaries from source</p></li>
+</ul>
+<p>See <a class="reference internal" href="installation.html"><span class="std std-doc">installation</span></a> for more information.</p>
+<section id="binaries-built-from-source">
+<h2>Binaries built from source<a class="headerlink" href="#binaries-built-from-source" title="Link to this heading"></a></h2>
+<p>PlanarRad contains several commands installed to the system path. These are:</p>
+<ul class="simple">
+<li><p>slabtool_free</p></li>
+<li><p>calctool_free</p></li>
+<li><p>filetool_free</p></li>
+<li><p>phasetool_free</p></li>
+<li><p>skytool_free</p></li>
+<li><p>surftool_free</p></li>
+<li><p>wltool_free</p></li>
+</ul>
+<p>While normally you’ll only need slabtool_free, if you’re an adnvanced user, for more information on run each program with the <code class="docutils literal notranslate"><span class="pre">--help</span></code> command</p>
+</section>
+<section id="command-line-running-linux">
+<h2>Command line running (Linux)<a class="headerlink" href="#command-line-running-linux" title="Link to this heading"></a></h2>
+<p>PlanarRad can be run from the command line without opening the GUI window, the run parameters are specified in a simple text file. The executable for command line running is called ‘slabtool_free’, and if the parameters are saved in the file ‘params.txt’ then under Linux it is run like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">slabtool_free</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Assuming ‘slabtool_free’ is in your path. Note there are no spaces around the ‘=’.</p>
+<p>The GUI version of PlanarRad automatically builds files for: 1) sky radiance distribution; 2) the air-water interface; and 3) the phase function, as determined from the settings. However, the command line version requires these files to be pre-built and the paths to them are specified in the input text file. The easiest way to build these files is to run the GUI version of PlanarRad with required settings and the files can be found in the output directory.</p>
+<p>For example, following the example here: <a class="reference internal" href="BRDF_isotropic.html"><span class="std std-doc">BRDF of a material with isotropic phase function</span></a>, gives rise to these files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iface_rdd_HL18x24_1</span> 
+<span class="n">input_rd_HL18x24_1</span>
+<span class="n">pf_rdd_HL18x24_1</span>
+</pre></div>
+</div>
+<p>Which are binary files that tabulate the air-water interface, sky radiance and phase function as used in that run.</p>
+<p>To perform the same model run as described on the page BRDF of a material with isotropic phase function from the command line copy these three files to a new directory together with the band specification ‘bands1.bsf’ described on that page. Then create a file ‘params.txt’ to look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">test1</span>
+
+<span class="n">band_spec_fp</span> <span class="o">=</span> <span class="n">bands1</span><span class="o">.</span><span class="n">bsf</span>
+
+<span class="n">partition</span> <span class="o">=</span> <span class="n">sphere</span>
+<span class="n">vn</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="n">hn</span> <span class="o">=</span> <span class="mi">24</span>
+<span class="n">theta_points</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">115</span><span class="p">,</span><span class="mi">125</span><span class="p">,</span><span class="mi">135</span><span class="p">,</span><span class="mi">145</span><span class="p">,</span><span class="mi">155</span><span class="p">,</span><span class="mi">165</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">180</span>
+
+<span class="n">depth</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">sample_point_distance</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sample_point_delta_distance</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="n">sky_fp</span> <span class="o">=</span> <span class="n">input_rd_HL18x24_1</span>
+
+<span class="n">water_surface_fp</span> <span class="o">=</span> <span class="n">iface_rdd_HL18x24_1</span> 
+
+<span class="n">pf_fp</span> <span class="o">=</span> <span class="n">pf_rdd_HL18x24_1</span>
+
+<span class="n">atten_data</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">absorp_data</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+<span class="n">bottom_reflec_diffuse_data</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">report_save_fp</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="n">verbose</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+</div>
+<p>And then to run, <code class="docutils literal notranslate"><span class="pre">cd</span></code> to that directory and type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">slabtool_free</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>After the model has finished running the file <code class="docutils literal notranslate"><span class="pre">report.txt</span></code> will have been created in the directory, and should be the same as the report file produced by the GUI run described on the page BRDF of a material with isotropic phase function.</p>
+<p>The most efficient way to use this system is to pre-build a set of sky radiances, interface functions and phase functions. A script can then invoke multiple runs combining these in any combination, together with attenuation, absorption, depth and bottom boundary reflectance, by producing a ‘params.txt’ file with the correct filenames and values in it.</p>
+<section id="slabtool-help-output">
+<h3>Slabtool Help Output<a class="headerlink" href="#slabtool-help-output" title="Link to this heading"></a></h3>
+<p>Below is the output of the slabtool help</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Output</span> <span class="n">Band</span> <span class="n">And</span> <span class="n">Directional</span> <span class="n">Structure</span> <span class="n">Specification</span> <span class="n">From</span> <span class="n">Files</span>
+<span class="o">--------------------------------------------------------------</span>
+<span class="n">band_spec_fp</span>  <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">filepath</span> <span class="n">of</span> <span class="n">output</span> <span class="n">band</span> <span class="n">specification</span><span class="p">)</span>
+<span class="n">direc_spec_fp</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">filepath</span> <span class="n">of</span> <span class="n">output</span> <span class="n">directional</span> <span class="n">structure</span> <span class="n">specification</span><span class="p">)</span>
+
+<span class="n">Band</span> <span class="n">And</span> <span class="n">Directional</span> <span class="n">Structure</span> <span class="n">Direct</span> <span class="n">Specification</span>
+<span class="o">---------------------------------------------------</span>
+<span class="n">All</span> <span class="n">band</span> <span class="ow">and</span> <span class="n">directional</span> <span class="n">structure</span> <span class="n">specifications</span> <span class="n">can</span> <span class="n">be</span> <span class="n">given</span> <span class="n">directly</span>
+<span class="ow">in</span> <span class="n">the</span> <span class="n">supplied</span> <span class="n">parameters</span> <span class="n">rather</span> <span class="n">than</span> <span class="n">by</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">a</span> <span class="n">file</span><span class="o">.</span> <span class="n">In</span> <span class="n">this</span> <span class="n">case</span>
+<span class="n">the</span> <span class="n">band</span> <span class="n">specification</span> <span class="ow">and</span> <span class="n">directional</span> <span class="n">structure</span> <span class="n">specification</span> <span class="n">parameters</span>
+<span class="n">are</span> <span class="n">given</span> <span class="k">with</span> <span class="n">an</span> <span class="n">appropriate</span> <span class="n">prefix</span> <span class="n">to</span> <span class="n">indicate</span> <span class="n">to</span> <span class="n">what</span> <span class="n">they</span> <span class="n">refer</span><span class="o">.</span>
+
+<span class="n">Output</span><span class="p">:</span> <span class="p">(</span><span class="n">no</span> <span class="n">prefix</span><span class="p">)</span>
+<span class="n">Parameters</span> <span class="n">For</span> <span class="n">Direct</span> <span class="n">Band</span> <span class="n">Specification</span>
+<span class="o">----------------------------------------</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">bs_name</span>           <span class="o">=</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">band</span> <span class="n">specification</span> <span class="n">scheme</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">bs_code</span>           <span class="o">=</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">short</span> <span class="n">code</span> <span class="n">to</span> <span class="n">use</span> <span class="n">to</span> <span class="nb">id</span> <span class="n">band</span> <span class="n">specification</span> <span class="n">scheme</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">band_count</span>        <span class="o">=</span> <span class="o">&lt;</span><span class="n">integer</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">number</span> <span class="n">of</span> <span class="n">bands</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">band_centres_data</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">r0</span><span class="p">,</span><span class="n">r1</span><span class="p">,</span><span class="n">r2</span><span class="p">,</span> <span class="o">...</span> <span class="n">rn</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">direct</span> <span class="n">specification</span> <span class="n">of</span> <span class="n">band</span> <span class="n">centres</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">band_widths_data</span>  <span class="o">=</span> <span class="o">&lt;</span><span class="n">r0</span><span class="p">,</span><span class="n">r1</span><span class="p">,</span><span class="n">r2</span><span class="p">,</span> <span class="o">...</span> <span class="n">rn</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">direct</span> <span class="n">specification</span> <span class="n">of</span> <span class="n">band</span> <span class="n">widths</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">band_centres_fp</span>   <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">path</span> <span class="n">of</span> <span class="n">file</span> <span class="n">specifying</span> <span class="n">band</span> <span class="n">centres</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">band_widths_fp</span>    <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">path</span> <span class="n">of</span> <span class="n">file</span> <span class="n">specifying</span> <span class="n">band</span> <span class="n">widths</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">preferred_default</span> <span class="o">=</span> <span class="n">yes</span> <span class="o">|</span> <span class="n">no</span>  <span class="p">(</span><span class="n">request</span> <span class="n">this</span> <span class="n">be</span> <span class="n">the</span> <span class="n">default</span> <span class="n">band</span> <span class="n">specification</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">gui</span> <span class="n">context</span><span class="p">)</span>
+
+<span class="n">Parameters</span> <span class="n">For</span> <span class="n">Direct</span> <span class="n">Directional</span> <span class="n">Structure</span> <span class="n">Specification</span>
+<span class="o">---------------------------------------------------------</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">ds_name</span>      <span class="o">=</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">directional</span> <span class="n">structure</span> <span class="n">scheme</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">ds_code</span>      <span class="o">=</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">short</span> <span class="n">code</span> <span class="n">to</span> <span class="n">use</span> <span class="n">to</span> <span class="nb">id</span> <span class="n">full</span> <span class="n">spherical</span> <span class="n">versions</span> <span class="n">directional</span> <span class="n">structure</span> <span class="n">scheme</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">partition</span>    <span class="o">=</span> <span class="n">sphere</span>  <span class="p">(</span><span class="n">currently</span> <span class="n">only</span> <span class="n">spherical</span> <span class="n">partitions</span> <span class="n">are</span> <span class="n">supported</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">storage</span>      <span class="o">=</span> <span class="n">table</span>   <span class="p">(</span><span class="n">currently</span> <span class="n">only</span> <span class="n">table</span> <span class="n">storage</span> <span class="ow">is</span> <span class="n">supported</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">vn</span>           <span class="o">=</span> <span class="o">&lt;</span><span class="n">integer</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">number</span> <span class="n">of</span> <span class="n">vertical</span> <span class="n">quads</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">sphere</span> <span class="n">excluding</span> <span class="n">endcaps</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">hn</span>           <span class="o">=</span> <span class="o">&lt;</span><span class="n">integer</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">number</span> <span class="n">of</span> <span class="n">horizontal</span> <span class="n">quads</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">theta_points</span>         <span class="o">=</span> <span class="o">&lt;</span><span class="n">r0</span><span class="p">,</span><span class="n">r1</span><span class="p">,</span><span class="n">r2</span><span class="p">,</span> <span class="o">...</span> <span class="n">rn</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">theta</span> <span class="n">values</span> <span class="n">of</span> <span class="n">vertical</span> <span class="n">quad</span> <span class="n">edges</span> <span class="n">over</span> <span class="n">full</span> <span class="n">sphere</span><span class="p">,</span> <span class="mi">0</span> <span class="n">to</span> <span class="mi">180</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">theta_points_fp</span>      <span class="o">=</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">file</span> <span class="n">of</span> <span class="n">theta</span> <span class="n">values</span> <span class="n">of</span> <span class="n">vertical</span> <span class="n">quad</span> <span class="n">edges</span> <span class="n">over</span> <span class="n">full</span> <span class="n">sphere</span><span class="p">,</span> <span class="mi">0</span> <span class="n">to</span> <span class="mi">180</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="n">preferred_default</span>    <span class="o">=</span> <span class="n">yes</span> <span class="o">|</span> <span class="n">no</span>  <span class="p">(</span><span class="n">request</span> <span class="n">this</span> <span class="n">be</span> <span class="n">the</span> <span class="n">default</span> <span class="n">directional</span> <span class="n">specification</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">gui</span> <span class="n">context</span><span class="p">)</span>
+
+<span class="n">Note</span> <span class="k">if</span> <span class="n">theta</span> <span class="n">points</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">specified</span> <span class="n">a</span> <span class="s1">&#39;regular&#39;</span> <span class="n">directional</span> <span class="n">structure</span> <span class="ow">is</span> <span class="n">constructed</span><span class="o">.</span> <span class="n">In</span> <span class="n">this</span> <span class="n">case</span> <span class="nb">all</span> <span class="n">quads</span> <span class="n">have</span> <span class="n">the</span> <span class="n">same</span>
+<span class="n">zenith</span> <span class="n">angular</span> <span class="n">height</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">total</span> <span class="n">end</span> <span class="n">cap</span> <span class="n">angle</span> <span class="ow">is</span> <span class="n">also</span> <span class="n">this</span> <span class="n">angular</span> <span class="n">size</span><span class="p">,</span> <span class="n">equal</span> <span class="n">to</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="n">vn</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">radians</span><span class="o">.</span>
+
+
+<span class="n">Input</span> <span class="n">Specification</span>
+<span class="o">-------------------</span>
+<span class="n">sky_fp</span>                         <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>
+<span class="n">bottom_reflec_fp</span>               <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>   <span class="n">BRDF</span>
+<span class="n">bottom_reflec_diffuse_data</span>     <span class="o">=</span> <span class="o">&lt;</span><span class="n">r1</span><span class="p">,</span><span class="n">r2</span><span class="p">,</span> <span class="o">...</span> <span class="n">rn</span><span class="o">&gt;</span>   <span class="n">Lambertian</span> <span class="n">direct</span> <span class="n">specification</span>
+<span class="n">bottom_reflec_diffuse_fp</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>       <span class="n">Lambertian</span> <span class="kn">from</span> <span class="nn">file</span>
+<span class="n">bottom_reflec_diffuse_band_spec_fp</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>
+<span class="n">depth</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">real</span><span class="o">&gt;</span>
+<span class="n">sample_point_distance</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">real</span><span class="o">&gt;</span>
+<span class="n">sample_point_list</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">r1</span><span class="p">,</span><span class="n">r2</span><span class="p">,</span> <span class="o">...</span> <span class="n">rn</span><span class="o">&gt;</span>
+<span class="n">sample_point_delta_distance</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">real</span><span class="o">&gt;</span>
+<span class="n">atten_fp</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>
+<span class="n">atten_band_spec_fp</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>
+<span class="n">absorp_fp</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>
+<span class="n">absorp_band_spec_fp</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>
+<span class="n">scat_fp</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>
+<span class="n">scat_band_spec_fp</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>
+<span class="n">integrator</span>   <span class="o">=</span> <span class="n">euler</span> <span class="o">|</span> <span class="n">midpoint</span> <span class="o">|</span> <span class="n">runga4</span> <span class="o">|</span> <span class="n">runga4adap</span>
+<span class="n">Saving</span> <span class="n">Quad</span><span class="o">-</span><span class="n">Averaged</span> <span class="n">Directional</span> <span class="n">Radiance</span> <span class="n">Outputs</span>
+<span class="o">-------------------------------------------------</span>
+<span class="n">Ld_a_save_fp</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">downwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">above</span> <span class="n">the</span> <span class="n">water</span> <span class="n">surface</span><span class="p">)</span>
+<span class="n">Lu_a_save_fp</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">upwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">above</span> <span class="n">the</span> <span class="n">water</span> <span class="n">surface</span><span class="p">)</span>
+<span class="n">Ld_w_save_fp</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">downwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">just</span> <span class="n">below</span> <span class="n">the</span> <span class="n">water</span> <span class="n">surface</span><span class="p">)</span>
+<span class="n">Lu_w_save_fp</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">upwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">just</span> <span class="n">below</span> <span class="n">the</span> <span class="n">water</span> <span class="n">surface</span><span class="p">)</span>
+<span class="n">Ld_b_save_fp</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">downwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">at</span> <span class="n">the</span> <span class="n">water</span> <span class="n">column</span> <span class="n">bottom</span><span class="p">)</span>
+<span class="n">Lu_b_save_fp</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">upwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">at</span> <span class="n">the</span> <span class="n">water</span> <span class="n">column</span> <span class="n">bottom</span><span class="p">)</span>
+<span class="n">Ld_it_save_fp</span>      <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">downwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">transmitted</span> <span class="n">into</span> <span class="n">water</span> <span class="n">radiance</span><span class="p">)</span>
+<span class="n">Lu_it_save_fp</span>      <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">upwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">water</span><span class="o">-</span><span class="n">leaving</span> <span class="n">radiance</span><span class="p">)</span>
+<span class="n">Ld_ir_save_fp</span>      <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">downwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">water</span> <span class="n">underside</span> <span class="n">reflected</span> <span class="n">radiance</span><span class="p">)</span>
+<span class="n">Lu_ir_save_fp</span>      <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">upwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">water</span><span class="o">-</span><span class="n">reflected</span> <span class="n">radiance</span><span class="p">)</span>
+<span class="n">Ld_sample_save_fp</span>  <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">downwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">at</span> <span class="n">the</span> <span class="n">sample</span> <span class="n">points</span><span class="p">)</span>
+<span class="n">Lu_sample_save_fp</span>  <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">save</span> <span class="n">upwelling</span> <span class="n">spectral</span> <span class="n">directional</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">at</span> <span class="n">the</span> <span class="n">sample</span> <span class="n">points</span><span class="p">)</span>
+
+<span class="n">Note</span><span class="p">:</span> <span class="n">Directional</span> <span class="n">outputs</span> <span class="n">are</span> <span class="n">saved</span> <span class="k">as</span> <span class="n">data</span> <span class="n">files</span> <span class="n">which</span> <span class="n">can</span> <span class="n">be</span> <span class="n">converted</span> <span class="n">to</span> <span class="n">text</span> <span class="n">outputs</span> <span class="n">using</span> <span class="n">the</span> <span class="n">filetool</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">sample</span> <span class="n">point</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">eg</span><span class="o">.</span> <span class="s1">&#39;Ld_sample&#39;</span><span class="p">,</span> <span class="n">will</span> <span class="n">save</span> <span class="n">data</span> <span class="n">files</span> <span class="k">for</span> <span class="n">each</span> <span class="n">sample</span> <span class="n">point</span> <span class="k">with</span> <span class="n">the</span> <span class="n">depth</span> <span class="n">postfixed</span> <span class="n">onto</span> <span class="n">the</span> <span class="n">supplied</span> <span class="n">file</span> <span class="n">name</span><span class="o">.</span>
+
+<span class="n">Output</span> <span class="n">Hemisphere</span> <span class="n">Image</span> <span class="n">Specification</span>
+<span class="o">-------------------------------------</span>
+<span class="n">Images</span> <span class="n">of</span> <span class="n">the</span> <span class="n">hemispherical</span> <span class="n">radiance</span> <span class="n">distribution</span> <span class="n">can</span> <span class="n">be</span> <span class="n">saved</span>
+<span class="n">using</span> <span class="n">parameters</span> <span class="n">strings</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="nb">format</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">_image_save_fp</span>  <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">filepath</span> <span class="n">to</span> <span class="n">save</span> <span class="n">hemisphere</span> <span class="n">PPM</span> <span class="n">image</span> <span class="n">to</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">_image_size</span>     <span class="o">=</span> <span class="o">&lt;</span><span class="n">integer</span><span class="o">&gt;</span>   <span class="p">(</span><span class="n">size</span> <span class="n">of</span> <span class="n">hemisphere</span> <span class="n">PPM</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">pixels</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">_image_sens_k</span>   <span class="o">=</span> <span class="o">&lt;</span><span class="n">real</span><span class="o">&gt;</span>      <span class="p">(</span><span class="n">sensitivity</span> <span class="n">of</span> <span class="n">radinace</span> <span class="n">to</span> <span class="n">RGB</span> <span class="n">conversion</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span>
+
+<span class="n">where</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span> <span class="ow">is</span> <span class="nb">any</span> <span class="n">of</span><span class="p">:</span>
+
+  <span class="n">Ld_a</span>       <span class="n">downwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">above</span> <span class="n">the</span> <span class="n">water</span> <span class="n">surface</span>
+  <span class="n">Lu_a</span>       <span class="n">upwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">above</span> <span class="n">the</span> <span class="n">water</span> <span class="n">surface</span>
+  <span class="n">Ld_w</span>       <span class="n">downwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">just</span> <span class="n">below</span> <span class="n">the</span> <span class="n">water</span> <span class="n">surface</span>
+  <span class="n">Lu_w</span>       <span class="n">upwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">just</span> <span class="n">below</span> <span class="n">the</span> <span class="n">water</span> <span class="n">surface</span>
+  <span class="n">Ld_b</span>       <span class="n">downwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">at</span> <span class="n">the</span> <span class="n">water</span> <span class="n">column</span> <span class="n">bottom</span>
+  <span class="n">Lu_b</span>       <span class="n">upwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">at</span> <span class="n">the</span> <span class="n">water</span> <span class="n">column</span> <span class="n">bottom</span>
+  <span class="n">Ld_it</span>      <span class="n">downwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">transmitted</span> <span class="n">into</span> <span class="n">water</span> <span class="n">radiance</span>
+  <span class="n">Lu_it</span>      <span class="n">upwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">water</span><span class="o">-</span><span class="n">leaving</span> <span class="n">radiance</span>
+  <span class="n">Ld_ir</span>      <span class="n">downwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">water</span> <span class="n">under</span> <span class="n">side</span> <span class="n">reflected</span> <span class="n">radiance</span>
+  <span class="n">Lu_ir</span>      <span class="n">upwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">water</span> <span class="n">top</span> <span class="n">side</span> <span class="n">reflected</span> <span class="n">radiance</span>
+  <span class="n">Ld_sample</span>  <span class="n">downwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">at</span> <span class="n">the</span> <span class="n">sample</span> <span class="n">points</span>
+  <span class="n">Lu_sample</span>  <span class="n">upwelling</span> <span class="n">quad</span><span class="o">-</span><span class="n">averaged</span> <span class="n">radiance</span> <span class="n">at</span> <span class="n">the</span> <span class="n">sample</span> <span class="n">points</span>
+<span class="n">Image</span> <span class="n">files</span> <span class="n">a</span> <span class="n">saved</span> <span class="k">as</span> <span class="n">ppm</span> <span class="nb">format</span> <span class="k">with</span> <span class="n">a</span> <span class="s1">&#39;.ppm&#39;</span> <span class="n">extension</span> <span class="n">appended</span> <span class="k">if</span> <span class="n">it</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">already</span> <span class="n">present</span><span class="o">.</span>
+<span class="n">If</span> <span class="n">sample</span> <span class="n">point</span> <span class="n">saves</span> <span class="n">are</span> <span class="n">requested</span> <span class="n">the</span> <span class="n">filenames</span> <span class="n">will</span> <span class="n">have</span> <span class="n">the</span> <span class="n">depth</span> <span class="ow">in</span> <span class="n">meters</span> <span class="n">appended</span> <span class="n">before</span> <span class="n">the</span> <span class="s1">&#39;.ppm&#39;</span> <span class="n">extension</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">number</span> <span class="n">of</span> <span class="n">digits</span> <span class="n">after</span> <span class="n">the</span> <span class="n">decimal</span> <span class="n">point</span> <span class="n">used</span> <span class="n">to</span> <span class="n">code</span> <span class="n">the</span> <span class="n">depth</span> <span class="k">for</span> <span class="n">the</span> <span class="n">filename</span>
+<span class="n">defaults</span> <span class="n">to</span> <span class="n">two</span> <span class="n">but</span> <span class="n">can</span> <span class="n">be</span> <span class="nb">set</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">parameters</span> <span class="n">by</span><span class="p">:</span>
+
+<span class="n">depth_code_prec</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">integer</span><span class="o">&gt;</span>
+<span class="n">General</span> <span class="n">Options</span>
+<span class="o">---------------</span>
+<span class="n">verbose</span>     <span class="o">=</span> <span class="o">&lt;</span><span class="n">integer</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">verbosity</span> <span class="n">level</span> <span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="n">default</span> <span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="n">log_save_fp</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">file</span> <span class="n">to</span> <span class="n">save</span> <span class="n">log</span> <span class="n">to</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span>
+
+<span class="n">notes_include_params</span> <span class="o">=</span> <span class="n">yes</span> <span class="o">|</span> <span class="n">no</span>   <span class="p">(</span><span class="n">include</span> <span class="n">run</span> <span class="n">parameters</span> <span class="ow">in</span> <span class="n">notes</span> <span class="n">of</span> <span class="n">saved</span> <span class="n">data</span> <span class="n">files</span><span class="p">,</span> <span class="n">default</span> <span class="n">yes</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="appimage">
+<h2>AppImage<a class="headerlink" href="#appimage" title="Link to this heading"></a></h2>
+<p>Coming soon!</p>
+</section>
+<section id="multithreaded-support">
+<h2>🕸 Multithreaded support<a class="headerlink" href="#multithreaded-support" title="Link to this heading"></a></h2>
+<p>PlanarRad now comes with limited multithreaded support for <code class="docutils literal notranslate"><span class="pre">slabtool</span></code> when using the default build script. There is some non-parallel overhead in the multithreaded program, so it is recommended to turn off multi-threading if you are batching large numbers of program runs across across cores/nodes, as then you will have better throughput. For a single-run, keep it on for faster latency.</p>
+<p>To change number of threads, set the environment variable <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code> at runtime, e.g. for only one run you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OMP_NUM_THREADS</span><span class="o">=</span><span class="mi">1</span> <span class="o">&lt;</span><span class="n">PlanarRad</span> <span class="n">command</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="building%20the%20hydrolight%20comparison%20document.html" class="btn btn-neutral float-left" title="Building the HydroLight comparison Document" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="creating_BRDF_bottom_boundary.html" class="btn btn-neutral float-right" title="Creating a BRDF file and using it as a bottom boundary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010-2024, Leigh Tyers, John Hedley.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
