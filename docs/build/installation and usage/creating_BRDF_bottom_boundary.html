@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating a BRDF file and using it as a bottom boundary &mdash; PlanarRad 0.9.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=564a08b9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="BRDF of a material with isotropic phase function" href="BRDF_isotropic.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PlanarRad
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows_install.html">Windows installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting%20started%20with%20PlanarRad.html">Getting started with PlanarRad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building%20the%20hydrolight%20comparison%20document.html">Building the HydroLight comparison Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating a BRDF file and using it as a bottom boundary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#characterising-the-brdf">Characterising the BRDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-model">Example model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#runs-to-characterise-the-brdf-gui">Runs to characterise the BRDF (GUI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#runs-to-characterise-the-brdf-scripts-using-slabtool">Runs to characterise the BRDF (scripts using slabtool)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-the-brdf-file-reflectool">Generating the BRDF file (reflectool)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-brdf-in-planarrad">Using the BRDF in PlanarRad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verifying-against-a-single-layer-model">Verifying against a single layer model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BRDF_isotropic.html">BRDF of a material with isotropic phase function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/publications.html">Full list of publications using PlanarRad</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PlanarRad</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Creating a BRDF file and using it as a bottom boundary</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/installation and usage/creating_BRDF_bottom_boundary.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="creating-a-brdf-file-and-using-it-as-a-bottom-boundary">
+<h1>Creating a BRDF file and using it as a bottom boundary<a class="headerlink" href="#creating-a-brdf-file-and-using-it-as-a-bottom-boundary" title="Link to this heading"></a></h1>
+<p>It is possible to use PlanarRad to generate a BRDF file that can then be used as input as the bottom boundary condition for another run. One reason to do this is to implement a layered media. Currently PlanarRad only supports vertically homogenous media, but a two layer system (for example) can be modelled by generating BRDF for the lower layer and then using that as the bottom boundary for the upper layer.</p>
+<p>The key points are this:</p>
+<ul class="simple">
+<li><p>Generating the BRDF file requires 10 runs, one for each incident theta position of 0, 10, 20, 30, 40, 50, 60, 70, 80 and 87.5 degrees.</p></li>
+<li><p>For layers where the refractive index does not change substantially (most likely for layers where the embedding media is the same but constituents change) the runs for generating the BRDF file should use the ‘non-existent’ interface option ‘None’.</p></li>
+<li><p>The separate tool ‘reflectool’ must be run from the command line to generate the BRDF file from the ten runs.</p></li>
+<li><p>Then to model the upper layer is a standard run with normal interface settings and uses the the BRDF file for the lower boundary.</p></li>
+<li><p>A simple test procedure to verify everything works OK is to do a model with two layers that have same optical properties and compare that to a single run for the depth of the two layers added together, the light field in the top half of the media should be identical.</p></li>
+</ul>
+<p>This page gives a worked example for a model of two layers and demonstrates the verification that the output is correct.</p>
+<section id="characterising-the-brdf">
+<h2>Characterising the BRDF<a class="headerlink" href="#characterising-the-brdf" title="Link to this heading"></a></h2>
+<p>To make a BRDF file requires that we have data on the full hemisphere of light reflected in every exitant direction for every incident direction, from a surface. In PlanarRad the standard directional discretisation for a hemisphere contains 217 quads, so the BRDF for one wavelength is a table of 217 x 217 numbers. To populate this table we can run PlanarRad with all the incident light in just one quad, and that will give us the 217 values, one for each exitant direction, for that particular incident direction. So on the face of it 217 PlanarRad runs would be required to characterise the whole BRDF. However, in almost all cases we can assume the BRDF is rotationally invariant.</p>
+<p>The meaning of rotational invariance is this: Imagine you are looking at a surface from an angle and the sun is off to the right somewhere. You and the sun stay in the same place but the surface is rotated in a horizontal plane - it still looks the same. In PlanarRad currently the only way non-rotationally invariant results can be obtained is when using windblown air-water interface. Any runs using a flat or non-existent interface are rotationally invariant. The interface option of ‘none’ is what is normally required for a BRDF of a lower layer in a media. This means only 10 runs are required to characterise the BRDF, one for each incident theta row (zenith position) in the hemisphere. We can set the incident azimuth to zero for all runs and that will be enough information to characterise the BRDF.</p>
+</section>
+<section id="example-model">
+<h2>Example model<a class="headerlink" href="#example-model" title="Link to this heading"></a></h2>
+<p>For the example here we will generate a single wavelength BRDF for a 5m depth, attenuation c = 0.3, absorption a = 0.1, Petzold phase function, and bottom boundary black (reflectance = 0). Then we will input that as the bottom boundary for another run of 5m depth with the same optical properties. The result should be the same as a 10m run with black bottom boundary. This is demonstrated below.</p>
+</section>
+<section id="runs-to-characterise-the-brdf-gui">
+<h2>Runs to characterise the BRDF (GUI)<a class="headerlink" href="#runs-to-characterise-the-brdf-gui" title="Link to this heading"></a></h2>
+<p>The basic procedure is the same as described on this page: <a class="reference internal" href="BRDF_isotropic.html"><span class="std std-doc">BRDF of a material with isotropic phase function</span></a>, but with a few important changes. Assuming you are able to successfully follow the procedure on that page, do this:</p>
+<ol class="arabic simple">
+<li><p>Set the interface properties to ‘None’. In the parameters file the parameter is ‘iface_type = absent’.
+<img alt="Interface1.png" src="../_images/Interface1.png" /></p></li>
+<li><p>Set the medium optical properties. In particular we’ll use Petzold’s phase function and not an isotropic phase function, because Petzold’s phase function is forward peaked and will induce directionality into the BRDF and be a clearer test.</p></li>
+</ol>
+<p><img alt="Medium.png" src="../_images/Medium.png" /></p>
+<ol class="arabic simple" start="3">
+<li><p>Set the depth to 5m.</p></li>
+</ol>
+<p><img alt="Depth1.png" src="../_images/Depth1.png" /></p>
+<ol class="arabic simple" start="4">
+<li><p>To generate the BRDF the lower boundary for the bottom layer will be black, i.e. the lower boundary of the whole system (the two layers) is black.</p></li>
+</ol>
+<p><img alt="Boundary1.png" src="../_images/Boundary1.png" /></p>
+<ol class="arabic simple" start="5">
+<li><p>Now everything that has been set will be constant and we need to do 10 runs varying the direction of the incident light. That means ten runs where zenith angle is 0, 10, 20, 30, 40, 50, 60, 70, 80 and 87.5. The name of the run should be changed each time, For example ‘run_theta0’, ‘run_theta10’, ‘run_theta20’ … ‘run_theta_87p5’. Note the other parameters: azimuth of zero and cosine parameter of 1, diffuse ratio 0. These set all the incident light to be in a single quad at azimuth position zero. If these are not set correctly reflectool will report an error later when building the BRDF file.</p></li>
+</ol>
+<p>So perform ten runs just changing the items highlighted below.</p>
+<p><img alt="Incident1.png" src="../_images/Incident1.png" /></p>
+<p>Note that you may see strange images like this appear in the hemispherical plot in the GUI:</p>
+<p>Small values.png</p>
+<p>It does not indicate an error. This is to do with the auto-scaling of the image, the additional segments are due to very small values that occur for numerical reasons, of the order of 1E-14. This can be verified by looking at the ‘L_w band 1’ entries in the report file.</p>
+</section>
+<section id="runs-to-characterise-the-brdf-scripts-using-slabtool">
+<h2>Runs to characterise the BRDF (scripts using slabtool)<a class="headerlink" href="#runs-to-characterise-the-brdf-scripts-using-slabtool" title="Link to this heading"></a></h2>
+<p>To generate the files from a script as described on this page: Command line running (Linux) the parameters file would look like the below. The sky files and interface file need to be pre-prepared which is most easily done by GUI runs as described above. In the below I have assumed the sky files have been renamed based on the theta value as ‘input0_rd_HL18x24_1’, ‘input10_rd_HL18x24_1’, etc. and the interface file has been renamed ‘iface_absent_rdd_HL18x24_1’. It is slightly confusing that these are referred to as ‘sky’ and ‘water_surface’ in the parameters, as in this context they are really just incident light and interface. So, for the ten runs the options under ‘name = run_theta30’ and ‘sky_fp = …’ should be changed for each run.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">run_theta30</span>
+
+<span class="n">band_spec_fp</span> <span class="o">=</span> <span class="n">bands1</span><span class="o">.</span><span class="n">bsf</span>
+
+<span class="n">partition</span> <span class="o">=</span> <span class="n">sphere</span>
+<span class="n">vn</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="n">hn</span> <span class="o">=</span> <span class="mi">24</span>
+<span class="n">theta_points</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">115</span><span class="p">,</span><span class="mi">125</span><span class="p">,</span><span class="mi">135</span><span class="p">,</span><span class="mi">145</span><span class="p">,</span><span class="mi">155</span><span class="p">,</span><span class="mi">165</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">180</span>
+
+<span class="n">depth</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">sample_point_distance</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sample_point_delta_distance</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="n">sky_fp</span> <span class="o">=</span> <span class="n">input30_rd_HL18x24_1</span>
+
+<span class="n">water_surface_fp</span> <span class="o">=</span> <span class="n">iface_absent_rdd_HL18x24_1</span>
+
+<span class="n">pf_fp</span> <span class="o">=</span> <span class="n">pf_rdd_HL18x24_1</span>
+
+<span class="n">atten_data</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">absorp_data</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="n">bottom_reflec_diffuse_data</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">report_save_fp</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="n">verbose</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</section>
+<section id="generating-the-brdf-file-reflectool">
+<h2>Generating the BRDF file (reflectool)<a class="headerlink" href="#generating-the-brdf-file-reflectool" title="Link to this heading"></a></h2>
+<p>At this point we should have a set of ten directories called ‘run_theta0’, ‘run_theta10’, … ‘run_theta87p5’, each of which has a file called ‘report.txt’ in it. As described in this page: BRDF of a material with isotropic phase function, the entries under ‘L_a Band 1’ in the report.txt files contain the BRDF information. To read in those ten files and build the BRDF file a separate program is required called ‘reflectool_free’. This program can be found under the directory ‘build/reflectool’ after compiling PlanarRad on Linux. Currently the following is only tested under Linux and is only included with the latest version of PlanarRad.</p>
+<p>Create a text file called params_brdf.txt (or whatever, doesn’t matter) that looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">band_spec_fp</span> <span class="o">=</span> <span class="n">bands1</span><span class="o">.</span><span class="n">bsf</span>
+
+<span class="n">ds_name</span> <span class="o">=</span> <span class="n">HL</span> <span class="n">Standard</span>
+<span class="n">ds_code</span> <span class="o">=</span> <span class="n">HL18x24</span>
+<span class="n">partition</span> <span class="o">=</span> <span class="n">sphere</span>
+<span class="n">vn</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="n">hn</span> <span class="o">=</span> <span class="mi">24</span>
+<span class="n">theta_points</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">115</span><span class="p">,</span><span class="mi">125</span><span class="p">,</span><span class="mi">135</span><span class="p">,</span><span class="mi">145</span><span class="p">,</span><span class="mi">155</span><span class="p">,</span><span class="mi">165</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">180</span>
+<span class="n">full_ds</span> <span class="o">=</span> <span class="n">false</span>
+
+<span class="n">operation</span> <span class="o">=</span> <span class="n">build</span>
+<span class="nb">type</span> <span class="o">=</span> <span class="n">brdf</span>
+
+<span class="n">report_files_list</span> <span class="o">=</span> <span class="n">run_theta0</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta10</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta20</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta30</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta40</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta50</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta60</span><span class="o">/</span><span class="n">repo</span>
+<span class="n">rt</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta70</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta80</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span><span class="n">run_theta87p5</span><span class="o">/</span><span class="n">report</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="n">out_file</span> <span class="o">=</span> <span class="n">brdf_file</span>
+</pre></div>
+</div>
+<p>The entry under ‘report_files_list’ is a single line that contains a comma separated list of the report.txt files. It may be clearer to download the file here: params_brdf.txt</p>
+<p>Then run reflectool_free like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reflectool_free</span> <span class="n">params</span><span class="o">=</span><span class="n">params_brdf</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>The result should be that a file is created in the current directory called ‘brdf_file’. This is the file that can be used as an input for the bottom boundary in PlanarRad.</p>
+<p>If something doesn’t work make sure ‘reflectool_free’ is in the path, the file ‘bands1.bsf’ is in the current directory and file names under ‘report_files_list’ are correct. Otherwise heed the error message from reflectool as it will detect various types of error in the input files.</p>
+</section>
+<section id="using-the-brdf-in-planarrad">
+<h2>Using the BRDF in PlanarRad<a class="headerlink" href="#using-the-brdf-in-planarrad" title="Link to this heading"></a></h2>
+<p>Now we will model the top layer and bottom layer together by using the BRDF file as the bottom layer. In the GUI select the BRDF file for the bottom boundary:</p>
+<p><img alt="Boundary2.png" src="../_images/Boundary2.png" /></p>
+<p>Set the interface to something sensible, since the top of the system probably really does have an interface with a change of refractive index. So for example, for a flat water surface:</p>
+<p><img alt="Interface2.png" src="../_images/Interface2.png" /></p>
+<p>For this test leave the optical properties of the media the same, and also leave the depth at 5m as we will model another layer of 5m on top of the layer encapsulated by the BRDF file.</p>
+<p>Name the run something memorable and set the incident light. If the purpose is to characterise the BRDF or BRF of the whole system then it will be single quad incident setup, such as here at 30 degrees. But any incident light distribution could now be used to illuminate the whole system.
+<img alt="Incident2.png" src="../_images/Incident2.png" /></p>
+<p>After this the file ‘run_two_layers/report.txt’ will contain the light field data for the top 5m of the system. In particular lines 10 to 19 after ‘L_a Band 1’ is the quad averaged radiance reflected from the top of the system. See this page for more info: BRDF of a material with isotropic phase function</p>
+</section>
+<section id="verifying-against-a-single-layer-model">
+<h2>Verifying against a single layer model<a class="headerlink" href="#verifying-against-a-single-layer-model" title="Link to this heading"></a></h2>
+<p>Since the two layer system we have modelled has two 5m layers with the same optical properties, the reflectance from the top of the system should be the same as if we modelled a single layer of 10m. This provides a useful check that:</p>
+<ul class="simple">
+<li><p>PlanarRad is correct (should never be taken for granted…)</p></li>
+<li><p>Your modelling setup is correct.</p></li>
+</ul>
+<p>It is recommended to include this check in all multiple layer modelling efforts.</p>
+<p>To perform the check for the modelling done here, keep all options the same but change the bottom boundary to be at 10m and of zero reflectance.</p>
+<p><img alt="Depth2.png" src="../_images/Depth2.png" /></p>
+<p><img alt="Boundary1.png" src="../_images/Boundary1.png" /></p>
+<p>Make sure the same incident light is used and name the run something different:</p>
+<p><img alt="Incident3.png" src="../_images/Incident3.png" /></p>
+<p>After this run compare the files ‘run_two_layers/report.txt’ and ‘run_one_layer/report.txt’. The values under ‘L_A Band 1’ should be more or less identical with small numerical errors at most. Therefore we can conclude that this procedure of encapsulating a bottom layer into a BRDF function is valid. It should be, since not only does it make sense but the way PlanarRad works it numerically equates to the same thing.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="BRDF_isotropic.html" class="btn btn-neutral float-right" title="BRDF of a material with isotropic phase function" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010-2024, Leigh Tyers, John Hedley.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>General scattering and absorbing media &mdash; PlanarRad 0.9.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=564a08b9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Full list of publications using PlanarRad" href="../misc/publications.html" />
+    <link rel="prev" title="BRDF of a material with isotropic phase function" href="BRDF_isotropic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PlanarRad
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows_install.html">Windows installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting%20started%20with%20PlanarRad.html">Getting started with PlanarRad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building%20the%20hydrolight%20comparison%20document.html">Building the HydroLight comparison Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_BRDF_bottom_boundary.html">Creating a BRDF file and using it as a bottom boundary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BRDF_isotropic.html">BRDF of a material with isotropic phase function</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">General scattering and absorbing media</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#worked-examples">Worked examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/publications.html">Full list of publications using PlanarRad</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PlanarRad</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">General scattering and absorbing media</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/installation and usage/General scattering and absorbing media.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="general-scattering-and-absorbing-media">
+<h1>General scattering and absorbing media<a class="headerlink" href="#general-scattering-and-absorbing-media" title="Link to this heading"></a></h1>
+<p>IN PROGRESS</p>
+<p>PlanarRad was designed for use with data corresponding to natural water bodies, however it can be used to model the
+light field or reflectance properties of homegenous ‘slabs’ of any kind of media, as long as the following inputs are
+known at the wavelength to be modelled:</p>
+<ul class="simple">
+<li><p>The extinction coefficient (a.k.a. the attenuation coefficient, c, they are the same thing).</p></li>
+<li><p>The absorption coefficient, a.</p></li>
+<li><p>The phase function, i.e. the angular probability of scattering when it occurs.</p></li>
+<li><p>The refractive index inside and outside the media.</p></li>
+</ul>
+<p>These concepts may be expressed in other ways that contain the required information. For example if you have a volume
+scattering function (VSF) and single scattering albedo, you can then calculate c, a and the phase function. Depending on
+the material you might be able to assume an isotropic phase function - that at each scattering event the direction of
+scattering is equally probable in any direction over the sphere, and that simplifies things.</p>
+<p>Note the following two caveats:</p>
+<ol class="arabic simple">
+<li><p>The examples below assume that the interface of the slab, what we might call the air-media interface (assuming what
+is above the media is air) is completely flat. If it isn’t the interface transmission and reflectance function needs to
+be modified and unfortunatly PlanarRad currently only has methods for doing that that are appropriate for wind-blown
+water surfaces. If you need additional functionality here then it is worth contacting me.</p></li>
+<li><p>PlanarRad does not have functionality for slabs of infinite depth or thickness. You have to specify a thickness and a
+reflectance function of whatever is below the slab. However normally this can be solved by setting a sufficiently deep
+slab that the bottom infleunce is negligible. Checking his can be done by setting the bottom reflectance to zero, and
+then re-running with a higher bottom reflectance, and veirifying the effect on the output is negligible.</p></li>
+</ol>
+<section id="worked-examples">
+<h2>Worked examples<a class="headerlink" href="#worked-examples" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="BRDF_isotropic.html"><span class="std std-doc">BRDF of a material with isotropic phase function</span></a></p></li>
+<li><p><a class="reference internal" href="creating_BRDF_bottom_boundary.html"><span class="std std-doc">Creating a BRDF file and using it as a bottom boundary</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="BRDF_isotropic.html" class="btn btn-neutral float-left" title="BRDF of a material with isotropic phase function" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../misc/publications.html" class="btn btn-neutral float-right" title="Full list of publications using PlanarRad" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010-2024, Leigh Tyers, John Hedley.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

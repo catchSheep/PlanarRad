@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRDF of a material with isotropic phase function &mdash; PlanarRad 0.9.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=564a08b9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="General scattering and absorbing media" href="General%20scattering%20and%20absorbing%20media.html" />
+    <link rel="prev" title="Creating a BRDF file and using it as a bottom boundary" href="creating_BRDF_bottom_boundary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PlanarRad
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows_install.html">Windows installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting%20started%20with%20PlanarRad.html">Getting started with PlanarRad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building%20the%20hydrolight%20comparison%20document.html">Building the HydroLight comparison Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_BRDF_bottom_boundary.html">Creating a BRDF file and using it as a bottom boundary</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BRDF of a material with isotropic phase function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-set-up-single-band-run">Step 1: Set up single band run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-be-aware-of-the-directional-discretisation-in-use">Step 2: Be aware of the directional discretisation in use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-outline-of-basic-procedure">Step 3: Outline of basic procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-input-radiance-distribution">Step 4: Input Radiance Distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-5-interface-properties">Step 5: Interface Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-6-medium-properties">Step 6 : Medium Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-7-depth-options">Step 7: Depth Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-8-lower-boundary-properties">Step 8: Lower Boundary Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-9-process-the-run">Step 9: Process the run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-10-review-the-visualisations">Step 10: Review the visualisations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-11-get-the-report-file">Step 11: Get the report file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-12-what-are-the-units-of-my-brdf">Step 12: What are the units of my BRDF ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/publications.html">Full list of publications using PlanarRad</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PlanarRad</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">BRDF of a material with isotropic phase function</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/installation and usage/BRDF_isotropic.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="brdf-of-a-material-with-isotropic-phase-function">
+<h1>BRDF of a material with isotropic phase function<a class="headerlink" href="#brdf-of-a-material-with-isotropic-phase-function" title="Link to this heading"></a></h1>
+<p>NB: OBSOLETE. The GUI for this has been temporarily removed. At some point I will change this to use the CLI, and/or add back in the GUI.</p>
+<p>This example shows how to model the bidirectional reflectance distribution function (BRDF) of a material for which the extinction and absorption co-efficients are known and we can assume the phase function is isotropic. We are interested in slab of this material that is sufficiently thick that whatever is underneath it has negligible effect on its reflectance, i.e. you can’t see through it. In fact we can will work out how thick that needs to be in the analysis.</p>
+<p>The example uses the Windows version of PlanarRad. It will involve working with a few text files for which you can use Wordpad. In general Notepad does not work because (I think) it doesn’t handle the Unix-style line endings. However I strongly recommend using <a class="reference external" href="https://notepad-plus-plus.org/">Notepad++</a> or <a class="reference external" href="https://code.visualstudio.com/">VSCode</a> for working with text files under Windows -the screenshots here are taken with Notepad++.</p>
+<section id="step-1-set-up-single-band-run">
+<h2>Step 1: Set up single band run<a class="headerlink" href="#step-1-set-up-single-band-run" title="Link to this heading"></a></h2>
+<p>We will be working with a single wavelength so we need to set up a small band specification file to specify this. Create a text file called ‘bands1.bsf’, or alternatively edit ‘bands17.bsf’ that can be found in the ‘planarrad_test04’ directory. Make it look like this:</p>
+<p><img alt="config_file" src="../_images/Notepadpp_bands1_bsf.png" /></p>
+<p>A few notes of explanation:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>bs_name - this is what will appear in PlanarRad to refer to this band specification.
+bs_code - this will be appended onto the name of some automatically generated files.
+band_count - the number of bands.
+band_widths_data - a comma separated list of the widths of the bands in nanometeres.
+band_centres_data - a comma separated list of the centre wavelengths if the bands in nanometres.
+preferred_default - if &#39;yes&#39; the PlanarRad GUI will offer this band specification as the default.
+</pre></div>
+</div>
+<p>Note that although we have specified the band as centred at 500 nm and being 10 nm wide, this is irrelevant in what follows because we will be manually setting all the optical properties for a single wavelength run. Nowhere in the model will ‘500 nm’ actually be used in any calculation, and so this same procedure and the same ‘bands1.bsf’ file can be used for runs at any wavelength.</p>
+<p>Now create new folder called ‘testslab’ (or whatever) and save ‘bands1.bsf’ in it.</p>
+<p><img alt="test_slab_dir_bands1" src="../_images/Testslab_dir_bands1_bsf.png" /></p>
+<p>Now run PlanarRad and from the menus choose ‘File &gt; Change current working directory’ and select the ‘testslab’ directory that contains the band specification file. You should see that ‘Bands:’ under the ‘Model’ tab changes to ‘1 Band (500 nm)’. I.e. it should look like this:</p>
+<p><img alt="pr_bands1_shown" src="../_images/Pr_bands1_shown.png" /></p>
+<p>It is sensible at this point to give the run a name, as in ‘run1’ here. When the run is processed folder called ‘run1’ will be saved in the ‘testslab’ directory and any outputs will be found there.</p>
+</section>
+<section id="step-2-be-aware-of-the-directional-discretisation-in-use">
+<h2>Step 2: Be aware of the directional discretisation in use<a class="headerlink" href="#step-2-be-aware-of-the-directional-discretisation-in-use" title="Link to this heading"></a></h2>
+<p>The selected entry of ‘HL Standard’ next to ‘Directional Structure’ of means that PlanarRad will decompose the sphere of all directions into segments or ‘quads’ in the same way that HydroLight does. This means the upward and downward hemispheres are split into 9 by 24 segments of constant zenith and azimuth angle, plus and end-cap, as below.</p>
+<p><img alt="HL_Standard" src="../_images/Hl_standard.png" />
+<img alt="Vec3d from angles" src="../_images/Vec3d_from_angles.png" /></p>
+<p>The diagram on the right indicates how the zenith angle, θ, and azimuth, Φ, specifies a direction. Every direction therefore lies within a corresponding segment. PlanarRad, like Hydrolight, works with the ‘quad averaged radiance’ which means when we talk about the radiance in a particular direction we are talking about the radiance averaged over one of these segments. For evaluating BRDFs we will later deal with a table of numbers, which represent the radiance in each of these segments in the upward hemisphere leaving the surface of the slab.</p>
+<p>The zenith angles of the lines that seperate the quads are at the following degrees:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">180</span>
+</pre></div>
+</div>
+<p>In other words, the angular centres of the quads are at these θ values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mf">87.5</span><span class="p">,</span> <span class="mf">92.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">180</span>
+</pre></div>
+</div>
+<p>The average radiance in particular segment can be considered as an approximation of the radiance at these particular θ angles. However, because the segments are not actually rectangles, but are in general wider at the bottom than at the top, the centre with respect to solid angle is slightly closer to the equator of the the sphere than the mid-point of the theta limits. These quad averaged theta angles can be found in the report file under the heading ‘Quad solid angle mean point theta table’. These theta angles are arguably a better choice when aligning the value in a segment with particular theta value.</p>
+<p>Azimuthally the segments are arranged such that zero Φ corresponds the centre of a segment. The segment centre azimuth angles are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">285</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">315</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">345</span>
+</pre></div>
+</div>
+<p>The segment at (θ, Φ) of (0, 0) or (180, 0) is the end-cap, so the total number of segments in a hemisphere is a table of 9 x 24 plus the end-cap, i.e. 217 values. Over the sphere of all directions is 18 x 24 plus 2 end-caps, i.e. 432 segments in the whole sphere.</p>
+<p>The sun has a much smaller solid angle than one of these segments, so some precision is lost in this directional treatment, however typically the effect is so small it’s not worth worring about. It is comparitively easy to increase the directional resolution by adding an appropriate directional structure text file to the working directory, just as was described previously for the band specification file. This will be described elsewhere.</p>
+<p>Note that in hydrological optics the direction z is depth into the water and increases downwards. Therefore in general z points downwards through the slab of media and is zero at the air-media interface. The figure above is probably upside-down compared to the situation being modelled.</p>
+</section>
+<section id="step-3-outline-of-basic-procedure">
+<h2>Step 3: Outline of basic procedure<a class="headerlink" href="#step-3-outline-of-basic-procedure" title="Link to this heading"></a></h2>
+<p>The most straightforward use of PlanarRad is to model the directional radiance leaving the top of the slab of media for given incident radiance distribution. That is, PlanarRad doesn’t output the full BRDF directly but instead outputs the reflected light from a specific incident light field. Since the downward incident radiance in one wavelength band is characterised by a table of 217 values (the downward hemisphere), and the upward ‘exitant’ radiance is similarly tabulated by 217 entries (the upward hemisphere), then the full BRDF would be a 217 x 217 table of numbers, that describe how the radiance incident in each solid-angle segment would distribute to all 217 exitant solid angle segments.</p>
+<p>One way to use PlanarRad to fill this 217 x 217 table of numbers is therefore to run it 217 times, each time all the incident light being confined to just one solid-angle segment. The exitant radiance is then the relative BRDF response for that incident direction. However there is no need to do all 217 runs, because the system is rotationally invariant, that is if the input radiance is at azimuth 30 degrees, then the output will just be the same as for azimuth zero degrees but rotated by 30 degrees. Therefore with the ‘HL Standard’ directional distribution the BRDF can be fully characterised with just 10 runs for zenith angles (θ) of 0, 10, 20, 30, 40, 50, 60, 70, 80, 87.5 degrees, and azimuth (Φ) fixed at zero degrees.</p>
+<p>The following steps describe how to perform the modelling for one incident direction.</p>
+<p>We will work downwards through the setting pages starting at ‘Input Radiance Distribution’.</p>
+</section>
+<section id="step-4-input-radiance-distribution">
+<h2>Step 4: Input Radiance Distribution<a class="headerlink" href="#step-4-input-radiance-distribution" title="Link to this heading"></a></h2>
+<p>Let’s say we are interested in the directional reflectance arising from light incident at zenith (θ) 30 degrees and azimuth (Φ) 0 degrees. We need to set up the input radiance so that it is zero in all segments except the one centred at θ = 30, Φ = 0. This can be done with the ‘HL Idealized’ sky model by setting the ‘Diffuse Irradiance Ratio’ to zero, as below:</p>
+<p><img alt="Input rad example1" src="../_images/Input_rad_example1.png" /></p>
+<p>In this context the ‘Cosine parameter’ has no effect and can be left as 1.</p>
+</section>
+<section id="step-5-interface-properties">
+<h2>Step 5: Interface Properties<a class="headerlink" href="#step-5-interface-properties" title="Link to this heading"></a></h2>
+<p>We assume that the interface between the slab of material and the air (or whatever is above it) is perfectly flat, and enter the relative refractive indices, as below. In this example the material refractive index is 1.1 and air is left as 1.0.</p>
+<p><img alt="Iface props example1" src="../_images/Iface_props_example1.png" /></p>
+<p>Note that in this case, where the refractive index of the material is greater than air the slab will have some specular reflectance or be a bit shiny simply as a consequence the Fresnel equations. Since the surface is perfectly flat the specular reflection should be very narrow in angular terms, but this won’t be fully captured by the outputs because PlanarRad works only with the average radiances in the segments of the sphere. The angular resolution is limited to that of the discretisation of the sphere. However it is important to realise that this is not an innaccuracy in itself, it is correct inasmuch as it is the average radiance over the segment of the sphere which is modelled, but it is just that, an average radiance. If a small bright spot exists within a segment its radiance is effectively spread over that segment. This can lead to small innaccuracies in representing the spreading of narrow light sources at angles close to the source [Todo: this will be shown elsewhere].</p>
+</section>
+<section id="step-6-medium-properties">
+<h2>Step 6 : Medium Properties<a class="headerlink" href="#step-6-medium-properties" title="Link to this heading"></a></h2>
+<p>This is where you enter the extinction, or equivalently attenuation, c, and the absorption co-efficient, a. They can be entered directly as we are performing a single wavelength run. In this example we select an isotropic phase function.</p>
+<p><img alt="Medium_props_example1" src="../_images/Medium_props_example1.png" /></p>
+<p>In this example the extinction is 0.3 m-1 and the absorption coefficient is 0.2 m-1. As a sanity check the extinction must be equal or greater than the absorption. If it is not when you process the run you may get a weird error like ‘matrix inversion failed’.</p>
+<p>Note that the units for the attenuation and absorption are expressed as per metre, which may not be convienient for your application. However throughout PlanarRad ‘metre’ can notionally be replaced by any dimension and the result will be correct as long that is consistently applied. For example, if everywhere you see metre you assume ‘mm’ everything is still correct.</p>
+</section>
+<section id="step-7-depth-options">
+<h2>Step 7: Depth Options<a class="headerlink" href="#step-7-depth-options" title="Link to this heading"></a></h2>
+<p>This sets the thickness of the slab of material, in this example 20 m. The entries ‘Sample interval’ and ‘Delta evaluation distance’ are for capturing the light field at certain points within the media. They need to be set, i.e. numbers must be entered or PlanarRad will probably crash. It’s useful to enter something like one tenth or less of the total depth for ‘Sample interval’ because then you will get a visualisation of the light field at ten depths through the media, which is useful to understand what’s happening. ‘Delta evaluation distance’ should be set to a number that is small compared to ‘Sample interval’, it is just used for internal calculation of the rate of change of the light field at the sample points.</p>
+<p><img alt="Depth options example1" src="../_images/Depth_options_example1.png" /></p>
+</section>
+<section id="step-8-lower-boundary-properties">
+<h2>Step 8: Lower Boundary Properties<a class="headerlink" href="#step-8-lower-boundary-properties" title="Link to this heading"></a></h2>
+<p>Here we set the reflectance of whatever is underneath the slab at the thickness previously set as ‘depth’. In this example we assume that we are interested in a slab of medium that is sufficiently thick that what is below it is irrelevant, so we set the reflectance to zero. However we will later check that this assumption is valid.</p>
+<p><img alt="Boundary props example1" src="../_images/Boundary_props_example1.png" /></p>
+</section>
+<section id="step-9-process-the-run">
+<h2>Step 9: Process the run<a class="headerlink" href="#step-9-process-the-run" title="Link to this heading"></a></h2>
+<p>Now click the ‘Process’ button and the run should proceed with various activity in the status and progress bars. If PlanarRad crashes it’s likely that a box where a number should be entered was left empty or had an entry that was not valid.</p>
+<p>Note that you can save the current set-up by clicking ‘File &gt; Save Model Parameters’. Save the parameters file under the ‘testslab’ directory in the same place as the ‘bands1.bsf’ file. This ensures the band specification can be found. If you save it somewhere else the current working directory will be changed and you will suddenly lose the “1 Band (500 nm)” option. You can get it back by going ‘File &gt; Change Current Working Directory’ and finding ‘testslab’ again.</p>
+</section>
+<section id="step-10-review-the-visualisations">
+<h2>Step 10: Review the visualisations<a class="headerlink" href="#step-10-review-the-visualisations" title="Link to this heading"></a></h2>
+<p><img alt="Ed profile example1" src="../_images/Ed_profile_example1.png" /></p>
+<p>On the right hand side you should see something like this. It shows the profile of downwelling planar irradiance in the slab of media. What is good is that it reaches pretty much zero before it gets to the bottom. This implies the slab in this case is thick enough that you don’t need to worry about light penetrating through it and reflecting from whatever is below. If you weren’t sure you could repeat the run with a non-zero bottom boundary reflectance and check the numbers that we will come to later.</p>
+<p>The other image on the top right is either of these depending on if ‘Ld’ or ‘Lu’ is selected:</p>
+<p><img alt="Ld_0" src="../_images/Ld_0_example1.png" /><br />
+<img alt="Lu_0" src="../_images/Lu_0_example1.png" /></p>
+<p>This shows a hemispherical ‘fish-eye’ view from just below the air-media interface, i.e. inside the media. In the ‘Ld’ option the fish-eye is looking upwards showing the distribution of downwelling radiance. The white segment is the light source as it appears transmitted through the air-media interface. Above the interface this is just one segment, but because of refraction just below the surface it is spread over two segments. The bright bands at the edge of the fish-eye view are internal reflection from the under-side of the air-media interface. The colours are fairly meaningless because we have done a single wavelength run, it’s PlanarRad’s interpretation of 500 nm as a colour.</p>
+<p>In the ‘Lu’ option the hemispherical view is downwards, looking at the upwelling radiance distribution. This is the first hint at the reflected light distribution we need for the BRDF, but it is just below the air-media interface, inside the media. The exitant light distribution will be directionally modified by refracted transmission through air-media interface, some of it will be retained in the media by internal reflectance and above the interface there will also be an additional direct specular Fresnel reflectance component.</p>
+</section>
+<section id="step-11-get-the-report-file">
+<h2>Step 11: Get the report file<a class="headerlink" href="#step-11-get-the-report-file" title="Link to this heading"></a></h2>
+<p>Finally, what we need to evaluate the BRDF is available in the output report file that is called ‘report.txt’ and has been placed in the run directory, in this example called ‘run1’ under ‘testslab’. I.e. you should be able to find this in Windows Explorer:</p>
+<p><img alt="Run_dir_example1" src="../_images/Run_dir_example1.png" /></p>
+<p>Open the file ‘report.txt’ with WordPad or Notepad++, using a mouse right-click. Don’t double-click on it as likely this will open it in Windows bog-standard Notepad that will display it just as a solid mass of text. Alternatively you can open the file in Excel, and if you set the delimiter as comma it will read in the file with the tables of numbers sensibly arranged.</p>
+<p>You will see the report contains many outputs of interest, scroll down to the entry marked ‘L_a Band 1’, looks like this:</p>
+<p><img alt="report_la" src="../_images/Report_la_example1.png" /></p>
+<p>These are the segment averaged radiances over the sphere of all directions just above the air-media interface. Each row of numbers is one horizontal band around the sphere, i.e. for a specific zenith angle. The numbers start at azimuth zero degrees and increment in 15 degree steps going to the right. The top row corresponds to a zenith angle (θ) of zero, it has only one entry which is the end cap. The next row is the top set of segments that circle the end cap, representing θ = 10 degrees, and so on until the bottom row with single entry which is the bottom cap.</p>
+<p>The way to interpret the tables is that tabulated radiance is what you see of you look in that direction. Note the entire upward-looking hemisphere, the top rows of the table, are zero except the entry corresponding to θ = 30 (the fourth row) and Φ = 0 (the first number), which is 50.8 W m-2 sr-1 nm-1. This confirms that we have really illuminated our slab with light from one segment only.</p>
+<p>The lower part of the table is the downward-looking hemisphere, and the values are the BRDF response to the illuminated direction. Note that the first entry on line 780 in the above picture. 1.43E-01, is larger than the surrounding values. This is the specular reflection direction and corresponds to looking down on the slab surface at 150 degrees to the zenith and looking in the azimuthal 0 degreees direction. The value is higher, because as previously mentioned, the slab is a bit shiny from having a refractive index greater than one and being perfectly flat.</p>
+<p>So for a given illumination direction the values in the lower half of the table are all that is required to make a plot of the BRDF response. Each entry corresponds to a particlar (θ, Φ) direction. If there is any doubt as to which direction that is scroll up in the ‘report.txt’ file and note these two tables:</p>
+<p><img alt="report_theta" src="../_images/Report_theta_example1.png" /></p>
+<p><img alt="report_phi" src="../_images/Report_phi_example1.png" /></p>
+<p>These tabulate the θ and Φ that correspond to each segment. The only thing to notice is that they are described as the ‘mean point’ angles which means they are the θ and Φ of the centre point of the segment taken as a mean over solid angle. Because the segments are slightly wedge-shaped vertically, the mean point θ values are slightly closer to the 90 degree line than the actual middle θ values we have been working with, e.g. instead of 30 degrees we have 30.37 degrees. If you want to say a segment represents a certain specific direction you might consider these mean point angles to be a best representative direction, but it makes very little difference. The strictly ‘correct’ way to plot this data is to make figures with stepped lines that look like a histogram, with the steps occuring at the segment boundaries.</p>
+</section>
+<section id="step-12-what-are-the-units-of-my-brdf">
+<h2>Step 12: What are the units of my BRDF ?<a class="headerlink" href="#step-12-what-are-the-units-of-my-brdf" title="Link to this heading"></a></h2>
+<p>It depends how you want to express it, because there are various options. If you want to express the BRDF as a radiance-to-radiance ratio, then in the above example you would divide all the output values by 50.8, so that you would have the BRDF response in radiance for an unit incident radiance. However what is probably more common [todo - check] and seems more natural is to express the BRDF as a radiance response per unit incident planar irradiance, which gives units sr-1. In that case we would need to scale the outputs so that they correspond to a unit incident irradiance on the plane. Fortunately that is already the case because that is how the input radiance model works. so no scaling of values is necessary. This can be verified by manually performing the conversion. We need to multiply the incident radiance of 50.8 W m-2 sr-1 nm-1 by the solid angle of the segment wieghted by the cosine of θ. The solid angle of each segment is available in ‘report.txt’ as the table headed ‘Quad solid angles’ and for this segment is 2.2817E-02 sr. So the naive calculation of incident irradiance from the segment at θ = 30 degrees is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">2.2817E-02</span> <span class="n">x</span> <span class="n">cos</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="n">x</span> <span class="mf">50.800</span>  <span class="o">=</span> <span class="mf">1.0038</span> <span class="n">W</span> <span class="n">m</span><span class="o">-</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Which is not quite right, because the segments are actually wedge-shaped and so the ‘mean point theta’ is a better estimate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">2.2817E-02</span> <span class="n">x</span> <span class="n">cos</span><span class="p">(</span><span class="mf">30.376</span><span class="p">)</span> <span class="n">x</span> <span class="mf">50.800</span>  <span class="o">=</span> <span class="mf">1.0000</span> <span class="n">W</span> <span class="n">m</span><span class="o">-</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>But actually the multiplier for this already provided in ‘report.txt’ marked ‘Quad solid angle x abs cos(theta)’, which gives:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.9685E-02</span> <span class="n">x</span> <span class="mi">50</span><span class="p">,</span><span class="mi">800</span> <span class="o">=</span> <span class="mf">1.0000</span> <span class="n">W</span> <span class="n">m</span><span class="o">-</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>So in conclusion, the values as they appear in the lower half of the ‘L_a band 1’ table are already the BRDF for that incident illumination direction, in units of sr-1.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="creating_BRDF_bottom_boundary.html" class="btn btn-neutral float-left" title="Creating a BRDF file and using it as a bottom boundary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="General%20scattering%20and%20absorbing%20media.html" class="btn btn-neutral float-right" title="General scattering and absorbing media" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2010-2024, Leigh Tyers, John Hedley.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
