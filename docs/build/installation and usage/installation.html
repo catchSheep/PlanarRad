@@ -70,7 +70,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating_BRDF_bottom_boundary.html">Creating a BRDF file and using it as a bottom boundary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BRDF_isotropic.html">BRDF of a material with isotropic phase function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media (IN PROGRESS)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc/previous_versions.html">Previous versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc/publications.html">Full list of publications using PlanarRad</a></li>
 </ul>
@@ -168,9 +168,9 @@ There is some non-parallel overhead in the multithreaded program, so it is recom
 </section>
 <section id="docker-installation">
 <h2>🐋 Docker installation<a class="headerlink" href="#docker-installation" title="Link to this heading"></a></h2>
-<p>NB: Pre-alpha, not ready for user testing<br />
-🔥 NB: Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly. Use this method if you have issues with other installation methods.<br />
-In the main repo directory, build and run the image with:</p>
+<p>NB:
+🔥 NB: Pre-alpha, not ready for user testing. Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly. Use this method if you have issues with other installation methods.</p>
+<p>In the main repo directory, build and run the image with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">.</span> <span class="o">-</span><span class="n">t</span> <span class="n">planarrad</span>
 <span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="n">src</span><span class="p">:</span><span class="o">/</span><span class="n">data</span> <span class="n">planarrad</span> <span class="o">&lt;</span><span class="n">planarrad</span> <span class="n">command</span><span class="o">&gt;</span>
 </pre></div>
@@ -180,7 +180,7 @@ In the main repo directory, build and run the image with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">version</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">rootlesskit</span>
 </pre></div>
 </div>
-<p>If you are, preserve user permissions with generated files by mapping your user to the docker container with <code class="docutils literal notranslate"><span class="pre">--user</span> <span class="pre">$(id</span> <span class="pre">-u):$(id</span> <span class="pre">-g)</span></code> after <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>, e.g.:</p>
+<p>If you are on a root install (usually the default), on linux preserve user permissions with generated files by mapping your user id to the docker container with <code class="docutils literal notranslate"><span class="pre">--user</span> <span class="pre">$(id</span> <span class="pre">-u):$(id</span> <span class="pre">-g)</span></code> after <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>, e.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run --user $(id -u):$(id -g) -v src:/data planarrad &lt;planarrad command&gt;
 </pre></div>
 </div>
