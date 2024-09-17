@@ -5,7 +5,7 @@ First we assume that PlanarRad has been successfully compiled as described under
 
 On Ubuntu 13.04 (or similar):
 ```
-sudo apt-get install gnuplot texlive-latex-extras
+sudo apt-get install gnuplot texlive-latex-extra
 ```
 On Fedora 19 (or similar):
 ```

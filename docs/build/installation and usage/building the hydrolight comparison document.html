@@ -53,9 +53,9 @@
 <li class="toctree-l1"><a class="reference internal" href="Getting%20started%20with%20PlanarRad.html">Getting started with PlanarRad</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Building the HydroLight comparison Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating_BRDF_bottom_boundary.html">Creating a BRDF file and using it as a bottom boundary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BRDF_isotropic.html">BRDF of a material with isotropic phase function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media (IN PROGRESS)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc/previous_versions.html">Previous versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc/publications.html">Full list of publications using PlanarRad</a></li>
 </ul>
@@ -89,7 +89,7 @@
 <p>The PlanarRad source code distribution for Linux contains a set of scripts for self-testing the code by building a Hydrolight comparison document. This document verifies that PlanarRad is correctly installed and also demonstrates that PlanarRad does indeed produce the same outputs as Hydrolight. The PlanarRad source distribution contains some data files generated from runs of Hydrolight under a wide range of numerical conditions, including single scattering albedos from zero to one. The test script runs the same model configurations for PlanarRad and extracts the data from both the PlanarRad outputs and the stored Hydrolight output files and generates numerous plots. The plots are assembled into a pdf for visual review.</p>
 <p>First we assume that PlanarRad has been successfully compiled as described under: <a class="reference internal" href="installation.html"><span class="std std-doc">Installation from source on Linux</span></a>. Now the scripts to build the comparison document require some additional packages to be installed, specifically concerned with LaTeX and gnuplot.</p>
 <p>On Ubuntu 13.04 (or similar):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gnuplot</span> <span class="n">texlive</span><span class="o">-</span><span class="n">latex</span><span class="o">-</span><span class="n">extras</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gnuplot</span> <span class="n">texlive</span><span class="o">-</span><span class="n">latex</span><span class="o">-</span><span class="n">extra</span>
 </pre></div>
 </div>
 <p>On Fedora 19 (or similar):</p>

@@ -1,4 +1,4 @@
-# General scattering and absorbing media (IN PROGRESS)
+# General scattering and absorbing media
 
 
 PlanarRad was designed for use with data corresponding to natural water bodies, however it can be used to model the

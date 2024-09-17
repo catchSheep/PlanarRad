@@ -20,7 +20,7 @@ However PlanarRad does have:
 - Automatic spectral resampling for easy integration of data from multiple instruments
 - Ability to load in actual irradiance or radiance profiles for comparison to model outputs - i.e. model closure experiments
 - Easy reconfiguration of the directional discretization of radiance - no recompiling required
-- Nearly identical results to Hydrolight that can be verified on your own machine - example report (TODO: Add link)
+- Nearly identical results to Hydrolight that can be verified on your own machine - [example report](files/Pr_hl_report.pdf)
 - A user-generated user manual. You are reading it! Please contribute!
 
 
@@ -34,14 +34,13 @@ the University of Exeter and variously funded by Natural Environment Research Co
 Reef Targeted Research Project. The [NERC Field Spectroscopy Facility](http://fsf.nerc.ac.uk/) also indirectly supported PlanarRad by funding 
 the development of the WLTool software. 
 
-Old versions of PlanarRad can be downloaded here (TODO):
-- Linux version 0.9.5
-- Windows version 0.9
+Old versions of PlanarRad can be downloaded here:
+- [Linux version 0.9.5](https://github.com/catchSheep/PlanarRad/releases/download/old/planarrad_free_src_0.9.5beta_2015_07_17.tar.gz)
+- [Windows version 0.9](https://github.com/catchSheep/PlanarRad/releases/download/old/planarrad_free_win32_0.9beta_2010_07_22.zip)
 
 There are also some other community maintained versions that may be more up to date than v0.9.5 linked above:
 
-- marrabld's fork 
-   - marrabld also has a python-GUI and python batch scripts (paralleling across many runs)
+- marrabld's has a [version](https://github.com/marrabld/planarradpy) containing a python-GUI for batch scripting
 
 ## Citing PlanarRad
 If you make use of PlanarRad in a publication the most suitable peer-review publication to cite is:
@@ -50,7 +49,7 @@ Hedley, J (2008). A three-dimensional radiative transfer model for shallow water
 
 The main topic of that paper is a different radiative transfer model, but PlanarRad was also used and Figure 5 of that paper can be considered a validation of PlanarRad by model intercomparison.
 
-See here for the Full list of publications using PlanarRad. (TODO)
+See here for the [Full list of publications using PlanarRad](./misc/publications.md).
 
 If you publish anything using PlanarRad, we would love to know, please do so by making a post on the github.
 

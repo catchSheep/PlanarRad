@@ -7,10 +7,11 @@ The Windows version of PlanarRad is distributed in a zipped file called somethin
 ```
 planarrad_free_win32_0.9beta_2010_07_22.zip
 ```
+Check the [previous versions page](../misc/previous_versions.md) for files.
 Unzip this with whatever method is available, and you should get a folder with these files (or similar):
-```
-Win32 files.png
-```
+
+![win32files](../images/win_install/Win32_files.png)
+
 The PlanarRad program is 'planarrad.exe'. The three 'dll' files are library code that PlanarRad needs to find when it runs. It is simplest to just keep the dlls in the same folder as the exe file. PlanarRad uses [Qt](http://qt.nokia.com/) for the Windows front-end, which is the reason for QtCore4.dll and QtGui4.dll. If Qt is already installed on the system these dlls may be superfluous, but bear in mind it's possible the installed Qt may be incompatible version. The file 'mingwm10.dll' is required because PlanarRad for Windows is cross compiled under Linux using the [MinGW](http://www.mingw.org/) toolchain.
 
 The folder 'planarrad_test04' contains example files for running PlanarRad.
