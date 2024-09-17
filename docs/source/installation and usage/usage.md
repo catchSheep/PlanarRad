@@ -35,7 +35,7 @@ pf_rdd_HL18x24_1
 ```
 Which are binary files that tabulate the air-water interface, sky radiance and phase function as used in that run.
 
-To perform the same model run as described on the page BRDF of a material with isotropic phase function from the command line copy these three files to a new directory together with the band specification 'bands1.bsf' described on that page. Then create a file 'params.txt' to look like this:
+To perform the same model run as described on the page [BRDF of a material with isotropic phase function](BRDF_isotropic.md) from the command line copy these three files to a new directory together with the band specification 'bands1.bsf' described on that page. Then create a file 'params.txt' to look like this:
 ```
 name = test1
 
@@ -69,7 +69,7 @@ And then to run, `cd` to that directory and type:
 ```
 slabtool_free params=params.txt
 ```
-After the model has finished running the file `report.txt` will have been created in the directory, and should be the same as the report file produced by the GUI run described on the page BRDF of a material with isotropic phase function.
+After the model has finished running the file `report.txt` will have been created in the directory, and should be the same as the report file produced by the GUI run described on the page [BRDF of a material with isotropic phase function](BRDF_isotropic.md).
 
 The most efficient way to use this system is to pre-build a set of sky radiances, interface functions and phase functions. A script can then invoke multiple runs combining these in any combination, together with attenuation, absorption, depth and bottom boundary reflectance, by producing a 'params.txt' file with the correct filenames and values in it. 
 
