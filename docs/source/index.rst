@@ -16,9 +16,9 @@ It is functionally similar to the commercial software Hydrolight in many ways (a
    installation and usage/Getting started with PlanarRad
    installation and usage/building the hydrolight comparison document
    installation and usage/usage
+   installation and usage/General scattering and absorbing media
    installation and usage/creating_BRDF_bottom_boundary
    installation and usage/BRDF_isotropic
-   installation and usage/General scattering and absorbing media
    misc/previous_versions
    misc/publications
    :maxdepth: 1
