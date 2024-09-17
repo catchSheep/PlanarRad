@@ -1,5 +1,4 @@
 # Windows installation
-## Currenlty Deprecated :(
 
 The Windows version of PlanarRad is distributed as a zipped folder of files. There is no installer as such, installation simply means unzipping this folder and putting it somewhere on your system.
 Installation

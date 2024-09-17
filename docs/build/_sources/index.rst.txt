@@ -19,6 +19,7 @@ It is functionally similar to the commercial software Hydrolight in many ways (a
    installation and usage/creating_BRDF_bottom_boundary
    installation and usage/BRDF_isotropic
    installation and usage/General scattering and absorbing media
+   misc/previous_versions
    misc/publications
    :maxdepth: 1
    :caption: Contents:
