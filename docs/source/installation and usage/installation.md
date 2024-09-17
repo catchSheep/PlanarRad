@@ -59,8 +59,9 @@ OMP_NUM_THREADS=1 <PlanarRad command>
 Alternatively, `export` the enviornment variable, or turn off multi-threaded support during build. Turn it off during build by not including the `--enable-openmp CFLAGS="-fopenmp"` flags in the configure command (see `example_build.sh`).
 
 ## 🐋 Docker installation
-NB: Pre-alpha, not ready for user testing  
-🔥 NB: Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly. Use this method if you have issues with other installation methods.  
+NB: 
+🔥 NB: Pre-alpha, not ready for user testing. Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly. Use this method if you have issues with other installation methods.  
+
 In the main repo directory, build and run the image with:
 ```
 docker build . -t planarrad
@@ -72,7 +73,7 @@ Additionally, check if you are on a root installation of docker with:
 ```
 docker version | grep rootlesskit
 ```
-If you are, preserve user permissions with generated files by mapping your user to the docker container with `--user $(id -u):$(id -g)` after `docker run`, e.g.:
+If you are on a root install (usually the default), on linux preserve user permissions with generated files by mapping your user id to the docker container with `--user $(id -u):$(id -g)` after `docker run`, e.g.:
 ```
 docker run --user $(id -u):$(id -g) -v src:/data planarrad <planarrad command>
 ```
