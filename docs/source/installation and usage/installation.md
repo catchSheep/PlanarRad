@@ -17,8 +17,7 @@ sudo apt-get install g++ libsm-dev libjpeg-dev libboost-all-dev make
 sudo yum install gcc gcc-c++ libjpeg-devel boost-devel make
 ```
 #### 👩‍💻 Windows/OS X
-If you're on windows see [Windows Installation](windows_install.md).
-or OS X, it's up to you to fend for yourself. 
+If you're on windows see [Windows Installation](windows_install.md).  
 
 For windows users, you may be able to get away with using and running it through WSL (Windows subsystem for Linux - many guides online). 
 
