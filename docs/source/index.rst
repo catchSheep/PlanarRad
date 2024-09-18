@@ -7,7 +7,7 @@ PlanarRad documentation
 =======================
 
 `PlanarRad <https://github.com/catchSheep/PlanarRad>`_ is free software for modelling light in natural waters or other homegenous scattering and absorbing media. 
-It is functionally similar to the commercial software Hydrolight in many ways (and was originally written by the current HydroLight maintainer Dec 2016-Present).
+It is functionally similar to the commercial software Hydrolight in many ways (and was originally written by Dr. John Hedley, the current HydroLight maintainer Jan 2017-Present).
 
 .. toctree::
    introduction
