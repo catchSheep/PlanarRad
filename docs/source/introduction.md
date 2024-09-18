@@ -1,5 +1,5 @@
 # Introduction
-PlanarRad is free software for modelling light in natural waters or other homegenous scattering and absorbing media. 
+[PlanarRad](https://github.com/catchSheep/PlanarRad) is free software for modelling light in natural waters or other homegenous scattering and absorbing media. 
 It is functionally similar to the commercial software Hydrolight.
 
 
