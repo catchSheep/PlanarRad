@@ -116,3 +116,5 @@ PlanarRadpy by marrabld, a GUI allowing batch scripting of PlanarRad
 https://github.com/marrabld/planarradpy
 
 For the old reame, see [the OLD_REAME.md](OLD_REAME.md)
+
+The old website can be browsed through the [wayback machine](https://web.archive.org/web/20220706213402/http://www.planarrad.com/index.php?title=PlanarRad)
