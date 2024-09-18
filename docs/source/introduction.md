@@ -34,9 +34,7 @@ the University of Exeter and variously funded by Natural Environment Research Co
 Reef Targeted Research Project. The [NERC Field Spectroscopy Facility](http://fsf.nerc.ac.uk/) also indirectly supported PlanarRad by funding 
 the development of the WLTool software. 
 
-Old versions of PlanarRad can be downloaded here:
-- [Linux version 0.9.5](https://github.com/catchSheep/PlanarRad/releases/download/old/planarrad_free_src_0.9.5beta_2015_07_17.tar.gz)
-- [Windows version 0.9](https://github.com/catchSheep/PlanarRad/releases/download/old/planarrad_free_win32_0.9beta_2010_07_22.zip)
+Old versions of PlanarRad can be found on the [previous versions](./misc/previous_versions.md) page.
 
 There are also some other community maintained versions that may be more up to date than v0.9.5 linked above:
 
@@ -54,7 +52,7 @@ See here for the [Full list of publications using PlanarRad](./misc/publications
 If you publish anything using PlanarRad, we would love to know, please do so by making a post on the github.
 
 ## Support and bug reports
-PlanarRad is unfunded so my ability to provide support is extremely limited. Nevertheless myself (Leigh) and John Hedley are likely to respond to an 
+PlanarRad is unfunded so my ability to provide support is extremely limited. Nevertheless the authors are likely to respond to an 
 email/dm/post. If you would like to help PlanarRad survive, please report any bugs you find and/or make feature requests and/or get in touch! 
 
 
