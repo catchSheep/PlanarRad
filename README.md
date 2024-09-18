@@ -108,5 +108,8 @@ NB: It is recommended to have an up to date `autotools`, `libtool`, and `autocon
  * Create new GUI/ add back in old GUI in a more maintable/installable way (appimage?)
 Feel free to contribute!
 
+# See also
+PlanarRadpy by marrabld, a GUI allowing batch scripting of PlanarRad
+https://github.com/marrabld/planarradpy
 
 For the old reame, see [the OLD_REAME.md](OLD_REAME.md)
