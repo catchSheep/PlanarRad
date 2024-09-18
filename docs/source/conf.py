@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'PlanarRad'
-copyright = '2010-2024, Leigh Tyers, John Hedley'
+copyright = '2007-2024, Leigh Tyers, John Hedley'
 author = 'Leigh Tyers, John Hedley'
 release = '0.9.6'
 
