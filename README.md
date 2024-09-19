@@ -1,9 +1,6 @@
 # PlanarRad  
 
-PlanarRad is free software for modelling light in natural waters or other homegenous scattering and absorbing media. It is similar to the commercial software Hydrolight (Hydrolight has been maintained by the original author of PlanarRad Dec 2016-Present).  
-
-
-This github is an attempt to update and marginally maintain John Hedley's PlanarRad software, which he graciously licensed under the GNU GPLv3.0. 
+PlanarRad is free software for modelling light in natural waters or other homegenous scattering and absorbing media. It is similar to the commercial software HydroLight and was released under the GNU GPLv3.0 in 2010 by John Hedley. Since 2017 John Hedley is the maintainer of HydroLight and no longer maintains PlanarRad. This github is an attempt to update and marginally maintain PlanarRad.
 
 Due to QT (GUI library) compatibility issues, this fork currently only supports command-line interaction, and has no GUI.
 
