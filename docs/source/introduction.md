@@ -1,6 +1,6 @@
 # Introduction
 [PlanarRad](https://github.com/catchSheep/PlanarRad) is free software for modelling light in natural waters or other homegenous scattering and absorbing media. 
-It is functionally similar to the commercial software Hydrolight.
+It is functionally similar to the commercial software HydroLight.
 
 
 PlanarRad does not have:
@@ -20,7 +20,7 @@ However PlanarRad does have:
 - Automatic spectral resampling for easy integration of data from multiple instruments
 - Ability to load in actual irradiance or radiance profiles for comparison to model outputs - i.e. model closure experiments
 - Easy reconfiguration of the directional discretization of radiance - no recompiling required
-- Nearly identical results to Hydrolight that can be verified on your own machine - [example report](files/Pr_hl_report.pdf)
+- Nearly identical results to HydroLight that can be verified on your own machine - [example report](files/Pr_hl_report.pdf)
 - A user-generated user manual. You are reading it! Please contribute!
 
 
