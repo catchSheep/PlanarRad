@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; PlanarRad 0.9.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=564a08b9"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Windows installation" href="windows_install.html" />
+    <link rel="prev" title="Introduction" href="../introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PlanarRad
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-from-source">Building from source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-dependencies">Install Dependencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ubuntu-22-04-and-24-04-specific-packages">Ubuntu 22.04 and 24.04 specific packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fedora-rhel-etc-specific-packages">Fedora/RHEL/etc specific packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#windows-os-x">👩‍💻 Windows/OS X</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#set-install-location-s">Set install location(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-note-on-downloading-from-github">📜 A note on downloading from github</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multithreaded-compiling">🕸 Multithreaded compiling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-installation">🐋 Docker installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="windows_install.html">Windows installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting%20started%20with%20PlanarRad.html">Getting started with PlanarRad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building%20the%20hydrolight%20comparison%20document.html">Building the HydroLight comparison Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_BRDF_bottom_boundary.html">Creating a BRDF file and using it as a bottom boundary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BRDF_isotropic.html">BRDF of a material with isotropic phase function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/previous_versions.html">Previous versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/publications.html">Full list of publications using PlanarRad</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PlanarRad</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/installation and usage/installation.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>To use PlanarRad, first choose an installation method:</p>
+<ul class="simple">
+<li><p>build locally</p></li>
+<li><p>prebuilt appimage</p></li>
+<li><p>build (docker) container</p></li>
+</ul>
+<section id="building-from-source">
+<h2>Building from source<a class="headerlink" href="#building-from-source" title="Link to this heading"></a></h2>
+<section id="install-dependencies">
+<h3>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Link to this heading"></a></h3>
+<p>You will need to download the package dependencies. Some example for certain OS’s are below.</p>
+<section id="ubuntu-22-04-and-24-04-specific-packages">
+<h4>Ubuntu 22.04 and 24.04 specific packages<a class="headerlink" href="#ubuntu-22-04-and-24-04-specific-packages" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">g</span><span class="o">++</span> <span class="n">libsm</span><span class="o">-</span><span class="n">dev</span> <span class="n">libjpeg</span><span class="o">-</span><span class="n">dev</span> <span class="n">libboost</span><span class="o">-</span><span class="nb">all</span><span class="o">-</span><span class="n">dev</span> <span class="n">make</span>
+</pre></div>
+</div>
+</section>
+<section id="fedora-rhel-etc-specific-packages">
+<h4>Fedora/RHEL/etc specific packages<a class="headerlink" href="#fedora-rhel-etc-specific-packages" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">gcc</span><span class="o">-</span><span class="n">c</span><span class="o">++</span> <span class="n">libjpeg</span><span class="o">-</span><span class="n">devel</span> <span class="n">boost</span><span class="o">-</span><span class="n">devel</span> <span class="n">make</span>
+</pre></div>
+</div>
+</section>
+<section id="windows-os-x">
+<h4>👩‍💻 Windows/OS X<a class="headerlink" href="#windows-os-x" title="Link to this heading"></a></h4>
+<p>If you’re on windows see <a class="reference internal" href="windows_install.html"><span class="std std-doc">Windows Installation</span></a>.</p>
+<p>For windows users, you may be able to get away with using and running it through WSL (Windows subsystem for Linux - many guides online).</p>
+<p>If on Mac, you may need brew to install the dependencies.</p>
+</section>
+</section>
+<section id="set-install-location-s">
+<h3>Set install location(s)<a class="headerlink" href="#set-install-location-s" title="Link to this heading"></a></h3>
+<p>On Ubuntu add something like the following to the end of the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file in your home directory (or add it to <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code> for zsh).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export JUDE2DIR=$HOME/jude2_install
+export LD_LIBRARY_PATH=$JUDE2DIR/lib:$LD_LIBRARY_PATH
+export PATH=$JUDE2DIR/bin:$PATH
+</pre></div>
+</div>
+<p>Then reload your terminal environment with <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code></p>
+<p>With the prerequisite packages installed and the path set, simply navigate to the main directory in a terminal run the install script <code class="docutils literal notranslate"><span class="pre">example_build</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>bash example_build $JUDE2DIR
+</pre></div>
+</div>
+</section>
+<section id="a-note-on-downloading-from-github">
+<h3>📜 A note on downloading from github<a class="headerlink" href="#a-note-on-downloading-from-github" title="Link to this heading"></a></h3>
+<p>If you download the files from github, sometimes the timestamps will all reset (due to how git works). This upsets autotools immensly, as it may think the aclocal.m4 and other files are out of date and need to be regenerated. If you have this issue when building manually, then before running configure run a simple:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">touch</span> <span class="n">src</span><span class="o">/</span><span class="n">aclocal</span><span class="o">.</span><span class="n">m4</span> <span class="n">src</span><span class="o">/</span><span class="n">Makefile</span><span class="o">.</span><span class="n">am</span> <span class="n">src</span><span class="o">/</span><span class="n">configure</span> <span class="n">src</span><span class="o">/</span><span class="n">Makefile</span><span class="o">.</span><span class="ow">in</span>
+</pre></div>
+</div>
+<p>This will correctly fool autotools into thinking that the files are up to date, which should fix the issue. This is run before <code class="docutils literal notranslate"><span class="pre">configure</span></code>  in <code class="docutils literal notranslate"><span class="pre">example_build</span></code>. NB: If you <strong>DO</strong> edit aclocal makefile’s, etc, you will need to re-run autotools as mentioned above.</p>
+<p>Bear all this in mind if you want to run the <code class="docutils literal notranslate"><span class="pre">./configure</span></code>, <code class="docutils literal notranslate"><span class="pre">make</span></code>, <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> yourself.</p>
+</section>
+<section id="multithreaded-compiling">
+<h3>🕸 Multithreaded compiling<a class="headerlink" href="#multithreaded-compiling" title="Link to this heading"></a></h3>
+<p>PlanarRad now comes with OpenMP support. The default build script <code class="docutils literal notranslate"><span class="pre">example_build.sh</span></code> automatically comes with multithreaded compilation.
+There is some non-parallel overhead in the multithreaded program, so it is recommended to turn off multi-threading if you are batching large numbers of program runs across across cores/nodes, as then you will have better throughput. For a single-run, keep it on for faster latency.</p>
+<p>To change number of threads, set the environment variable <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code> at runtime, e.g. for only one run you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OMP_NUM_THREADS</span><span class="o">=</span><span class="mi">1</span> <span class="o">&lt;</span><span class="n">PlanarRad</span> <span class="n">command</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Alternatively, <code class="docutils literal notranslate"><span class="pre">export</span></code> the enviornment variable, or turn off multi-threaded support during build. Turn it off during build by not including the <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span> <span class="pre">CFLAGS=&quot;-fopenmp&quot;</span></code> flags in the configure command (see <code class="docutils literal notranslate"><span class="pre">example_build.sh</span></code>).</p>
+</section>
+</section>
+<section id="docker-installation">
+<h2>🐋 Docker installation<a class="headerlink" href="#docker-installation" title="Link to this heading"></a></h2>
+<p>🔥 NB: Pre-alpha, not ready for user testing. Installation via Docker will currently not work with the test scripts, as they work with planarRad binaries (slabtool_free etc) directly. Use this method if you have issues with other installation methods.</p>
+<p>In the main repo directory, build and run the image with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">.</span> <span class="o">-</span><span class="n">t</span> <span class="n">planarrad</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="n">src</span><span class="p">:</span><span class="o">/</span><span class="n">data</span> <span class="n">planarrad</span> <span class="o">&lt;</span><span class="n">planarrad</span> <span class="n">command</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Note that this will map the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory on your computer (replace with your chosen directory) with the <code class="docutils literal notranslate"><span class="pre">/data</span></code> directory in the docker container. Make sure your chosen planarrad command (e.g. <code class="docutils literal notranslate"><span class="pre">slabtool</span> <span class="pre">blah</span> <span class="pre">blah...</span></code> ) is reading and writing to the mounted volume in /data.</p>
+<p>Additionally, check if you are on a root installation of docker with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">version</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">rootlesskit</span>
+</pre></div>
+</div>
+<p>If you are on a root install (usually the default), on linux preserve user permissions with generated files by mapping your user id to the docker container with <code class="docutils literal notranslate"><span class="pre">--user</span> <span class="pre">$(id</span> <span class="pre">-u):$(id</span> <span class="pre">-g)</span></code> after <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run --user $(id -u):$(id -g) -v src:/data planarrad &lt;planarrad command&gt;
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="windows_install.html" class="btn btn-neutral float-right" title="Windows installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2007-2024, Leigh Tyers, John Hedley.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

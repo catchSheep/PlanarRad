@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; PlanarRad 0.9.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=564a08b9"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation%20and%20usage/installation.html" />
+    <link rel="prev" title="PlanarRad documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PlanarRad
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#citing-planarrad">Citing PlanarRad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#support-and-bug-reports">Support and bug reports</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation%20and%20usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation%20and%20usage/windows_install.html">Windows installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation%20and%20usage/Getting%20started%20with%20PlanarRad.html">Getting started with PlanarRad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation%20and%20usage/building%20the%20hydrolight%20comparison%20document.html">Building the HydroLight comparison Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation%20and%20usage/usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation%20and%20usage/General%20scattering%20and%20absorbing%20media.html">General scattering and absorbing media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation%20and%20usage/creating_BRDF_bottom_boundary.html">Creating a BRDF file and using it as a bottom boundary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation%20and%20usage/BRDF_isotropic.html">BRDF of a material with isotropic phase function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/previous_versions.html">Previous versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/publications.html">Full list of publications using PlanarRad</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PlanarRad</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/introduction.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="https://github.com/catchSheep/PlanarRad">PlanarRad</a> is free software for modelling light in natural waters or other homegenous scattering and absorbing media.
+It is functionally similar to the commercial software HydroLight.</p>
+<p>PlanarRad does not have:</p>
+<ul class="simple">
+<li><p>Infinite depth water</p></li>
+<li><p>Vertical stratification of optical parameters</p></li>
+<li><p>Inelastic scattering (chlorophyll or CDOM fluoresence, Raman scattering)</p></li>
+<li><p>Any bio-optical models, you must provide IOPs directly rather than chlorophyll concentration. However PlanarRadBatch provides functions for this.</p></li>
+</ul>
+<p>However PlanarRad does have:</p>
+<ul class="simple">
+<li><p>An attractive price point - it’s free as in beer</p></li>
+<li><p>Open source code licensed under the GPL - it’s free as in freedom</p></li>
+<li><p>Highly scriptable command-line interface</p></li>
+<li><p>Output results in an easily manageable text file</p></li>
+<li><p>GUI front-end with interactive visualisations and plots (ideal for educational use)</p></li>
+<li><p>Automatic spectral resampling for easy integration of data from multiple instruments</p></li>
+<li><p>Ability to load in actual irradiance or radiance profiles for comparison to model outputs - i.e. model closure experiments</p></li>
+<li><p>Easy reconfiguration of the directional discretization of radiance - no recompiling required</p></li>
+<li><p>Nearly identical results to HydroLight that can be verified on your own machine - <a class="reference download internal" download="" href="_downloads/b984432fedf03dc1c71413f95b0f56d5/Pr_hl_report.pdf"><span class="xref download myst">example report</span></a></p></li>
+<li><p>A user-generated user manual. You are reading it! Please contribute!</p></li>
+</ul>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading"></a></h2>
+<p>PlanarRad is a freely available open-source C++ implementation of the invariant imbedded numerical integration
+technique for calculating radiative transfer in plane-parallel media with an opaque bottom boundary. It is based
+on the algorithm described in Curt Mobley’s book Light and Water, and was designed for modelling light propagation
+in, and reflection from, shallow water environments. However, by setting a suitably large depth an infinite depth
+solution can be approximated. PlanarRad was originally developed by John Hedley during a period in which he was based at
+the University of Exeter and variously funded by Natural Environment Research Council and the World Bank / GEF Coral
+Reef Targeted Research Project. The <a class="reference external" href="http://fsf.nerc.ac.uk/">NERC Field Spectroscopy Facility</a> also indirectly supported PlanarRad by funding
+the development of the WLTool software.</p>
+<p>Old versions of PlanarRad can be found on the <a class="reference internal" href="misc/previous_versions.html"><span class="std std-doc">previous versions</span></a> page.</p>
+<p>There are also some other community maintained versions that may be more up to date than v0.9.5 linked above:</p>
+<ul class="simple">
+<li><p>marrabld’s has a <a class="reference external" href="https://github.com/marrabld/planarradpy">version</a> containing a python-GUI for batch scripting</p></li>
+</ul>
+</section>
+<section id="citing-planarrad">
+<h2>Citing PlanarRad<a class="headerlink" href="#citing-planarrad" title="Link to this heading"></a></h2>
+<p>If you make use of PlanarRad in a publication the most suitable peer-review publication to cite is:</p>
+<p>Hedley, J (2008). A three-dimensional radiative transfer model for shallow water environments, Optics Express 16, 21887-21902.</p>
+<p>The main topic of that paper is a different radiative transfer model, but PlanarRad was also used and Figure 5 of that paper can be considered a validation of PlanarRad by model intercomparison.</p>
+<p>See here for the <a class="reference internal" href="misc/publications.html"><span class="std std-doc">Full list of publications using PlanarRad</span></a>.</p>
+<p>If you publish anything using PlanarRad, we would love to know, please do so by making a post on the github.</p>
+</section>
+<section id="support-and-bug-reports">
+<h2>Support and bug reports<a class="headerlink" href="#support-and-bug-reports" title="Link to this heading"></a></h2>
+<p>PlanarRad is unfunded so my ability to provide support is extremely limited. Nevertheless the authors are likely to respond to an
+email/dm/post. If you would like to help PlanarRad survive, please report any bugs you find and/or make feature requests and/or get in touch!</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="PlanarRad documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation%20and%20usage/installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2007-2024, Leigh Tyers, John Hedley.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
